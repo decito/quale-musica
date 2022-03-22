@@ -4,11 +4,9 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/vue3-recommended',
-    // 'plugin:vuejs-accessibility/recommended',
+    'plugin:vue/vue3-essential',
     '@vue/airbnb',
   ],
-  // parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@babel/eslint-parser',
     ecmaVersion: 7,
