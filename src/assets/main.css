@@ -19,7 +19,7 @@ a:hover {
 
 .top-neg-8 {
   top: -8px;
-} 
+}
 
 .player-song-info {
   margin-top: -24px;
@@ -55,21 +55,26 @@ input[type="file"]{
 .progress-bar {
   background-size: 1rem 1rem;
   background-image: linear-gradient(
-    45deg, rgba(255,255,255,.15) 
-    25%, transparent 
-    25%, transparent 
-    50%, rgba(255,255,255,.15) 
-    50%,rgba(255,255,255,.15) 
-    75%, transparent 
+    45deg, rgba(255,255,255,.15)
+    25%, transparent
+    25%, transparent
+    50%, rgba(255,255,255,.15)
+    50%,rgba(255,255,255,.15)
+    75%, transparent
     75%, transparent
   );
   animation: progress-bar-stripes 1s linear infinite;
 }
 
-.music-bg {
+/* .music-bg {
   animation: slide 50s linear infinite;
   will-change: background-position;
   background-image: url(/assets/theme/img/song-header.png);
+} */
+
+.music-bg {
+  animation: slide 50s linear infinite;
+  will-change: background-position;
 }
 
 @keyframes progress-bar-stripes {
