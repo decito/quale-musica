@@ -4,15 +4,23 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-recommended',
+    // 'plugin:vuejs-accessibility/recommended',
     '@vue/airbnb',
   ],
+  // parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
+    ecmaVersion: 7,
+    sourceType: 'module',
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'vuejs-accessibility/label-has-for': 'off',
+    'vue/multi-word-component-names': 'off',
+    'vuejs-accessibility/click-events-have-key-events': 'off',
+    semi: 'off',
   },
   overrides: [
     {
@@ -24,5 +32,9 @@ module.exports = {
         jest: true,
       },
     },
+  ],
+  plugins: [
+    'vuejs-accessibility',
+    'vue',
   ],
 };
