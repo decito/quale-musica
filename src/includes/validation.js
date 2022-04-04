@@ -4,6 +4,7 @@ import {
   Field as VeeField,
   Form as VeeForm,
 } from 'vee-validate'
+
 import {
   alpha_spaces as alphaSpaces,
   confirmed,
@@ -13,6 +14,7 @@ import {
   min,
   min_value as minVal,
   required,
+  not_one_of as excluded,
 } from '@vee-validate/rules'
 
 export default {
@@ -29,5 +31,6 @@ export default {
     defineRule('min_value', minVal)
     defineRule('max_value', maxVal)
     defineRule('confirmed', confirmed)
+    defineRule('excluded', excluded)
   },
 };
