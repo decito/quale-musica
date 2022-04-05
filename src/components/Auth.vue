@@ -96,6 +96,8 @@
           <VeeForm
             v-show="tab === 'register'"
             :validation-schema="schema"
+            @submit="register"
+            :initial-values="userData"
           >
             <!-- Name -->
             <div class="mb-3">
@@ -135,14 +137,15 @@
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <VeeField
-                type="password"
-                name="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
+              <VeeField name="password" :bails="false" v-slot="{ field, errors }">
+                <input
+                  class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
                   duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
-              />
-              <ErrorMessage class="text-red-600" name="password" />
+                  placeholder="Password" type="password" v-bind="field" />
+                <div class="text-red-600" v-for="error in errors" :key="error">
+                  {{ error }}
+                </div>
+              </VeeField>
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
@@ -206,13 +209,42 @@ export default {
     return {
       tab: 'login',
       schema: {
-        name: 'required|min:3|max:30|alpha_spaces',
-        email: 'required|min:3|max:30|email',
-        age: 'required|min_value:13|max_value:110',
-        password: 'required|min:3|max:30',
-        confirm_password: 'confirmed:@password',
-        country: 'required|excluded:Brazil',
-        tos: 'required',
+        name: {
+          required: true,
+          min: 3,
+          max: 30,
+          alpha_spaces: true,
+        },
+        email: {
+          required: true,
+          min: 3,
+          max: 30,
+          email: true,
+        },
+        age: {
+          required: true,
+          min_value: 13,
+          max_value: 110,
+        },
+        password: {
+          required: true,
+          min: 3,
+          max: 30,
+          alpha_spaces: true,
+        },
+        confirm_password: {
+          confirmed: '@password',
+        },
+        country: {
+          required: true,
+          excluded: 'Brazil',
+        },
+        tos: {
+          required: true,
+        },
+      },
+      userData: {
+        country: 'USA',
       },
     }
   },
@@ -221,6 +253,9 @@ export default {
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),
+    register(values) {
+      console.log(values)
+    },
   },
 }
 </script>
