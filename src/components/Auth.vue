@@ -233,14 +233,14 @@ export default {
           alpha_spaces: true,
         },
         confirm_password: {
-          confirmed: '@password',
+          password_mismatch: '@password',
         },
         country: {
           required: true,
-          excluded: 'Brazil',
+          country_excluded: 'Brazil',
         },
         tos: {
-          required: true,
+          tos: true,
         },
       },
       userData: {
