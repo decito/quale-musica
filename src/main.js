@@ -6,6 +6,7 @@ import VeeValidatePlugin from './includes/validation'
 
 import './assets/tailwind.css'
 import './assets/main.css'
+import './includes/firebase'
 
 const app = createApp(App)
 
