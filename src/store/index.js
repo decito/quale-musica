@@ -54,5 +54,11 @@ export default createStore({
         commit('toggleLoggedValue')
       }
     },
+
+    async logout({ commit }) {
+      await auth.signOut()
+
+      commit('toggleLoggedValue')
+    },
   },
 })
