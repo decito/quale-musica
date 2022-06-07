@@ -1,5 +1,5 @@
 <script>
-import { auth } from '@/includes/firebase'
+import { auth, usersCollection } from '@/includes/firebase'
 
 export default {
   name: 'RegisterForm',
@@ -50,6 +50,12 @@ export default {
   },
 
   methods: {
+    displayError() {
+      this.reg_in_submission = false
+      this.reg_alert_variant = 'bg-red-500'
+      this.reg_alert_msg = 'An unexpected error occurred. Please try again.'
+    },
+
     async register(values) {
       this.reg_show_alert = true
       this.reg_in_submission = true
@@ -59,19 +65,30 @@ export default {
       let userCredentials = null
 
       try {
-        userCredentials = await auth.createUserWithEmailAndPassword(values.email, values.password)
+        userCredentials = await auth
+          .createUserWithEmailAndPassword(values.email, values.password)
       } catch (error) {
-        this.reg_in_submission = false
-        this.reg_alert_variant = 'bg-red-500'
-        this.reg_alert_msg = 'An unexpected error occurred. Please try again.'
+        this.displayError()
 
-        console.log(userCredentials)
         return
       }
 
+      try {
+        await usersCollection.add({
+          name: values.name,
+          email: values.email,
+          age: values.age,
+          country: values.country,
+        })
+      } catch {
+        this.displayError()
+      }
+
+      this.$store.commit('toggleLoggedValue')
+
       this.reg_alert_variant = 'bg-green-500'
       this.reg_alert_msg = 'Success! Your account has been created.'
-      console.log(values)
+      console.log(userCredentials)
     },
   },
 }
