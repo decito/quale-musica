@@ -16,16 +16,33 @@ export default createStore({
   },
   actions: {
     async register({ commit }, payload) {
-      await auth.createUserWithEmailAndPassword(payload.email, payload.password)
+      const userCredentials = await auth
+        .createUserWithEmailAndPassword(payload.email, payload.password)
 
-      await usersCollection.add({
-        name: payload.name,
-        email: payload.email,
-        age: payload.age,
-        country: payload.country,
+      await usersCollection
+        .doc(userCredentials.user.uid)
+        .set(
+          {
+            name: payload.name,
+            email: payload.email,
+            age: payload.age,
+            country: payload.country,
+          },
+        )
+
+      await userCredentials.user.updateProfile({
+        displayName: payload.name,
       })
 
       commit('toggleLoggedValue')
+    },
+
+    fetchUser({ commit }) {
+      const user = auth.currentUser
+
+      if (user) {
+        commit('toggleLoggedValue')
+      }
     },
   },
 })

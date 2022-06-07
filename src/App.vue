@@ -346,5 +346,8 @@ export default {
     AppHeader,
     AuthModal,
   },
+  created() {
+    this.$store.dispatch('fetchUser')
+  },
 }
 </script>
