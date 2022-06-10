@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import store from '@/store'
+
 import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
 import Manage from '@/views/Manage.vue'
@@ -19,12 +21,10 @@ const routes = [
     name: 'manage',
     // alias: '/manage',
     path: '/manage-music',
-    component: Manage,
-    beforeEnter: (to, from, next) => {
-      console.log('Manage Route Guard')
-
-      next()
+    meta: {
+      requiresAuth: true,
     },
+    component: Manage,
   },
   {
     path: '/manage',
@@ -43,9 +43,16 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('Global Guard')
+  if (!to.matched.some((record) => record.meta.requiresAuth)) {
+    next()
+    return
+  }
 
-  next()
+  if (store.state.userLoggedIn) {
+    next()
+  } else {
+    next({ name: 'home' })
+  }
 })
 
 export default router

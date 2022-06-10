@@ -1,16 +1,6 @@
 <script>
-import store from '@/store'
-
 export default {
   name: 'Manage',
-
-  beforeRouteEnter(to, from, next) {
-    if (store.state.userLoggedIn) {
-      next()
-    } else {
-      next({ name: 'home' })
-    }
-  },
 }
 </script>
 
