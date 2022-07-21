@@ -31,6 +31,9 @@ export default {
       this.songs[index].modifiedName = values.modifiedName
       this.songs[index].genre = values.genre
     },
+    removeSong(index) {
+      this.songs.splice(index, 1)
+    },
   },
 }
 </script>
@@ -56,6 +59,7 @@ export default {
               :song="song"
               :updateSong="updateSong"
               :index="index"
+              :removeSong="removeSong"
             />
           </div>
         </div>
