@@ -1,10 +1,28 @@
 <script>
 import Upload from '@/components/Upload.vue'
+import { auth, songsCollection } from '@/includes/firebase'
 
 export default {
   name: 'Manage',
   components: {
     Upload,
+  },
+  data() {
+    return {
+      songs: [],
+    }
+  },
+  async created() {
+    const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get()
+
+    snapshot.forEach((document) => {
+      const song = {
+        ...document.data(),
+        docID: document.id,
+      }
+
+      this.songs.push(song)
+    })
   },
 }
 </script>
