@@ -26,6 +26,12 @@ export default {
       this.songs.push(song)
     })
   },
+  methods: {
+    updateSong(index, values) {
+      this.songs[index].modifiedName = values.modifiedName
+      this.songs[index].genre = values.genre
+    },
+  },
 }
 </script>
 
@@ -45,9 +51,11 @@ export default {
           <div class="p-6">
             <!-- Composition Items -->
             <CompositionItem
-              v-for="song in songs"
+              v-for="(song, index) in songs"
               :key="song.docID"
               :song="song"
+              :updateSong="updateSong"
+              :index="index"
             />
           </div>
         </div>
