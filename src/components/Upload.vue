@@ -66,9 +66,14 @@ export default {
         })
       })
     },
+    cancelUploads() {
+      this.uploads.forEach((upload) => upload.task.cancel())
+    },
+  },
+  beforeUnmount() {
+    this.uploads.forEach((upload) => upload.task.cancel())
   },
 }
-
 </script>
 
 <template>
@@ -113,10 +118,10 @@ export default {
 
         <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
           <div
-          class="transition-all"
-          :class="[upload.variant, upload.uploadingState && 'progress-bar']"
-          :style="{ width: `${upload.currentProgress}%`}">
-          </div>
+            class="transition-all"
+            :class="[upload.variant, upload.uploadingState && 'progress-bar']"
+            :style="{ width: `${upload.currentProgress}%`}"
+          ></div>
         </div>
       </div>
     </div>
