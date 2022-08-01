@@ -3,6 +3,12 @@ import { auth, storage, songsCollection } from '@/includes/firebase'
 
 export default {
   name: 'Upload',
+  props: {
+    addSong: {
+      type: Function,
+      required: true,
+    },
+  },
   data() {
     return {
       isDragover: false,
@@ -57,7 +63,10 @@ export default {
           }
 
           song.fileUrl = await task.snapshot.ref.getDownloadURL()
-          songsCollection.add(song)
+          const songCollectionRef = await songsCollection.add(song)
+          const songSnapshot = await songCollectionRef.get()
+
+          this.addSong(songSnapshot)
 
           this.uploads[uploadIndex].variant = 'bg-green-400'
           this.uploads[uploadIndex].icon = 'fas fa-check'
@@ -74,6 +83,23 @@ export default {
     this.uploads.forEach((upload) => upload.task.cancel())
   },
 }
+
+// TODO: Merge upload div with input field
+
+/*
+  <input
+    type="file"
+    multiple
+    @change="uploadFiles($event)"
+    @drag.prevent.stop=""
+    @dragstart.prevent.stop=""
+    @dragend.prevent.stop="isDragover = false"
+    @dragover.prevent.stop="isDragover = true"
+    @dragenter.prevent.stop="isDragover = true"
+    @dragleave.prevent.stop="isDragover = false"
+    @drop.prevent.stop="uploadFiles($event)"
+  >
+*/
 </script>
 
 <template>
