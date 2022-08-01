@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_API_KEY,
@@ -14,11 +15,15 @@ firebase.initializeApp(firebaseConfig)
 
 const auth = firebase.auth()
 const db = firebase.firestore()
+const storage = firebase.storage()
 
 const usersCollection = db.collection('users')
+const songsCollection = db.collection('songs')
 
 export {
   auth,
   db,
+  storage,
+  songsCollection,
   usersCollection,
 }

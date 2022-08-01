@@ -2,7 +2,7 @@
   <!-- Introduction -->
   <section class="mb-8 py-20 text-white text-center relative">
     <div
-      class="absolute inset-0 w-full h-full bg-contain introduction-bg"
+      class="absolute inset-0 w-full h-full bg-cover introduction-bg"
       style="background-image: url(assets/img/header.png)"
     />
     <div class="container mx-auto">
