@@ -87,17 +87,19 @@ export default {
   <div class="border border-gray-200 p-3 mb-4 rounded">
     <div v-show="!showForm">
       <h4 class="inline-block text-2xl font-bold">{{ song.modifiedName }}</h4>
+
       <button
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
         @click.prevent="deleteSong"
       >
-        <i class="fa fa-times"></i>
+        <i class="fa fa-times" />
       </button>
+
       <button
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
         @click.prevent="showForm = !showForm"
       >
-        <i class="fa fa-pencil-alt"></i>
+        <i class="fa fa-pencil-alt" />
       </button>
     </div>
 
@@ -109,6 +111,7 @@ export default {
       >
         {{ alertMessage }}
       </div>
+
       <VeeForm
         :validation-schema="schema"
         :initial-values="song"
@@ -116,6 +119,7 @@ export default {
       >
         <div class="mb-3">
           <label class="inline-block mb-2">Song Title</label>
+
           <VeeField
             name="modifiedName"
             type="text"

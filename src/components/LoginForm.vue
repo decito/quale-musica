@@ -61,6 +61,7 @@ export default {
   >
     <div class="mb-3">
       <label class="inline-block mb-2">Email</label>
+
       <VeeField
         type="email"
         name="email"
@@ -73,6 +74,7 @@ export default {
 
     <div class="mb-3">
       <label class="inline-block mb-2">Password</label>
+
       <VeeField
         type="password"
         name="password"
@@ -80,8 +82,10 @@ export default {
           duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Password"
       />
+
       <ErrorMessage class="text-red-600" name="password" />
     </div>
+
     <button
       type="submit"
       class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition

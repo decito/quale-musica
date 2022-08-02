@@ -7,9 +7,7 @@ export default {
   data() {
     return {
       song: {},
-      schema: {
-        comment: 'required|min:10',
-      },
+      schema: { comment: 'required|min:10' },
       commentInSubmmition: false,
       commentShowAlert: false,
       commentAlertVariant: 'bg-blue-500',
@@ -45,11 +43,17 @@ export default {
         uid: auth.currentUser.uid,
       }
 
+      this.song.commentCount += 1
       await commentsCollection.add(comment)
+      await songsCollection.doc(this.$route.params.id).update({
+        commentCount: this.song.commentCount,
+      })
 
       this.commentInSubmmition = false
       this.commentAlertVariant = 'bg-green-500'
       this.commentAlertMessage = 'Comment added!'
+
+      this.getComments()
 
       resetForm()
     },
@@ -77,8 +81,20 @@ export default {
       return
     }
 
+    const { sort } = this.$route.query
+    this.sort = sort === '1' || sort === '2' ? sort : '1'
+
     this.song = snapshot.data()
     this.getComments()
+  },
+  watch: {
+    sort(newVal) {
+      if (newVal === this.$route.query.sort) {
+        return
+      }
+
+      this.$router.push({ query: { sort: newVal } })
+    },
   },
 }
 </script>
@@ -92,9 +108,11 @@ export default {
 
     <div class="container mx-auto flex items-center">
       <!-- Play/Pause Button -->
-      <button type="button" class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full
-        focus:outline-none">
-        <i class="fas fa-play"></i>
+      <button
+        type="button"
+        class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
+      >
+        <i class="fas fa-play" />
       </button>
 
       <div class="z-50 text-left ml-8">
@@ -113,7 +131,7 @@ export default {
         <!-- Comment Count -->
         <span class="card-title">Comments ({{ song.commentCount }})</span>
 
-        <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
+        <i class="fa fa-comments float-right text-green-400 text-2xl" />
       </div>
 
       <div class="p-6">
@@ -148,7 +166,7 @@ export default {
             placeholder="Your comment here...">
           </VeeField>
 
-          <ErrorMessage name="comment" class="text-red-600"></ErrorMessage>
+          <ErrorMessage name="comment" class="text-red-600" />
 
           <button
             type="submit"
