@@ -1,6 +1,6 @@
 {
   "name": "vue-music",
-  "version": "0.5.0a",
+  "version": "0.6.0a",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
