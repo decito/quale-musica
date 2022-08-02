@@ -107,7 +107,7 @@ export default {
     <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
       <span class="card-title">Upload</span>
 
-      <i class="fas fa-upload float-right text-green-400 text-2xl"></i>
+      <i class="fas fa-upload float-right text-green-400 text-2xl" />
     </div>
 
     <div class="p-6">
@@ -133,13 +133,9 @@ export default {
 
       <hr class="my-6" />
 
-      <div
-        v-for="upload in uploads"
-        :key="upload.name"
-        class="mb-4"
-      >
+      <div v-for="upload in uploads" :key="upload.name" class="mb-4">
         <div class="font-bold text-sm" :class="upload.textClass">
-          <i :class="upload.icon"></i> {{ upload.name }}
+          <i :class="upload.icon" /> {{ upload.name }}
         </div>
 
         <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
@@ -147,7 +143,7 @@ export default {
             class="transition-all"
             :class="[upload.variant, upload.uploadingState && 'progress-bar']"
             :style="{ width: `${upload.currentProgress}%`}"
-          ></div>
+          />
         </div>
       </div>
     </div>

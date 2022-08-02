@@ -90,6 +90,7 @@ export default {
   >
     <div class="mb-3">
       <label class="inline-block mb-2">Name</label>
+
       <VeeField
         type="text"
         name="name"
@@ -102,6 +103,7 @@ export default {
 
     <div class="mb-3">
       <label class="inline-block mb-2">Email</label>
+
       <VeeField
         type="email"
         name="email"
@@ -114,6 +116,7 @@ export default {
 
     <div class="mb-3">
       <label class="inline-block mb-2">Age</label>
+
       <VeeField
         type="number"
         name="age"
@@ -125,6 +128,7 @@ export default {
 
     <div class="mb-3">
       <label class="inline-block mb-2">Password</label>
+
       <VeeField name="password" :bails="false" v-slot="{ field, errors }">
         <input
           class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
@@ -138,6 +142,7 @@ export default {
 
     <div class="mb-3">
       <label class="inline-block mb-2">Confirm Password</label>
+
       <VeeField
         type="password"
         name="confirm_password"
@@ -150,6 +155,7 @@ export default {
 
     <div class="mb-3">
       <label class="inline-block mb-2">Country</label>
+
       <VeeField
         as="select"
         name="country"
@@ -161,6 +167,7 @@ export default {
         <option value="Germany">Germany</option>
         <option value="Brazil">Brazil</option>
       </VeeField>
+
       <ErrorMessage class="text-red-600" name="country" />
     </div>
 
@@ -171,7 +178,9 @@ export default {
         value="1"
         class="w-4 h-4 float-left -ml-6 mt-1 rounded"
       />
+
       <label class="inline-block w-full">Accept terms of service</label>
+
       <ErrorMessage class="text-red-600" name="tos" />
     </div>
     <button
