@@ -16,9 +16,12 @@ export default {
     duration-300 hover:bg-gray-50"
   >
     <div>
-      <a href="#" class="font-bold block text-gray-600">
+      <router-link
+        :to="{ name: 'song', params: { id: song.docID } }"
+        class="font-bold block text-gray-600"
+      >
         {{ song.modifiedName }}
-      </a>
+      </router-link>
 
       <span class="text-gray-500 text-sm">
         {{ song.displayName }}
