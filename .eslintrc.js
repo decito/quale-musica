@@ -15,8 +15,9 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'vuejs-accessibility/label-has-for': 'off',
     'vue/multi-word-component-names': 'off',
+    'vuejs-accessibility/label-has-for': 'off',
+    'vuejs-accessibility/form-control-has-label': 'off',
     'vuejs-accessibility/click-events-have-key-events': 'off',
     semi: 'off',
   },
