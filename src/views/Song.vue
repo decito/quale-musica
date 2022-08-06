@@ -1,9 +1,10 @@
 <script>
 import { auth, commentsCollection, songsCollection } from '@/includes/firebase'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Song',
+
   data() {
     return {
       song: {},
@@ -16,8 +17,10 @@ export default {
       sort: '1',
     }
   },
+
   computed: {
-    ...mapState(['userLoggedIn']),
+    ...mapState('useUserStore', ['userLoggedIn']),
+
     sortedComments() {
       return this.comments.slice().sort((a, b) => {
         if (this.sort === '1') {
@@ -29,6 +32,8 @@ export default {
     },
   },
   methods: {
+    ...mapActions('usePlayerStore', ['newSong']),
+
     async addComment(values, { resetForm }) {
       this.commentInSubmmition = true
       this.commentShowAlert = true
@@ -73,6 +78,7 @@ export default {
       })
     },
   },
+
   async created() {
     const snapshot = await songsCollection.doc(this.$route.params.id).get()
 
@@ -87,6 +93,7 @@ export default {
     this.song = snapshot.data()
     this.getComments()
   },
+
   watch: {
     sort(newVal) {
       if (newVal === this.$route.query.sort) {
@@ -111,6 +118,7 @@ export default {
       <button
         type="button"
         class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
+        @click.prevent="newSong(song)"
       >
         <i class="fas fa-play" />
       </button>
