@@ -15,10 +15,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['authModalShow']),
+    ...mapState('useUserStore', ['authModalShow']),
   },
   methods: {
-    ...mapMutations(['toggleAuthModal']),
+    ...mapMutations('useUserStore', ['toggleAuthModal']),
   },
 }
 </script>

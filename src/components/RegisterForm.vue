@@ -56,7 +56,7 @@ export default {
       this.reg_alert_msg = 'Please wait! Your account is being created.'
 
       try {
-        await this.$store.dispatch('register', values)
+        await this.$store.dispatch('useUserStore/register', values)
       } catch (error) {
         this.reg_in_submission = false
         this.reg_alert_variant = 'bg-red-500'

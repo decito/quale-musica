@@ -1,11 +1,14 @@
 import { createStore } from 'vuex'
 import { auth, usersCollection } from '@/includes/firebase'
 
-export default createStore({
+const useUserStore = {
+  namespaced: true,
+
   state: {
     authModalShow: false,
     userLoggedIn: false,
   },
+
   mutations: {
     toggleAuthModal: (state) => {
       state.authModalShow = !state.authModalShow
@@ -15,6 +18,7 @@ export default createStore({
       state.userLoggedIn = !state.userLoggedIn
     },
   },
+
   actions: {
     async register({ commit }, payload) {
       const userCredentials = await auth
@@ -61,4 +65,30 @@ export default createStore({
       commit('toggleLoggedValue')
     },
   },
+}
+
+const usePlayerStore = {
+  namespaced: true,
+
+  state: {
+    currentSong: {},
+  },
+
+  mutations: {
+    toggleCurrentSong(state, payload) {
+      state.currentSong = payload;
+    },
+  },
+
+  actions: {
+    newSong({ commit }, payload) {
+      console.log(payload)
+
+      commit('toggleCurrentSong', payload)
+    },
+  },
+}
+
+export default createStore({
+  modules: { useUserStore, usePlayerStore },
 })

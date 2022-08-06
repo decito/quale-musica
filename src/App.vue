@@ -1,3 +1,19 @@
+<script>
+import AppHeader from './components/Header.vue'
+import AuthModal from './components/Auth.vue'
+
+export default {
+  name: 'App',
+  components: {
+    AppHeader,
+    AuthModal,
+  },
+  created() {
+    this.$store.dispatch('useUserStore/fetchUser')
+  },
+}
+</script>
+
 <template>
   <AppHeader />
 
@@ -47,19 +63,3 @@
 
   <AuthModal />
 </template>
-
-<script>
-import AppHeader from './components/Header.vue'
-import AuthModal from './components/Auth.vue'
-
-export default {
-  name: 'App',
-  components: {
-    AppHeader,
-    AuthModal,
-  },
-  created() {
-    this.$store.dispatch('fetchUser')
-  },
-}
-</script>

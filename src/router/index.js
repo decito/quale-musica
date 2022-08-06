@@ -54,7 +54,7 @@ router.beforeEach((to, from, next) => {
     return
   }
 
-  if (store.state.userLoggedIn) {
+  if (store.state.useUserStore.userLoggedIn) {
     next()
   } else {
     next({ name: 'home' })

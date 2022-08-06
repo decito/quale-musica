@@ -9,12 +9,14 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       isDragover: false,
       uploads: [],
     };
   },
+
   methods: {
     uploadFiles($event) {
       this.isDragover = false
@@ -75,10 +77,12 @@ export default {
         })
       })
     },
+
     cancelUploads() {
       this.uploads.forEach((upload) => upload.task.cancel())
     },
   },
+
   beforeUnmount() {
     this.uploads.forEach((upload) => upload.task.cancel())
   },

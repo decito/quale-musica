@@ -4,13 +4,13 @@ import { mapMutations, mapState } from 'vuex'
 export default {
   name: 'Header',
   computed: {
-    ...mapState(['userLoggedIn']),
+    ...mapState('useUserStore', ['userLoggedIn']),
   },
   methods: {
-    ...mapMutations(['toggleAuthModal']),
+    ...mapMutations('useUserStore', ['toggleAuthModal']),
 
     logout() {
-      this.$store.dispatch('logout')
+      this.$store.dispatch('useUserStore/logout')
 
       if (this.$route.meta.requiresAuth) {
         this.$router.push({ name: 'home' })
