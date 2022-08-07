@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { auth, usersCollection } from '@/includes/firebase'
+import { Howl } from 'howler'
 
 const useUserStore = {
   namespaced: true,
@@ -72,6 +73,7 @@ const usePlayerStore = {
 
   state: {
     currentSong: {},
+    song: {},
   },
 
   mutations: {
@@ -81,10 +83,39 @@ const usePlayerStore = {
   },
 
   actions: {
-    newSong({ commit }, payload) {
-      console.log(payload)
-
+    async newSong({ commit }, payload) {
       commit('toggleCurrentSong', payload)
+
+      this.sound = new Howl({
+        src: [payload.fileUrl],
+        html5: true,
+      })
+
+      this.sound.play()
+    },
+
+    async toggleAudio() {
+      if (!this.sound.playing) {
+        return
+      }
+
+      if (this.sound.playing()) {
+        this.sound.pause()
+      } else {
+        this.sound.play()
+      }
+    },
+  },
+
+  getters: {
+    isPlaying(state) {
+      console.log('disparado')
+
+      if (state.sound?.playing) {
+        return state.sound?.playing()
+      }
+
+      return false
     },
   },
 }
