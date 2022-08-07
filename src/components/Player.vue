@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'Player',
@@ -8,9 +8,9 @@ export default {
     ...mapActions('usePlayerStore', ['toggleAudio']),
   },
 
-  // computed: {
-  //   ...mapGetters('usePlayerStore', ['isPlaying']),
-  // },
+  computed: {
+    ...mapGetters('usePlayerStore', ['isPlaying']),
+  },
 }
 </script>
 
@@ -24,7 +24,8 @@ export default {
       >
         <button type="button">
           <i
-            class="fa fa-play text-gray-500 text-xl"
+            class="fa text-gray-500 text-xl"
+            :class="{ 'fa-pause': isPlaying, 'fa-play': !isPlaying }"
           />
         </button>
       </div>

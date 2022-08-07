@@ -73,12 +73,16 @@ const usePlayerStore = {
 
   state: {
     currentSong: {},
-    song: {},
+    sound: {},
   },
 
   mutations: {
     toggleCurrentSong(state, payload) {
       state.currentSong = payload;
+    },
+
+    toggleSound(state, payload) {
+      state.sound = payload;
     },
   },
 
@@ -91,28 +95,28 @@ const usePlayerStore = {
         html5: true,
       })
 
+      commit('toggleSound', this.sound)
+
       this.sound.play()
     },
 
-    async toggleAudio() {
-      if (!this.sound.playing) {
+    async toggleAudio({ state }) {
+      if (!state.sound.playing) {
         return
       }
 
-      if (this.sound.playing()) {
-        this.sound.pause()
+      if (state.sound.playing()) {
+        state.sound.pause()
       } else {
-        this.sound.play()
+        state.sound.play()
       }
     },
   },
 
   getters: {
-    isPlaying(state) {
-      console.log('disparado')
-
-      if (state.sound?.playing) {
-        return state.sound?.playing()
+    isPlaying: (state) => {
+      if (state.sound.playing) {
+        return state.sound.playing()
       }
 
       return false
@@ -121,5 +125,8 @@ const usePlayerStore = {
 }
 
 export default createStore({
-  modules: { useUserStore, usePlayerStore },
+  modules: {
+    useUserStore,
+    usePlayerStore,
+  },
 })
