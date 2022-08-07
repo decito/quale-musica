@@ -3,9 +3,11 @@ import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Header',
+
   computed: {
     ...mapState('useUserStore', ['userLoggedIn']),
   },
+
   methods: {
     ...mapMutations('useUserStore', ['toggleAuthModal']),
 

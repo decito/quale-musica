@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'SongItem',
+
   props: {
     song: {
       type: Object,

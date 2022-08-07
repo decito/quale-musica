@@ -5,18 +5,22 @@ import RegisterForm from './RegisterForm.vue'
 
 export default {
   name: 'Auth',
+
   components: {
     LoginForm,
     RegisterForm,
   },
+
   data() {
     return {
       tab: 'login',
     }
   },
+
   computed: {
     ...mapState('useUserStore', ['authModalShow']),
   },
+
   methods: {
     ...mapMutations('useUserStore', ['toggleAuthModal']),
   },

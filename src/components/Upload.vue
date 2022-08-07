@@ -3,6 +3,7 @@ import { auth, storage, songsCollection } from '@/includes/firebase'
 
 export default {
   name: 'Upload',
+
   props: {
     addSong: {
       type: Function,

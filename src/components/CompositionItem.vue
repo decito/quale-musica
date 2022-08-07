@@ -3,6 +3,7 @@ import { songsCollection, storage } from '@/includes/firebase'
 
 export default {
   name: 'CompositionItem',
+
   props: {
     song: {
       type: Object,
@@ -24,6 +25,7 @@ export default {
       type: Function,
     },
   },
+
   data() {
     return {
       showForm: false,
@@ -46,6 +48,7 @@ export default {
       alertMessage: 'Please wait. Updating song...',
     }
   },
+
   methods: {
     async editSong(values) {
       this.inSubmission = true
