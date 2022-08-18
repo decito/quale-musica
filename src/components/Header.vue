@@ -1,25 +1,29 @@
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapStores } from "pinia";
+import useModalStore from "@/stores/modal";
+import useUserStore from "@/stores/user";
 
 export default {
-  name: 'Header',
+  name: "Header",
 
   computed: {
-    ...mapState('useUserStore', ['userLoggedIn']),
+    ...mapStores(useModalStore, useUserStore),
   },
 
   methods: {
-    ...mapMutations('useUserStore', ['toggleAuthModal']),
+    toggleAuthModal() {
+      this.modalStore.isOpen = !this.modalStore.isOpen;
+    },
 
     logout() {
-      this.$store.dispatch('useUserStore/logout')
+      this.userStore.logout();
 
       if (this.$route.meta.requiresAuth) {
-        this.$router.push({ name: 'home' })
+        this.$router.push({ name: "home" });
       }
     },
   },
-}
+};
 </script>
 
 <template>
@@ -43,8 +47,12 @@ export default {
             </router-link>
           </li>
 
-          <li v-if="!userLoggedIn">
-            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">
+          <li v-if="!userStore.userLoggedIn">
+            <a
+              class="px-2 text-white"
+              href="#"
+              @click.prevent="toggleAuthModal"
+            >
               Login / Register
             </a>
           </li>

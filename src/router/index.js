@@ -5,7 +5,6 @@ import useUserStore from "@/stores/user";
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Manage from "@/views/Manage.vue";
-import Song from "@/views/Song.vue";
 
 const routes = [
   {
@@ -20,7 +19,7 @@ const routes = [
   },
   {
     name: "manage",
-    // alias: '/manage',
+    // alias: "/manage",
     path: "/manage-music",
     meta: {
       requiresAuth: true,
@@ -32,31 +31,26 @@ const routes = [
     redirect: { name: "manage" },
   },
   {
-    name: "song",
-    path: "/song/:id",
-    component: Song,
-  },
-  {
     path: "/:catchAll(.*)*",
     redirect: { name: "home" },
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   linkExactActiveClass: "text-yellow-500",
 });
 
 router.beforeEach((to, from, next) => {
-  if (!to.matched.some((record) => record.meta.requiresAuth)) {
+  if (!to.meta.requiresAuth) {
     next();
     return;
   }
 
   const store = useUserStore();
 
-  if (store.state.useUserStore.userLoggedIn) {
+  if (store.userLoggedIn) {
     next();
   } else {
     next({ name: "home" });

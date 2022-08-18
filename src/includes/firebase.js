@@ -4,11 +4,11 @@ import "firebase/firestore";
 import "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.VITE_APP_API_KEY,
-  authDomain: process.env.VITE_APP_AUTH_URL,
-  projectId: process.env.VITE_APP_PROJECT_ID,
-  storageBucket: process.env.VITE_APP_STORAGE_BUCKET,
-  appId: process.env.VITE_APP_ID,
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_URL,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
