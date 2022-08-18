@@ -1,64 +1,66 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
-import store from '@/store'
+import useUserStore from "@/stores/user";
 
-import Home from '@/views/Home.vue'
-import About from '@/views/About.vue'
-import Manage from '@/views/Manage.vue'
-import Song from '@/views/Song.vue'
+import Home from "@/views/Home.vue";
+import About from "@/views/About.vue";
+import Manage from "@/views/Manage.vue";
+import Song from "@/views/Song.vue";
 
 const routes = [
   {
-    name: 'home',
-    path: '/',
+    name: "home",
+    path: "/",
     component: Home,
   },
   {
-    name: 'about',
-    path: '/about',
+    name: "about",
+    path: "/about",
     component: About,
   },
   {
-    name: 'manage',
+    name: "manage",
     // alias: '/manage',
-    path: '/manage-music',
+    path: "/manage-music",
     meta: {
       requiresAuth: true,
     },
     component: Manage,
   },
   {
-    path: '/manage',
-    redirect: { name: 'manage' },
+    path: "/manage",
+    redirect: { name: "manage" },
   },
   {
-    name: 'song',
-    path: '/song/:id',
+    name: "song",
+    path: "/song/:id",
     component: Song,
   },
   {
-    path: '/:catchAll(.*)*',
-    redirect: { name: 'home' },
+    path: "/:catchAll(.*)*",
+    redirect: { name: "home" },
   },
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  linkExactActiveClass: 'text-yellow-500',
-})
+  linkExactActiveClass: "text-yellow-500",
+});
 
 router.beforeEach((to, from, next) => {
   if (!to.matched.some((record) => record.meta.requiresAuth)) {
-    next()
-    return
+    next();
+    return;
   }
+
+  const store = useUserStore();
 
   if (store.state.useUserStore.userLoggedIn) {
-    next()
+    next();
   } else {
-    next({ name: 'home' })
+    next({ name: "home" });
   }
-})
+});
 
-export default router
+export default router;
