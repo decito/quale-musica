@@ -1,15 +1,19 @@
 <script>
+import { mapActions } from "pinia";
+import useUserStore from "@/stores/user";
 
 export default {
-  name: 'RegisterForm',
+  name: "RegisterForm",
+
   data() {
     return {
+      tab: "login",
       schema: {
         name: {
           required: true,
           min: 3,
           max: 30,
-          alpha_spaces: true,
+          alphaSpaces: true,
         },
         email: {
           required: true,
@@ -19,68 +23,69 @@ export default {
         },
         age: {
           required: true,
-          min_value: 13,
-          max_value: 110,
+          minValue: 13,
+          maxValue: 110,
         },
         password: {
           required: true,
           min: 3,
           max: 30,
         },
-        confirm_password: {
-          password_mismatch: '@password',
+        confirmPassword: {
+          passwordsMismatch: "@password",
         },
         country: {
           required: true,
-          country_excluded: 'Brazil',
+          countryExcluded: "Brazil",
         },
         tos: {
           tos: true,
         },
       },
       userData: {
-        country: 'USA',
+        country: "USA",
       },
-      reg_in_submission: false,
-      reg_show_alert: false,
-      reg_alert_variant: 'bg-blue-500',
-      reg_alert_msg: 'Please wait! Your account is being created.',
-    }
+      regInSubmission: false,
+      regShowAlert: false,
+      regAlertVariant: "bg-blue-500",
+      regAlertMsg: "Please wait! Your account is being created.",
+    };
   },
-
   methods: {
+    ...mapActions(useUserStore, { createUser: "register" }),
+
     async register(values) {
-      this.reg_show_alert = true
-      this.reg_in_submission = true
-      this.reg_alert_variant = 'bg-blue-500'
-      this.reg_alert_msg = 'Please wait! Your account is being created.'
+      this.regShowAlert = true;
+      this.regInSubmission = true;
+      this.regAlertVariant = "bg-blue-500";
+      this.regAlertMsg = "Please wait! Your account is being created.";
 
       try {
-        await this.$store.dispatch('register', values)
+        await this.createUser(values);
       } catch (error) {
-        this.reg_in_submission = false
-        this.reg_alert_variant = 'bg-red-500'
-        this.reg_alert_msg = 'An unexpected error occurred. Please try again.'
-
-        return
+        this.regInSubmission = false;
+        this.regAlertVariant = "bg-red-500";
+        this.regAlertMsg =
+          "An unexpected error occurred. Please try again later.";
+        return;
       }
 
-      this.reg_alert_variant = 'bg-green-500'
-      this.reg_alert_msg = 'Success! Your account has been created.'
+      this.regAlertVariant = "bg-green-500";
+      this.regAlertMsg = "Success! Your account has been created.";
 
-      window.location.reload()
+      window.location.reload();
     },
   },
-}
+};
 </script>
 
 <template>
   <div
-    v-if="reg_show_alert"
-    class="text-white text-center font-bold p-5 mb-4"
-    :class="reg_alert_variant"
+    v-if="regShowAlert"
+    class="text-white text-center font-bold p-4 rounded mb-4"
+    :class="regAlertVariant"
   >
-    {{ reg_alert_msg }}
+    {{ regAlertMsg }}
   </div>
 
   <VeeForm
@@ -94,8 +99,7 @@ export default {
       <VeeField
         type="text"
         name="name"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Name"
       />
       <ErrorMessage class="text-red-600" name="name" />
@@ -105,10 +109,9 @@ export default {
       <label class="inline-block mb-2">Email</label>
 
       <VeeField
-        type="email"
         name="email"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded"
+        type="email"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Email"
       />
       <ErrorMessage class="text-red-600" name="email" />
@@ -118,10 +121,9 @@ export default {
       <label class="inline-block mb-2">Age</label>
 
       <VeeField
-        type="number"
         name="age"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded"
+        type="number"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       />
       <ErrorMessage class="text-red-600" name="age" />
     </div>
@@ -131,9 +133,12 @@ export default {
 
       <VeeField name="password" :bails="false" v-slot="{ field, errors }">
         <input
-          class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="Password" type="password" v-bind="field" />
+          v-bind="field"
+          type="password"
+          class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+          placeholder="Password"
+        />
+
         <div class="text-red-600" v-for="error in errors" :key="error">
           {{ error }}
         </div>
@@ -144,13 +149,12 @@ export default {
       <label class="inline-block mb-2">Confirm Password</label>
 
       <VeeField
+        name="confirmPassword"
         type="password"
-        name="confirm_password"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Confirm Password"
       />
-      <ErrorMessage class="text-red-600" name="confirm_password" />
+      <ErrorMessage class="text-red-600" name="confirmPassword" />
     </div>
 
     <div class="mb-3">
@@ -159,8 +163,7 @@ export default {
       <VeeField
         as="select"
         name="country"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       >
         <option value="USA">USA</option>
         <option value="Mexico">Mexico</option>
@@ -181,13 +184,13 @@ export default {
 
       <label class="inline-block w-full">Accept terms of service</label>
 
-      <ErrorMessage class="text-red-600" name="tos" />
+      <ErrorMessage class="text-red-600 block" name="tos" />
     </div>
+
     <button
       type="submit"
-      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition
-        hover:bg-purple-700"
-      :disable="reg_in_submission"
+      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
+      :disabled="regInSubmission"
     >
       Submit
     </button>

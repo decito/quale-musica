@@ -1,8 +1,9 @@
 <script>
-import { songsCollection, storage } from '@/includes/firebase'
+import { songsCollection, storage } from "@/includes/firebase";
 
 export default {
-  name: 'CompositionItem',
+  name: "CompositionItem",
+
   props: {
     song: {
       type: Object,
@@ -24,6 +25,7 @@ export default {
       type: Function,
     },
   },
+
   data() {
     return {
       showForm: false,
@@ -37,50 +39,55 @@ export default {
           required: true,
           min: 3,
           max: 10,
-          alpha_spaces: true,
+          alphaSpaces: true,
         },
       },
       inSubmission: false,
       showAlert: false,
-      alertVariant: 'bg-blue-500',
-      alertMessage: 'Please wait. Updating song...',
-    }
+      alertVariant: "bg-blue-500",
+      alertMessage: "Please wait. Updating song...",
+    };
   },
+
   methods: {
     async editSong(values) {
-      this.inSubmission = true
-      this.showAlert = true
-      this.alertVariant = 'bg-blue-500'
-      this.alertMessage = 'Please wait. Updating song...'
+      this.inSubmission = true;
+      this.showAlert = true;
+      this.alertVariant = "bg-blue-500";
+      this.alertMessage = "Please wait. Updating song...";
 
-      await songsCollection.doc(this.song.docID).update(values)
+      await songsCollection
+        .doc(this.song.docID)
+        .update(values)
         .then(() => {
-          this.inSubmission = false
-          this.showAlert = true
-          this.alertVariant = 'bg-green-500'
-          this.alertMessage = 'Song updated successfully!'
+          this.inSubmission = false;
+          this.showAlert = true;
+          this.alertVariant = "bg-green-500";
+          this.alertMessage = "Song updated successfully!";
         })
         .catch(() => {
-          this.inSubmission = false
-          this.alertVariant = 'bg-red-500'
-          this.alertMessage = 'Something went wrong. Please try again.'
-        })
+          this.inSubmission = false;
+          this.alertVariant = "bg-red-500";
+          this.alertMessage = "Something went wrong. Please try again.";
+        });
 
-      this.updateSong(this.index, values)
+      this.updateSong(this.index, values);
+
+      this.updateUnsavedFlag(false);
     },
 
     async deleteSong() {
-      const storageRef = storage.ref()
-      const songRef = storageRef.child(`songs/${this.song.originalName}`)
+      const storageRef = storage.ref();
+      const songRef = storageRef.child(`songs/${this.song.originalName}`);
 
-      await songRef.delete()
+      await songRef.delete();
 
-      await songsCollection.doc(this.song.docID).delete()
+      await songsCollection.doc(this.song.docID).delete();
 
-      this.removeSong(this.index)
+      this.removeSong(this.index);
     },
   },
-}
+};
 </script>
 
 <template>
@@ -123,12 +130,11 @@ export default {
           <VeeField
             name="modifiedName"
             type="text"
-            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300
-              transition duration-500 focus:outline-none focus:border-black rounded"
+            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
             placeholder="Enter Song Title"
             @input="updateUnsavedFlag(true)"
           />
-            <ErrorMessage class="text-red-600" name="modifiedName" />
+          <ErrorMessage class="text-red-600" name="modifiedName" />
         </div>
 
         <div class="mb-3">
@@ -136,34 +142,31 @@ export default {
           <VeeField
             name="genre"
             type="text"
-            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300
-              transition duration-500 focus:outline-none focus:border-black rounded"
+            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
             placeholder="Enter Genre"
             @input="updateUnsavedFlag(true)"
           />
-            <ErrorMessage class="text-red-600" name="genre" />
+          <ErrorMessage class="text-red-600" name="genre" />
         </div>
 
-        <footer class="flex gap-4">
-          <button
-            type="submit"
-            class="py-1.5 px-3 rounded text-white bg-green-600"
-            :class="{ 'opacity-50': inSubmission }"
-            :disabled="inSubmission"
-            @input="updateUnsavedFlag(false)"
-          >
-            Submit
-          </button>
+        <button
+          type="submit"
+          class="py-1.5 px-3 rounded text-white bg-green-600"
+          :class="{ 'opacity-50': inSubmission }"
+          :disabled="inSubmission"
+          @input="updateUnsavedFlag(false)"
+        >
+          Submit
+        </button>
 
-          <button
-            type="button"
-            class="py-1.5 px-3 rounded text-white bg-gray-600"
-            :disabled="inSubmission"
-            @click.prevent="showForm = false"
-          >
-            Go Back
-          </button>
-        </footer>
+        <button
+          type="button"
+          class="py-1.5 px-3 rounded text-white bg-gray-600"
+          :disabled="inSubmission"
+          @click.prevent="showForm = false"
+        >
+          Go Back
+        </button>
       </VeeForm>
     </div>
   </div>

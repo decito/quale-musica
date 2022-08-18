@@ -1,6 +1,9 @@
 <script>
+import { mapActions } from "pinia";
+import useUserStore from "@/stores/user";
+
 export default {
-  name: 'LoginForm',
+  name: "LoginForm",
   data() {
     return {
       loginSchema: {
@@ -14,59 +17,56 @@ export default {
           max: 30,
         },
       },
-      login_in_submission: false,
-      login_show_alert: false,
-      login_alert_variant: 'bg-blue-500',
-      login_alert_msg: 'Please wait! We are logging you in.',
-    }
+      loginInSubmission: false,
+      loginShowAlert: false,
+      loginAlertVariant: "bg-blue-500",
+      loginAlertMsg: "Please wait! We are logging you in.",
+    };
   },
+
   methods: {
+    ...mapActions(useUserStore, ["authenticate"]),
+
     async login(values) {
-      this.login_in_submission = true
-      this.login_show_alert = true
-      this.login_alert_variant = 'bg-blue-500'
-      this.login_alert_msg = 'Please wait! We are logging you in.'
+      this.loginShowAlert = true;
+      this.loginInSubmission = true;
+      this.loginAlertVariant = "bg-blue-500";
+      this.loginAlertMsg = "Please wait! We are logging you in.";
 
       try {
-        await this.$store.dispatch('login', values)
+        await this.authenticate(values);
       } catch (error) {
-        this.login_in_submission = false
-        this.login_alert_variant = 'bg-red-500'
-        this.login_alert_msg = 'Invalid email or password.'
-
-        return
+        this.loginInSubmission = false;
+        this.loginAlertVariant = "bg-red-500";
+        this.loginAlertMsg = "Invalid login details.";
+        return;
       }
 
-      this.login_alert_variant = 'bg-green-500'
-      this.login_alert_msg = 'Success! You are now logged in.'
+      this.loginAlertVariant = "bg-green-500";
+      this.loginAlertMsg = "Success! You are now logged in.";
 
-      window.location.reload()
+      window.location.reload();
     },
   },
-}
+};
 </script>
 
 <template>
   <div
-    v-if="login_show_alert"
+    v-if="loginShowAlert"
     class="text-white text-center font-bold p-4 mb-4"
-    :class="login_alert_variant"
+    :class="loginAlertVariant"
   >
-    {{ login_alert_msg }}
+    {{ loginAlertMsg }}
   </div>
 
-  <VeeForm
-    :validation-schema="loginSchema"
-    @submit="login"
-  >
+  <VeeForm :validation-schema="loginSchema" @submit="login">
     <div class="mb-3">
       <label class="inline-block mb-2">Email</label>
-
       <VeeField
-        type="email"
         name="email"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded"
+        type="email"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Email"
       />
       <ErrorMessage class="text-red-600" name="email" />
@@ -74,23 +74,18 @@ export default {
 
     <div class="mb-3">
       <label class="inline-block mb-2">Password</label>
-
       <VeeField
-        type="password"
         name="password"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded"
+        type="password"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Password"
       />
-
       <ErrorMessage class="text-red-600" name="password" />
     </div>
-
     <button
       type="submit"
-      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition
-        hover:bg-purple-700"
-      :disable="login_in_submission"
+      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
+      :disabled="loginInSubmission"
     >
       Submit
     </button>

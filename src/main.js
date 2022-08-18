@@ -1,25 +1,24 @@
-import { createApp } from 'vue'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
-import App from './App.vue'
-import store from './store'
-import router from './router'
+import App from "./App.vue";
+import router from "./router";
+import VeeValidatePlugin from "./includes/validation";
+import { auth } from "./includes/firebase";
 
-import VeeValidatePlugin from './includes/validation'
-import { auth } from './includes/firebase'
+import "./assets/tailwind.css";
+import "./assets/main.css";
 
-import './assets/tailwind.css'
-import './assets/main.css'
-
-let app
+let app;
 
 auth.onAuthStateChanged(() => {
   if (!app) {
-    app = createApp(App)
+    app = createApp(App);
 
-    app.use(router)
-    app.use(store)
-    app.use(VeeValidatePlugin)
+    app.use(createPinia());
+    app.use(router);
+    app.use(VeeValidatePlugin);
 
-    app.mount('#app')
+    app.mount("#app");
   }
-})
+});
