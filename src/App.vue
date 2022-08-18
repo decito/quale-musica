@@ -1,27 +1,38 @@
 <script>
-import AppHeader from './components/Header.vue'
-import AuthModal from './components/Auth.vue'
-import AppPlayer from './components/Player.vue'
+import { mapWritableState } from "pinia";
+import useUserStore from "@/stores/user";
+import { auth } from "./includes/firebase";
+
+import Header from "@/components/Header.vue";
+import AuthModal from "@/components/Auth.vue";
+import Player from "@/components/Player.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    AppHeader,
-    AppPlayer,
+    Header,
+    Player,
     AuthModal,
   },
-  created() {
-    this.$store.dispatch('useUserStore/fetchUser')
+
+  computed: {
+    ...mapWritableState(useUserStore, ["userLoggedIn"]),
   },
-}
+
+  created() {
+    if (auth.currentUser) {
+      this.userLoggedIn = true;
+    }
+  },
+};
 </script>
 
 <template>
-  <AppHeader />
+  <Header />
 
   <router-view />
 
-  <AppPlayer />
+  <Player />
 
   <AuthModal />
 </template>

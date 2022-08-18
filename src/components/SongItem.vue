@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'SongItem',
+  name: "SongItem",
 
   props: {
     song: {
@@ -8,13 +8,12 @@ export default {
       required: true,
     },
   },
-}
+};
 </script>
 
 <template>
   <li
-    class="flex justify-between items-center p-3 pl-6 cursor-pointer transition
-    duration-300 hover:bg-gray-50"
+    class="flex justify-between items-center p-3 pl-6 cursor-pointer transition duration-300 hover:bg-gray-50"
   >
     <div>
       <router-link
@@ -24,9 +23,7 @@ export default {
         {{ song.modifiedName }}
       </router-link>
 
-      <span class="text-gray-500 text-sm">
-        {{ song.displayName }}
-      </span>
+      <span class="text-gray-500 text-sm">{{ song.displayName }}</span>
     </div>
 
     <div class="text-gray-600 text-lg">
