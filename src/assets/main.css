@@ -4,25 +4,13 @@ a {
 
 /* text-yellow-500 */
 a:hover {
-  color: #F59E0B;
+  color: #f59e0b;
   text-decoration: none;
 }
 
 .text-orange {
-  color: #F59E0B !important;
-  fill: #F59E0B !important;
-}
-
-.player-scrub, .player-song-info {
-  width: calc(100% - 250px);
-}
-
-.top-neg-8 {
-  top: -8px;
-}
-
-.player-song-info {
-  margin-top: -24px;
+  color: #f59e0b !important;
+  fill: #f59e0b !important;
 }
 
 .card-header .fa.text-orange,
@@ -41,36 +29,31 @@ a:hover {
   padding-top: 25px;
 }
 
-.upload-dropbox.upload-dropbox-drag{
+.upload-dropbox.upload-dropbox-drag {
   color: #fff;
   background-color: #20d862;
   border-color: #20d862;
   border-style: solid;
 }
 
-input[type="file"]{
+input[type="file"] {
   margin-top: 20px;
 }
 
 .progress-bar {
   background-size: 1rem 1rem;
   background-image: linear-gradient(
-    45deg, rgba(255,255,255,.15)
-    25%, transparent
-    25%, transparent
-    50%, rgba(255,255,255,.15)
-    50%,rgba(255,255,255,.15)
-    75%, transparent
-    75%, transparent
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
   );
   animation: progress-bar-stripes 1s linear infinite;
 }
-
-/* .music-bg {
-  animation: slide 50s linear infinite;
-  will-change: background-position;
-  background-image: url(/assets/theme/img/song-header.png);
-} */
 
 .music-bg {
   animation: slide 50s linear infinite;
