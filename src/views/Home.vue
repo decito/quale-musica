@@ -82,12 +82,13 @@ export default {
   <section class="mb-8 py-20 text-white text-center relative">
     <div
       class="absolute inset-0 w-full h-full bg-cover introduction-bg"
-      style="background-image: url(assets/img/header.png)"
+      style="background-image: url(assets/img/user-header.png)"
     />
 
     <div class="container mx-auto">
       <div class="text-white main-header-content">
         <h1 class="font-bold text-5xl mb-5">Listen to Great Music!</h1>
+
         <p class="w-full md:w-8/12 mx-auto">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et
           dolor mollis, congue augue non, venenatis elit. Nunc justo eros,

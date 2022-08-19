@@ -115,7 +115,7 @@ export default {
 <template>
   <section class="w-full mb-8 py-14 text-center text-white relative">
     <div
-      class="absolute inset-0 w-full h-full box-border bg-contain music-bg"
+      class="absolute inset-0 w-full h-full box-border bg-cover music-bg"
       style="background-image: url(/assets/img/song-header.png)"
     />
 
