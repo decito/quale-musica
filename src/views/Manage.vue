@@ -84,7 +84,6 @@ export default {
           </div>
 
           <div class="p-6">
-            <!-- Composition Items -->
             <CompositionItem
               v-for="(song, index) in songs"
               :key="song.docID"

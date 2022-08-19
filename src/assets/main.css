@@ -4,7 +4,7 @@ a {
 
 /* text-yellow-500 */
 a:hover {
-  color: #f59e0b;
+  @apply text-sky-500;
   text-decoration: none;
 }
 
@@ -26,7 +26,7 @@ a:hover {
 }
 
 #playlist li:first-child {
-  padding-top: 25px;
+  @apply pt-[25px];
 }
 
 .upload-dropbox.upload-dropbox-drag {
@@ -37,7 +37,7 @@ a:hover {
 }
 
 input[type="file"] {
-  margin-top: 20px;
+  @apply mt-5;
 }
 
 .progress-bar {

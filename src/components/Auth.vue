@@ -47,7 +47,7 @@ export default {
       <div
         class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
       >
-        <!-- Add margin if you want to see some of the overlay behind the modal-->
+        <!-- Add margin to allow visualization of some of the overlay behind the modal-->
         <div class="py-4 text-left px-6">
           <div class="flex justify-between items-center pb-4">
             <p class="text-2xl font-bold">Your Account</p>

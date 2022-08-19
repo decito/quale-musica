@@ -4,7 +4,7 @@ import useModalStore from "@/stores/modal";
 import useUserStore from "@/stores/user";
 
 export default {
-  name: "Header",
+  name: "AppHeader",
 
   computed: {
     ...mapStores(useModalStore, useUserStore),
@@ -34,13 +34,11 @@ export default {
         :to="{ name: 'home' }"
         exact-active-class="no-active"
       >
-        Music
+        Qualé
       </router-link>
 
       <div class="flex flex-grow items-center">
-        <!-- Primary Navigation -->
         <ul class="flex flex-row mt-1">
-          <!-- Navigation Links -->
           <li>
             <router-link :to="{ name: 'about' }" class="px-2 text-white">
               About
