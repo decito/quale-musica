@@ -99,14 +99,14 @@ export default {
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
         @click.prevent="deleteSong"
       >
-        <i class="fa fa-times" />
+        <i class="fas fa-xmark" />
       </button>
 
       <button
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
         @click.prevent="showForm = !showForm"
       >
-        <i class="fa fa-pencil-alt" />
+        <i class="fas fa-pencil" />
       </button>
     </div>
 

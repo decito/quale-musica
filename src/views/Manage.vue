@@ -79,7 +79,9 @@ export default {
           <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
             <span class="card-title">{{ $t("manage.cardTitle") }}</span>
 
-            <i class="fa fa-compact-disc float-right text-green-400 text-2xl" />
+            <i
+              class="fas fa-compact-disc float-right text-green-400 text-2xl"
+            />
           </div>
 
           <div class="p-6">

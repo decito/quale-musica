@@ -31,6 +31,18 @@ export default {
           return;
         }
 
+        if (!navigator.onLine) {
+          this.uploads.push({
+            task: {},
+            currentProgress: 100,
+            name: file.name,
+            variant: "bg-red-400",
+            icon: "fas fa-xmark",
+            textClass: "text-red-400",
+          });
+          return;
+        }
+
         const storageRef = storage.ref();
         const songRef = storageRef.child(`songs/${file.name}`);
         const task = songRef.put(file);
