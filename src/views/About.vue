@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <main>
     <section class="mb-8 py-20 text-white relative">
       <div
         class="absolute inset-0 w-full h-full bg-cover introduction-bg"
@@ -37,5 +37,5 @@
         </a>
       </div>
     </section>
-  </div>
+  </main>
 </template>
