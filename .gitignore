@@ -2,6 +2,7 @@
 .DS_Store
 node_modules
 /dist
+/dev-dist
 
 # Tests
 /tests/e2e/videos/
