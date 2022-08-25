@@ -1,0 +1,15 @@
+{
+  "home": {
+    "listen": "Escute Ótimas Músicas!"
+  },
+  "manage": {
+    "cardTitle": "Minhas músicas"
+  },
+  "register": {
+    "accept": "Eu aceito os {0} do Qualé",
+    "tos": "Termos de Uso"
+  },
+  "song": {
+    "commentCount": "Nenhum comentário | 1 comentário | {count} comentários"
+  }
+}
