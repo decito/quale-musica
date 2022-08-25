@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-  <header id="header" class="bg-gray-700">
+  <header id="header" class="bg-stone-900">
     <nav class="container mx-auto flex justify-start items-center py-5 px-4">
       <router-link
         class="text-white font-bold uppercase text-2xl mr-4"
