@@ -53,7 +53,6 @@ export default {
     if (!this.unsavedFlag) {
       next();
     } else {
-      // eslint-disable-next-line no-alert, no-restricted-globals
       const answer = window.confirm(
         "You have unsaved changes. Are you sure you want to leave?"
       );
@@ -78,7 +77,7 @@ export default {
           class="bg-white rounded border border-gray-200 relative flex flex-col"
         >
           <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-            <span class="card-title">My Songs</span>
+            <span class="card-title">{{ $t("manage.cardTitle") }}</span>
 
             <i class="fa fa-compact-disc float-right text-green-400 text-2xl" />
           </div>
