@@ -1,0 +1,21 @@
+export default {
+  beforeMount(element, binding) {
+    let iconClass = `fas fa-${binding.value.icon} text-xl`;
+
+    if (binding.arg === "full") {
+      iconClass = binding.value;
+    }
+
+    if (binding.value.right) {
+      iconClass += " float-right";
+    }
+
+    if (binding.value.color) {
+      iconClass += ` text-${binding.value.color}-500`;
+    } else {
+      iconClass += " text-green-400";
+    }
+
+    element.innerHTML += `<i class='${iconClass}' />`;
+  },
+};
