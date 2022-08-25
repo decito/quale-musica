@@ -29,7 +29,7 @@ export default {
 <template>
   <div
     id="modal"
-    class="fixed z-10 inset-0 overflow-y-auto"
+    class="fixed z-30 inset-0 overflow-y-auto"
     :class="hiddenClass"
   >
     <div
@@ -53,7 +53,7 @@ export default {
             <p class="text-2xl font-bold">Your Account</p>
 
             <div
-              class="modal-close cursor-pointer z-50"
+              class="modal-close cursor-pointer z-40"
               @click="modalVisibility = false"
             >
               <i class="fas fa-times" />

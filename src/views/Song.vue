@@ -23,6 +23,12 @@ export default {
   computed: {
     ...mapState(useUserStore, ["userLoggedIn"]),
 
+    ...mapState(usePlayerStore, [
+      "currentSong",
+      "isCurrentPlaying",
+      "toggleAudio",
+    ]),
+
     sortedComments() {
       return this.comments.slice().sort((a, b) => {
         if (this.sort === "1") {
@@ -83,6 +89,12 @@ export default {
         });
       });
     },
+
+    songAction(song) {
+      this.isCurrentPlaying || this.currentSong.songID === this.$route.params.id
+        ? this.toggleAudio()
+        : this.newSong(song);
+    },
   },
 
   async created() {
@@ -97,6 +109,7 @@ export default {
     this.sort = sort === "1" || sort === "2" ? sort : "1";
 
     this.song = snapshot.data();
+    this.song.songID = this.$route.params.id;
     this.getComments();
   },
 
@@ -122,13 +135,13 @@ export default {
     <div class="container mx-auto flex items-center">
       <button
         type="button"
-        class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
-        @click.prevent="newSong(song)"
+        class="z-10 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
+        @click.prevent="songAction(song)"
       >
-        <i class="fas fa-play" />
+        <i class="fas" :class="isCurrentPlaying ? 'fa-pause' : 'fa-play'" />
       </button>
 
-      <div class="z-50 text-left ml-8">
+      <div class="z-20 text-left ml-8">
         <div class="text-3xl font-bold">{{ song.modifiedName }}</div>
 
         <div>{{ song.genre }}</div>

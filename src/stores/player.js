@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { Howl } from "howler";
+import { useRoute } from "vue-router";
 
 import formatter from "@/includes/formatter";
 
@@ -10,6 +11,7 @@ export default defineStore("player", {
     seek: "00:00",
     duration: "00:00",
     playerProgress: "0%",
+    route: useRoute(),
   }),
 
   actions: {
@@ -79,6 +81,21 @@ export default defineStore("player", {
       }
 
       return false;
+    },
+
+    isCurrentPlaying: (state) => {
+      if (!state.currentSong.songID) {
+        return;
+      }
+
+      if (
+        state.route.params.id === state.currentSong.songID &&
+        state.sound.playing()
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 });
