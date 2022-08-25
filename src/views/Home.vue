@@ -101,7 +101,7 @@ export default {
 
       <img
         class="relative block mx-auto mt-5 -mb-20 w-auto max-w-full"
-        src="assets/img/introduction-music.png"
+        src="/assets/img/introduction-music.png"
         alt="Vue Music Hero Image"
       />
     </section>

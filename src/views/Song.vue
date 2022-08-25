@@ -163,7 +163,7 @@ export default {
             }}
           </span>
 
-          <i class="fa fa-comments float-right text-green-400 text-2xl" />
+          <i class="fas fa-comments float-right text-green-400 text-2xl" />
         </div>
 
         <div class="p-6">
