@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Howl } from "howler";
 
-import helper from "@/includes/helper";
+import formatter from "@/includes/formatter";
 
 export default defineStore("player", {
   state: () => ({
@@ -45,8 +45,8 @@ export default defineStore("player", {
     },
 
     async updateProgress() {
-      this.seek = helper.formatTime(this.sound.seek());
-      this.duration = helper.formatTime(this.sound.duration());
+      this.seek = formatter.formatTime(this.sound.seek());
+      this.duration = formatter.formatTime(this.sound.duration());
 
       this.playerProgress = `${
         (this.sound.seek() / this.sound.duration()) * 100
@@ -55,6 +55,20 @@ export default defineStore("player", {
       if (this.sound.playing()) {
         requestAnimationFrame(this.updateProgress);
       }
+    },
+
+    updateSeek(event) {
+      if (!this.sound.playing) {
+        return;
+      }
+
+      const { x, width } = event.currentTarget.getBoundingClientRect();
+      const clickX = event.clientX - x;
+      const percentage = clickX / width;
+      const seconds = this.sound.duration() * percentage;
+
+      this.sound.seek(seconds);
+      this.sound.once("seek", this.progress);
     },
   },
 

@@ -6,7 +6,7 @@ export default {
   name: "Player",
 
   methods: {
-    ...mapActions(usePlayerStore, ["toggleAudio"]),
+    ...mapActions(usePlayerStore, ["toggleAudio", "updateSeek"]),
   },
 
   computed: {
@@ -46,7 +46,10 @@ export default {
 
       <div class="player-currenttime">{{ seek }}</div>
 
-      <div class="w-full h-2 rounded bg-gray-200 relative cursor-pointer">
+      <div
+        class="w-full h-2 rounded bg-gray-200 relative cursor-pointer"
+        @click.prevent="updateSeek"
+      >
         <span
           class="absolute -top-2.5 -ml-2.5 text-gray-800 text-lg"
           :style="{ left: playerProgress }"
