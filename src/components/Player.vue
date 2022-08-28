@@ -6,7 +6,11 @@ export default {
   name: "Player",
 
   methods: {
-    ...mapActions(usePlayerStore, ["toggleAudio", "updateSeek"]),
+    ...mapActions(usePlayerStore, [
+      "toggleAudio",
+      "updateSeek",
+      "updateVolume",
+    ]),
   },
 
   computed: {
@@ -16,6 +20,7 @@ export default {
       "duration",
       "playerProgress",
       "currentSong",
+      "volumeLevel",
     ]),
   },
 };
@@ -60,6 +65,23 @@ export default {
         <span
           class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"
           :style="{ width: playerProgress }"
+        />
+      </div>
+
+      <div
+        class="w-1/12 h-2 rounded bg-gray-200 relative cursor-pointer"
+        @click.prevent="updateVolume"
+      >
+        <span
+          class="absolute -top-2.5 -ml-2.5 text-gray-800 text-lg"
+          :style="{ left: volumeLevel }"
+        >
+          <i class="fas fa-circle" />
+        </span>
+
+        <span
+          class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"
+          :style="{ width: volumeLevel }"
         />
       </div>
 
