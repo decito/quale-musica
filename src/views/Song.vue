@@ -97,20 +97,22 @@ export default {
     },
   },
 
-  async created() {
-    const snapshot = await songsCollection.doc(this.$route.params.id).get();
+  async beforeRouteEnter(to, from, next) {
+    const snapshot = await songsCollection.doc(to.params.id).get();
 
-    if (!snapshot.exists) {
-      this.$router.push({ name: "home" });
-      return;
-    }
+    next((vm) => {
+      if (!snapshot.exists) {
+        vm.$router.push({ name: "home" });
+        return;
+      }
 
-    const { sort } = this.$route.query;
-    this.sort = sort === "1" || sort === "2" ? sort : "1";
+      const { sort } = vm.$route.query;
+      vm.sort = sort === "1" || sort === "2" ? sort : "1";
 
-    this.song = snapshot.data();
-    this.song.songID = this.$route.params.id;
-    this.getComments();
+      vm.song = snapshot.data();
+      vm.song.songID = vm.$route.params.id;
+      vm.getComments();
+    });
   },
 
   watch: {
