@@ -11,6 +11,7 @@ export default defineStore("player", {
     seek: "00:00",
     duration: "00:00",
     playerProgress: "0%",
+    volumeLevel: "30%",
     route: useRoute(),
   }),
 
@@ -24,6 +25,7 @@ export default defineStore("player", {
 
       this.sound = new Howl({
         src: [song.fileUrl],
+        volume: 0.3,
         html5: true,
       });
 
@@ -72,6 +74,25 @@ export default defineStore("player", {
       this.sound.seek(seconds);
       this.sound.once("seek", this.progress);
     },
+
+    updateVolume(event) {
+      if (!this.sound.playing) {
+        return;
+      }
+
+      const { x, width } = event.currentTarget.getBoundingClientRect();
+      const clickX = event.clientX - x;
+      const volume = clickX / width;
+      // console.log(percentage);
+      // const volume = this.sound.volume() * percentage;
+
+      // console.log(volume);
+
+      this.sound.volume(volume);
+      this.volumeLevel = `${volume * 100}%`;
+
+      // this.sound.once("seek", this.progress);
+    },
   },
 
   getters: {
@@ -92,7 +113,7 @@ export default defineStore("player", {
         state.route.params.id === state.currentSong.songID &&
         state.sound.playing()
       ) {
-        return true;
+        return state.sound.playing();
       } else {
         return false;
       }

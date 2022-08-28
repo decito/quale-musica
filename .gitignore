@@ -4,6 +4,7 @@ node_modules
 /dist
 /dev-dist
 stats.html
+.vercel
 
 # Tests
 /tests/e2e/videos/
