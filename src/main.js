@@ -11,7 +11,7 @@ import i18n from "./includes/i18n";
 import { registerSW } from "virtual:pwa-register";
 
 import GlobalComponents from "./includes/_globals";
-import progressBar from "./includes/progressBar";
+import progressBar from "./includes/progress-bar";
 
 import Icon from "./directives/icon";
 

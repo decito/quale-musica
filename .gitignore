@@ -3,6 +3,7 @@
 node_modules
 /dist
 /dev-dist
+stats.html
 
 # Tests
 /tests/e2e/videos/
