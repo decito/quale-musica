@@ -25,7 +25,7 @@
         <a href="https://github.com/dnet-o/vue-music/" target="_blank">
           <i class="fab fa-github fa-7x" />
 
-          <p class="text-2xl text-center mt-4">App code @ Github</p>
+          <p class="text-2xl text-center mt-4">App code @ GitHub</p>
         </a>
       </div>
 
