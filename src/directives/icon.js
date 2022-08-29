@@ -11,9 +11,7 @@ export default {
     }
 
     if (binding.value.color) {
-      iconClass += ` text-${binding.value.color}-500`;
-    } else {
-      iconClass += " text-green-400";
+      iconClass += ` text-${binding.value.color}`;
     }
 
     element.innerHTML += `<i class='${iconClass}' />`;
