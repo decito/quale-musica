@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { Howl } from "howler";
 import { useRoute } from "vue-router";
 
-import formatter from "@/includes/formatter";
+import { formatTime, limitValue } from "@/includes/formatters";
 
 export default defineStore("player", {
   state: () => ({
@@ -48,9 +48,9 @@ export default defineStore("player", {
       }
     },
 
-    async updateProgress() {
-      this.seek = formatter.formatTime(this.sound.seek());
-      this.duration = formatter.formatTime(this.sound.duration());
+    updateProgress() {
+      this.seek = formatTime(this.sound.seek());
+      this.duration = formatTime(this.sound.duration());
 
       this.playerProgress = `${
         (this.sound.seek() / this.sound.duration()) * 100
@@ -72,26 +72,29 @@ export default defineStore("player", {
       const seconds = this.sound.duration() * percentage;
 
       this.sound.seek(seconds);
-      this.sound.once("seek", this.progress);
+      this.sound.once("seek", this.updateProgress);
     },
 
     updateVolume(event) {
-      if (!this.sound.playing) {
-        return;
-      }
-
       const { x, width } = event.currentTarget.getBoundingClientRect();
       const clickX = event.clientX - x;
-      const volume = clickX / width;
-      // console.log(percentage);
-      // const volume = this.sound.volume() * percentage;
+      const rawVolume = clickX / width;
 
-      // console.log(volume);
+      const volume = limitValue(rawVolume);
 
       this.sound.volume(volume);
       this.volumeLevel = `${volume * 100}%`;
+    },
 
-      // this.sound.once("seek", this.progress);
+    updateVerticalVolume(event) {
+      const { y, height } = event.currentTarget.getBoundingClientRect();
+      const clickY = event.clientY - y;
+      const rawVolume = 1 - clickY / height;
+
+      const volume = limitValue(rawVolume);
+
+      this.sound.volume(volume);
+      this.volumeLevel = `${volume * 100}%`;
     },
   },
 

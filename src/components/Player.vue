@@ -1,15 +1,24 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import usePlayerStore from "@/stores/player";
+import { useMediaQuery } from "@vueuse/core";
 
 export default {
   name: "Player",
+
+  data() {
+    return {
+      isDesktop: useMediaQuery("(min-width: 1024px)"),
+      showVolumeBar: false,
+    };
+  },
 
   methods: {
     ...mapActions(usePlayerStore, [
       "toggleAudio",
       "updateSeek",
       "updateVolume",
+      "updateVerticalVolume",
     ]),
   },
 
@@ -29,7 +38,7 @@ export default {
 <template>
   <div
     v-if="currentSong.modifiedName"
-    class="fixed bottom-0 left-0 bg-white px-4 py-2 w-full"
+    class="fixed bottom-0 left-0 bg-white px-4 py-2 w-full z-20"
   >
     <div class="text-center">
       <span class="song-title font-bold">{{ currentSong.modifiedName }}</span>
@@ -69,6 +78,39 @@ export default {
       </div>
 
       <div
+        v-if="!isDesktop"
+        class="flex flex-col relative cursor-pointer rounded"
+      >
+        <i
+          class="fas text-gray-500 text-lg fa-volume-high"
+          @click.prevent="showVolumeBar = !showVolumeBar"
+          @touchstart="showVolumeBar = !showVolumeBar"
+          @touchend="showVolumeBar = !showVolumeBar"
+        />
+
+        <div
+          v-show="showVolumeBar"
+          class="absolute w-2 h-20 -top-24 ml-2 -rotate-180"
+          @click.prevent="updateVerticalVolume"
+        >
+          <span class="block w-2 h-20 bg-gray-200 -top-24 rounded" />
+
+          <div
+            class="block w-2 -mt-20 rounded bg-gradient-to-r from-green-500 to-green-400"
+            :style="{ height: volumeLevel }"
+          />
+
+          <span
+            class="absolute -ml-1"
+            :style="{ top: `calc(${volumeLevel} - 15%)` }"
+          >
+            <i class="fas fa-circle" />
+          </span>
+        </div>
+      </div>
+
+      <div
+        v-else
         class="w-1/12 h-2 rounded bg-gray-200 relative cursor-pointer"
         @click.prevent="updateVolume"
       >

@@ -1,6 +1,6 @@
 {
   "name": "quale-musica",
-  "version": "0.9.6b",
+  "version": "0.9.7b",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@vee-validate/rules": "^4.6.6",
+    "@vueuse/core": "^9.1.1",
     "firebase": "^8.10.1",
     "howler": "^2.2.3",
     "nprogress": "^0.2.0",

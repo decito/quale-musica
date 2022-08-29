@@ -111,7 +111,7 @@ export default {
         class="bg-white rounded border border-gray-200 relative flex flex-col"
       >
         <div
-          v-icon="{ icon: 'headphones-simple', right: true, color: 'sky' }"
+          v-icon="{ icon: 'headphones-simple', right: true, color: 'sky-500' }"
           class="px-6 pt-6 pb-5 font-bold border-b border-gray-200"
         >
           <span class="card-title">Songs</span>
