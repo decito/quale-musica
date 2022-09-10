@@ -182,7 +182,12 @@ export default {
         class="w-4 h-4 float-left -ml-6 mt-1 rounded"
       />
 
-      <i18n-t class="inline-block w-full" keypath="register.accept" tag="label">
+      <i18n-t
+        class="inline-block w-full"
+        keypath="register.accept"
+        tag="label"
+        scope="global"
+      >
         <a href="#" class="underline">{{ $t("register.tos") }}</a>
       </i18n-t>
 
