@@ -31,7 +31,6 @@ describe("SongItem.vue", () => {
       },
     });
 
-    // expect(wrapper.classes()).toContain(`song-${song.docID}`);
     expect(wrapper.attributes().id).toBe(`song-${song.docID}`);
   });
 });
