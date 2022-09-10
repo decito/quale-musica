@@ -1,5 +1,4 @@
 import { RouterLinkStub, shallowMount } from "@vue/test-utils";
-
 import SongItem from "@/components/SongItem.vue";
 
 describe("SongItem.vue", () => {

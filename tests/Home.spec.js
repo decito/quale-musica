@@ -1,8 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
-
 import Home from "@/views/Home.vue";
 import SongItem from "@/components/SongItem.vue";
-import { expect } from "vitest";
 
 describe("Home.vue", () => {
   it("should render list of songs", () => {

@@ -1,5 +1,4 @@
 import { createPinia, setActivePinia } from "pinia";
-
 import useUserStore from "@/stores/user";
 
 vi.mock("@/includes/firebase", () => ({
