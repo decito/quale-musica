@@ -1,0 +1,29 @@
+// Vitest Snapshot v1
+
+exports[`Snapshot of SongItem.vue > should render correctly 1`] = `
+<li
+  class="flex justify-between items-center p-3 pl-6 cursor-pointer transition duration-300 hover:bg-gray-50"
+  id="song-123foobartaz321"
+>
+  <div>
+    <router-link-stub
+      class="font-bold block text-gray-600"
+      custom="false"
+      to="[object Object]"
+    />
+    <span
+      class="text-gray-500 text-sm"
+    >
+      Display Name
+    </span>
+  </div>
+  <div
+    class="text-gray-600 text-lg"
+  >
+    <router-link-stub
+      custom="true"
+      to="[object Object]"
+    />
+  </div>
+</li>
+`;
