@@ -9,12 +9,16 @@ const formatTime = (time) => {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
-const limitValue = (value) => {
-  if (value < 0 || value > 1) {
-    return;
+const limitVolume = (value) => {
+  if (value < 0) {
+    return 0;
+  }
+
+  if (value > 1) {
+    return 1;
   }
 
   return value;
 };
 
-export { formatTime, limitValue };
+export { formatTime, limitVolume };
