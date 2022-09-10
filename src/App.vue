@@ -1,5 +1,5 @@
-<script>
-import { mapWritableState } from "pinia";
+<script setup>
+import { onBeforeMount } from "vue";
 import useUserStore from "@/stores/user";
 import { auth } from "./includes/firebase";
 
@@ -7,24 +7,13 @@ import AppHeader from "@/components/Header.vue";
 import AuthModal from "@/components/Auth.vue";
 import Player from "@/components/Player.vue";
 
-export default {
-  name: "App",
-  components: {
-    AppHeader,
-    Player,
-    AuthModal,
-  },
+const userStore = useUserStore();
 
-  computed: {
-    ...mapWritableState(useUserStore, ["userLoggedIn"]),
-  },
-
-  created() {
-    if (auth.currentUser) {
-      this.userLoggedIn = true;
-    }
-  },
-};
+onBeforeMount(() => {
+  if (auth.currentUser) {
+    userStore.userLoggedIn = true;
+  }
+});
 </script>
 
 <template>

@@ -43,38 +43,6 @@ export default {
   methods: {
     ...mapActions(usePlayerStore, ["newSong"]),
 
-    async addComment(values, { resetForm }) {
-      this.commentInSubmmition = true;
-      this.commentShowAlert = true;
-      this.commentAlertVariant = "bg-blue-500";
-      this.commentAlertMessage =
-        "Please wait. Your comment is being submitted.";
-
-      const comment = {
-        content: values.comment,
-        createdAt: new Date().toString(),
-        songId: this.$route.params.id,
-        name: auth.currentUser.displayName,
-        uid: auth.currentUser.uid,
-      };
-
-      this.song.commentCount += 1;
-
-      await commentsCollection.add(comment);
-
-      await songsCollection.doc(this.$route.params.id).update({
-        commentCount: this.song.commentCount,
-      });
-
-      this.commentInSubmmition = false;
-      this.commentAlertVariant = "bg-green-500";
-      this.commentAlertMessage = "Comment added!";
-
-      this.getComments();
-
-      resetForm();
-    },
-
     async getComments() {
       const snapshots = await commentsCollection
         .where("songId", "==", this.$route.params.id)
@@ -88,6 +56,40 @@ export default {
           ...doc.data(),
         });
       });
+    },
+
+    async addComment(values, { resetForm }) {
+      this.commentInSubmmition = true;
+      this.commentShowAlert = true;
+      this.commentAlertVariant = "bg-blue-500";
+      this.commentAlertMessage =
+        "Please wait. Your comment is being submitted...";
+
+      const comment = {
+        content: values.comment,
+        createdAt: new Date().toString(),
+        songId: this.$route.params.id,
+        name: auth.currentUser.displayName,
+        uid: auth.currentUser.uid,
+      };
+
+      console.log(comment);
+
+      await commentsCollection.add(comment);
+
+      this.song.commentCount += 1;
+
+      await songsCollection.doc(this.$route.params.id).update({
+        commentCount: this.song.commentCount,
+      });
+
+      this.commentInSubmmition = false;
+      this.commentAlertVariant = "bg-green-500";
+      this.commentAlertMessage = "Comment added!";
+
+      this.getComments();
+
+      resetForm();
     },
 
     songAction(song) {
