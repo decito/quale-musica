@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { Howl } from "howler";
 import { useRoute } from "vue-router";
 
-import { formatTime, limitValue } from "@/includes/formatters";
+import { formatTime, limitVolume } from "@/includes/formatters";
 
 export default defineStore("player", {
   state: () => ({
@@ -80,7 +80,7 @@ export default defineStore("player", {
       const clickX = event.clientX - x;
       const rawVolume = clickX / width;
 
-      const volume = limitValue(rawVolume);
+      const volume = limitVolume(rawVolume);
 
       this.sound.volume(volume);
       this.volumeLevel = `${volume * 100}%`;
@@ -91,7 +91,7 @@ export default defineStore("player", {
       const clickY = event.clientY - y;
       const rawVolume = 1 - clickY / height;
 
-      const volume = limitValue(rawVolume);
+      const volume = limitVolume(rawVolume);
 
       this.sound.volume(volume);
       this.volumeLevel = `${volume * 100}%`;
