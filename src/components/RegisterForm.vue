@@ -2,8 +2,14 @@
 import { mapActions } from "pinia";
 import useUserStore from "@/stores/user";
 
+import { VueRecaptcha } from "vue-recaptcha";
+
 export default {
   name: "RegisterForm",
+
+  components: {
+    VueRecaptcha,
+  },
 
   data() {
     return {
@@ -49,12 +55,28 @@ export default {
       regShowAlert: false,
       regAlertVariant: "bg-blue-500",
       regAlertMsg: "Please wait! Your account is being created.",
+      regRCVerified: false,
+      siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY,
     };
   },
   methods: {
     ...mapActions(useUserStore, { createUser: "register" }),
 
+    onCheck(response) {
+      if (response.target.checked) {
+        this.$refs.recaptcha.execute();
+      }
+    },
+
+    onVerify() {
+      this.regRCVerified = true;
+    },
+
     async register(values) {
+      if (!this.regRCVerified) {
+        return;
+      }
+
       this.regShowAlert = true;
       this.regInSubmission = true;
       this.regAlertVariant = "bg-blue-500";
@@ -67,6 +89,9 @@ export default {
         this.regAlertVariant = "bg-red-500";
         this.regAlertMsg =
           "An unexpected error occurred. Please try again later.";
+
+        console.error(error);
+
         return;
       }
 
@@ -180,6 +205,7 @@ export default {
         type="checkbox"
         value="1"
         class="w-4 h-4 float-left -ml-6 mt-1 rounded"
+        @click="onCheck"
       />
 
       <i18n-t
@@ -192,12 +218,19 @@ export default {
       </i18n-t>
 
       <ErrorMessage class="text-red-600 block" name="tos" />
+
+      <VueRecaptcha
+        size="invisible"
+        ref="recaptcha"
+        @verify="onVerify"
+        :sitekey="siteKey"
+      />
     </div>
 
     <button
       type="submit"
-      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-      :disabled="regInSubmission"
+      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700 disabled:bg-gray-400 !disabled:cursor-pointer"
+      :disabled="regInSubmission || !regRCVerified"
     >
       Submit
     </button>

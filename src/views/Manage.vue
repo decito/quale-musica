@@ -59,9 +59,6 @@ export default {
       next(answer);
     }
   },
-
-  // TODO: Close the form once the song has been updated
-  // TODO: Remove file extension from the song name
 };
 </script>
 

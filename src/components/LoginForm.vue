@@ -2,8 +2,15 @@
 import { mapActions } from "pinia";
 import useUserStore from "@/stores/user";
 
+import { VueRecaptcha } from "vue-recaptcha";
+
 export default {
   name: "LoginForm",
+
+  components: {
+    VueRecaptcha,
+  },
+
   data() {
     return {
       loginSchema: {
@@ -21,13 +28,23 @@ export default {
       loginShowAlert: false,
       loginAlertVariant: "bg-blue-500",
       loginAlertMsg: "Please wait! We are logging you in.",
+      loginRCVerified: false,
+      siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY,
     };
   },
 
   methods: {
     ...mapActions(useUserStore, ["authenticate"]),
 
+    onVerify() {
+      this.loginRCVerified = true;
+    },
+
     async login(values) {
+      if (!this.loginRCVerified) {
+        return;
+      }
+
       this.loginShowAlert = true;
       this.loginInSubmission = true;
       this.loginAlertVariant = "bg-blue-500";
@@ -39,6 +56,9 @@ export default {
         this.loginInSubmission = false;
         this.loginAlertVariant = "bg-red-500";
         this.loginAlertMsg = "Invalid login details.";
+
+        console.error(error);
+
         return;
       }
 
@@ -82,10 +102,13 @@ export default {
       />
       <ErrorMessage class="text-red-600" name="password" />
     </div>
+
+    <VueRecaptcha :sitekey="siteKey" @verify="onVerify" />
+
     <button
       type="submit"
-      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-      :disabled="loginInSubmission"
+      class="block w-full bg-purple-600 text-white py-1.5 px-3 mt-8 rounded transition hover:bg-purple-700 disabled:bg-gray-400 !disabled:cursor-pointer"
+      :disabled="loginInSubmission || !loginRCVerified"
     >
       Submit
     </button>

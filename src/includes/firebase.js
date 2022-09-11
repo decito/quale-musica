@@ -21,6 +21,8 @@ db.enablePersistence().catch((error) =>
   console.error(`Firebase persistence error: ${error.code}`)
 );
 
+auth.useDeviceLanguage();
+
 const commentsCollection = db.collection("comments");
 const usersCollection = db.collection("users");
 const songsCollection = db.collection("songs");
