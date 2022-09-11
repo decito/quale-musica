@@ -38,7 +38,7 @@ export default {
 <template>
   <div
     v-if="currentSong.modifiedName"
-    class="fixed bottom-0 left-0 bg-white px-4 py-2 w-full z-20"
+    class="fixed bottom-0 left-0 bg-white dark:bg-stone-700 dark:text-white px-4 py-2 w-full z-20"
   >
     <div class="text-center">
       <span class="song-title font-bold">{{ currentSong.modifiedName }}</span>
@@ -50,7 +50,7 @@ export default {
     <div class="flex flex-nowrap gap-4 items-center">
       <button type="button" @click.prevent="toggleAudio">
         <i
-          class="fas text-gray-500 text-xl"
+          class="fas text-gray-500 dark:text-white text-xl"
           :class="{
             'fa-play': !isPlaying,
             'fa-pause': isPlaying,
@@ -61,11 +61,11 @@ export default {
       <div class="player-currenttime">{{ seek }}</div>
 
       <div
-        class="w-full h-2 rounded bg-gray-200 relative cursor-pointer"
+        class="w-full h-2 rounded bg-gray-200 dark:bg-stone-400 relative cursor-pointer"
         @click.prevent="updateSeek"
       >
         <span
-          class="absolute -top-2.5 -ml-2.5 text-gray-800 text-lg"
+          class="absolute -top-2.5 -ml-2.5 text-gray-800 dark:text-white text-lg"
           :style="{ left: playerProgress }"
         >
           <i class="fas fa-circle" />
@@ -82,7 +82,7 @@ export default {
         class="flex flex-col relative cursor-pointer rounded"
       >
         <i
-          class="fas text-gray-500 text-lg fa-volume-high"
+          class="fas text-gray-500 dark:text-white text-lg fa-volume-high"
           @click.prevent="showVolumeBar = !showVolumeBar"
           @touchstart="showVolumeBar = !showVolumeBar"
           @touchend="showVolumeBar = !showVolumeBar"
@@ -111,11 +111,11 @@ export default {
 
       <div
         v-else
-        class="w-1/12 h-2 rounded bg-gray-200 relative cursor-pointer"
+        class="w-1/12 h-2 rounded bg-gray-200 dark:bg-stone-400 relative cursor-pointer"
         @click.prevent="updateVolume"
       >
         <span
-          class="absolute -top-2.5 -ml-2.5 text-gray-800 text-lg"
+          class="absolute -top-2.5 -ml-2.5 text-gray-800 dark:text-white text-lg"
           :style="{ left: volumeLevel }"
         >
           <i class="fas fa-circle" />
