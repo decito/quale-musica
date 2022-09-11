@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import "firebase/app-check";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -23,9 +22,6 @@ db.enablePersistence().catch((error) =>
 );
 
 auth.useDeviceLanguage();
-
-const appCheck = firebase.appCheck();
-appCheck.activate(import.meta.env.VITE_RECAPTCHA_SITE_KEY, true);
 
 const commentsCollection = db.collection("comments");
 const usersCollection = db.collection("users");
