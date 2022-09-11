@@ -6,6 +6,8 @@ const Home = () => import("@/views/Home.vue");
 const About = () => import("@/views/About.vue");
 const Manage = () => import("@/views/Manage.vue");
 const Song = () => import("@/views/Song.vue");
+const Signup = () => import("@/views/Signup.vue");
+const Signin = () => import("@/views/Signin.vue");
 
 const routes = [
   {
@@ -30,6 +32,16 @@ const routes = [
   {
     path: "/manage",
     redirect: { name: "manage" },
+  },
+  {
+    name: "signup",
+    path: "/signup",
+    component: Signup,
+  },
+  {
+    name: "signin",
+    path: "/signin",
+    component: Signin,
   },
   {
     name: "song",
