@@ -29,6 +29,8 @@ export default {
 
     changeLocale() {
       this.$i18n.locale = this.$i18n.locale === "pt" ? "en" : "pt";
+
+      localStorage.setItem("locale", this.$i18n.locale);
     },
   },
 };
@@ -49,7 +51,7 @@ export default {
         <ul class="flex flex-row mt-1">
           <li>
             <router-link :to="{ name: 'about' }" class="px-2 text-white">
-              About
+              {{ $t("header.about") }}
             </router-link>
           </li>
 

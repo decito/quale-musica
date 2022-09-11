@@ -1,4 +1,7 @@
 {
+  "header": {
+    "about": "About"
+  },
   "home": {
     "listen": "Listen to Great Music!"
   },
