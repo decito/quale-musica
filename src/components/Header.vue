@@ -80,7 +80,7 @@ export default {
           </template>
         </ul>
 
-        <ul class="ml-auto">
+        <ul class="ml-auto mt-1">
           <li>
             <a class="px-2 text-white" href="#" @click.prevent="changeLocale">
               {{ currentLocale }}

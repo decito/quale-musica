@@ -156,7 +156,7 @@ export default {
 
     <section id="comments" class="container mx-auto mt-6">
       <div
-        class="bg-white rounded border border-gray-200 relative flex flex-col"
+        class="bg-white dark:text-white dark:bg-stone-700 rounded border border-gray-200 dark:border-gray-500 relative flex flex-col"
       >
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <span class="card-title">
@@ -187,7 +187,7 @@ export default {
             <VeeField
               as="textarea"
               name="comment"
-              class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
+              class="block w-full dark:bg-stone-600 py-1.5 px-3 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black dark:focus:border-gray-700 rounded mb-4"
               placeholder="Your comment here..."
             >
             </VeeField>
@@ -214,11 +214,11 @@ export default {
       </div>
     </section>
 
-    <ul class="container mx-auto">
+    <ul class="container mx-auto pt-4">
       <li
         v-for="comment in sortedComments"
         :key="comment.docID"
-        class="p-6 bg-gray-50 border border-gray-200"
+        class="p-6 bg-gray-50 border border-gray-200 dark:border-gray-500 dark:bg-stone-700 rounded dark:text-white"
       >
         <div class="mb-5">
           <div class="font-bold">{{ comment.name }}</div>

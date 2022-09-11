@@ -108,12 +108,12 @@ export default {
 
     <section class="container mx-auto">
       <div
-        class="bg-white rounded border border-gray-200 relative flex flex-col"
+        class="bg-white dark:bg-stone-700 rounded border border-gray-200 dark:border-gray-500 relative flex flex-col"
       >
         <div
-          class="flex justify-between px-6 pt-6 pb-5 font-bold border-b border-gray-200"
+          class="flex justify-between px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"
         >
-          <span class="card-title">Songs</span>
+          <span class="card-title dark:text-white">Songs</span>
 
           <i class="fas fa-headphones-simple text-sky-500 text-xl" />
         </div>

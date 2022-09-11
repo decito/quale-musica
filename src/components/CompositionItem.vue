@@ -91,7 +91,7 @@ export default {
 </script>
 
 <template>
-  <div class="border border-gray-200 p-3 mb-4 rounded">
+  <div class="border border-gray-200 dark:border-gray-500 p-3 mb-4 rounded">
     <div v-show="!showForm">
       <h4 class="inline-block text-2xl font-bold">{{ song.modifiedName }}</h4>
 
@@ -130,7 +130,7 @@ export default {
           <VeeField
             name="modifiedName"
             type="text"
-            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+            class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black rounded"
             placeholder="Enter Song Title"
             @input="updateUnsavedFlag(true)"
           />
@@ -142,31 +142,32 @@ export default {
           <VeeField
             name="genre"
             type="text"
-            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+            class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black rounded"
             placeholder="Enter Genre"
             @input="updateUnsavedFlag(true)"
           />
           <ErrorMessage class="text-red-600" name="genre" />
         </div>
 
-        <button
-          type="submit"
-          class="py-1.5 px-3 rounded text-white bg-green-600"
-          :class="{ 'opacity-50': inSubmission }"
-          :disabled="inSubmission"
-          @input="updateUnsavedFlag(false)"
-        >
-          Submit
-        </button>
-
-        <button
-          type="button"
-          class="py-1.5 px-3 rounded text-white bg-gray-600"
-          :disabled="inSubmission"
-          @click.prevent="showForm = false"
-        >
-          Go Back
-        </button>
+        <div class="flex justify-end gap-8">
+          <button
+            type="submit"
+            class="py-1.5 px-3 rounded text-white bg-green-600"
+            :class="{ 'opacity-50': inSubmission }"
+            :disabled="inSubmission"
+            @input="updateUnsavedFlag(false)"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            class="py-1.5 px-3 rounded text-white bg-gray-600"
+            :disabled="inSubmission"
+            @click.prevent="showForm = false"
+          >
+            Go Back
+          </button>
+        </div>
       </VeeForm>
     </div>
   </div>

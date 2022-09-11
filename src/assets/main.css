@@ -37,19 +37,11 @@ a:hover {
   z-index: -1;
 }
 
-#playlist li:first-child {
-  @apply pt-[25px];
-}
-
 .upload-dropbox.upload-dropbox-drag {
   color: #fff;
   background-color: #20d862;
   border-color: #20d862;
   border-style: solid;
-}
-
-input[type="file"] {
-  @apply mt-5;
 }
 
 .progress-bar {
