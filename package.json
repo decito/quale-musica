@@ -1,6 +1,6 @@
 {
   "name": "quale-musica",
-  "version": "0.9.9b",
+  "version": "0.9.91b",
   "private": true,
   "scripts": {
     "dev": "vite",

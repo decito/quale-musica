@@ -19,10 +19,10 @@
     </section>
 
     <section
-      class="container flex justify-around items-center mx-auto font-semibold flex-col md:flex-row text-center"
+      class="container flex justify-around items-center mx-auto font-semibold flex-col md:flex-row text-center dark:text-white"
     >
       <div class="px-6 pt-6 pb-5">
-        <a href="https://github.com/dnet-o/vue-music/" target="_blank">
+        <a href="https://github.com/dnet-o/quale-musica/" target="_blank">
           <i class="fab fa-github fa-7x" />
 
           <p class="text-2xl text-center mt-4">App code @ GitHub</p>

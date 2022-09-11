@@ -108,8 +108,12 @@ export default {
 </script>
 
 <template>
-  <div class="bg-white rounded border border-gray-200 relative flex flex-col">
-    <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
+  <div
+    class="dark:text-white bg-white dark:bg-stone-700 rounded border border-gray-200 dark:border-gray-500 relative flex flex-col mb-10"
+  >
+    <div
+      class="px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"
+    >
       <span class="card-title">Upload</span>
 
       <i class="fas fa-upload float-right text-green-400 text-2xl" />
@@ -127,10 +131,24 @@ export default {
         @dragleave.prevent.stop="isDragover = false"
         @drop.prevent.stop="uploadFiles($event)"
       >
-        <h5>Drop your files here</h5>
+        <h5>Drop your files here...</h5>
       </div>
 
-      <input type="file" multiple @change="uploadFiles($event)" />
+      <label
+        for="multipleFiles"
+        class="px-2.5 py-5 w-full bg-gray-200 text-gray-800 dark:text-white dark:bg-stone-700 border rounded border-gray-200 dark:border-gray-500 cursor-pointer text-center block mt-5 hover:bg-green-400 hover:border-green-400 hover:text-white transition duration-500"
+      >
+        ... or click here to select files
+      </label>
+
+      <input
+        id="multipleFiles"
+        class="hidden"
+        type="file"
+        accept="audio/mpeg"
+        multiple
+        @change="uploadFiles($event)"
+      />
 
       <hr class="my-6" />
 
