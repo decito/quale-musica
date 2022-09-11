@@ -158,7 +158,9 @@ export default {
       <div
         class="bg-white dark:text-white dark:bg-stone-700 rounded border border-gray-200 dark:border-gray-500 relative flex flex-col"
       >
-        <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
+        <div
+          class="px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"
+        >
           <span class="card-title">
             {{
               $tc("song.commentCount", song.commentCount, {
@@ -205,7 +207,7 @@ export default {
 
           <select
             v-model="sort"
-            class="block mt-4 py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+            class="block dark:bg-stone-700 mt-4 py-1.5 px-3 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black dark:focus:border-gray-700 rounded"
           >
             <option value="1">Latest</option>
             <option value="2">Oldest</option>
