@@ -17,11 +17,11 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <AppHeader />
+  <AppHeader class="fixed z-10 w-full" />
 
   <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
-      <component :is="Component"></component>
+      <component :is="Component" class="pt-20"></component>
     </transition>
   </router-view>
 

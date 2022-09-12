@@ -63,7 +63,7 @@ export default {
 </script>
 
 <template>
-  <section class="container mx-auto mt-6">
+  <section class="container mx-auto">
     <div class="md:grid md:grid-cols-3 md:gap-4">
       <div class="col-span-1">
         <Upload ref="upload" :addSong="addSong" />
