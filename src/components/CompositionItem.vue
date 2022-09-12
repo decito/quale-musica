@@ -91,23 +91,25 @@ export default {
 </script>
 
 <template>
-  <div class="border border-gray-200 dark:border-gray-500 p-3 mb-4 rounded">
-    <div v-show="!showForm">
+  <div class="border-b border-gray-200 dark:border-gray-500 p-3 mb-4">
+    <div v-show="!showForm" class="flex justify-between">
       <h4 class="inline-block text-2xl font-bold">{{ song.modifiedName }}</h4>
 
-      <button
-        class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
-        @click.prevent="deleteSong"
-      >
-        <i class="fas fa-xmark" />
-      </button>
+      <div class="flex gap-2 items-end">
+        <button
+          class="w-8 h-8 flex justify-center items-center text-sm rounded text-white bg-sky-600 hover:bg-sky-500 transition duration-500"
+          @click.prevent="showForm = !showForm"
+        >
+          <i class="fas fa-pencil" />
+        </button>
 
-      <button
-        class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right"
-        @click.prevent="showForm = !showForm"
-      >
-        <i class="fas fa-pencil" />
-      </button>
+        <button
+          class="w-8 h-8 flex justify-center items-center text-sm rounded text-white bg-red-700 hover:bg-red-600 transition duration-500"
+          @click.prevent="deleteSong"
+        >
+          <i class="fas fa-xmark" />
+        </button>
+      </div>
     </div>
 
     <div v-show="showForm">

@@ -21,4 +21,16 @@ const limitVolume = (value) => {
   return value;
 };
 
-export { formatTime, limitVolume };
+const limitText = (value) => {
+  if (!value.length) {
+    return;
+  }
+
+  if (value.length > 18) {
+    return `${value.substring(0, 18)}...`;
+  }
+
+  return value;
+};
+
+export { formatTime, limitVolume, limitText };

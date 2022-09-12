@@ -1,6 +1,7 @@
 <script>
 import { songsCollection } from "@/includes/firebase";
 import SongItem from "@/components/SongItem.vue";
+import { auth } from "@/includes/firebase";
 
 export default {
   name: "Home",
@@ -12,6 +13,7 @@ export default {
   data() {
     return {
       songs: [],
+      username: "",
       maxPerScroll: 25,
       isPendingRequest: false,
     };
@@ -20,6 +22,9 @@ export default {
   async created() {
     this.getSongs();
 
+    if (auth.currentUser) {
+      this.username = `, ${auth.currentUser.displayName}`;
+    }
     window.addEventListener("scroll", this.handleScroll);
   },
 
@@ -80,48 +85,14 @@ export default {
 
 <template>
   <main>
-    <section class="mb-8 py-20 text-white text-center relative">
-      <div
-        class="absolute inset-0 w-full h-full bg-cover introduction-bg"
-        style="background-image: url(assets/img/user-header.png)"
-      />
-
-      <div class="container mx-auto">
-        <div class="text-white main-header-content">
-          <h1 class="font-bold text-5xl mb-5">{{ $t("home.listen") }}</h1>
-
-          <p class="w-full md:w-8/12 mx-auto">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            et dolor mollis, congue augue non, venenatis elit. Nunc justo eros,
-            suscipit ac aliquet imperdiet, venenatis et sapien. Duis sed magna
-            pulvinar, fringilla lorem eget, ullamcorper urna.
-          </p>
-        </div>
-      </div>
-
-      <img
-        class="relative block mx-auto mt-5 -mb-20 w-auto max-w-full"
-        src="/assets/img/introduction-music.png"
-        alt="Vue Music Hero Image"
-      />
-    </section>
-
     <section class="container mx-auto">
-      <div
-        class="bg-white dark:bg-stone-700 rounded border border-gray-200 dark:border-gray-500 relative flex flex-col"
-      >
-        <div
-          class="flex justify-between px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"
-        >
-          <span class="card-title dark:text-white">Songs</span>
-
-          <i class="fas fa-headphones-simple text-sky-500 text-xl" />
-        </div>
-
-        <ol id="playlist">
-          <SongItem v-for="song in songs" :key="song.docID" :song="song" />
-        </ol>
+      <div class="dark:text-white mt-12">
+        <span class="pl-2 font-bold text-2xl">Hi there{{ username }}!</span>
       </div>
+
+      <ol id="playlist" class="pt-20 grid grid-cols-2 md:grid-cols-3 gap-8">
+        <SongItem v-for="song in songs" :key="song.docID" :song="song" />
+      </ol>
     </section>
   </main>
 </template>

@@ -220,7 +220,7 @@ export default {
       <li
         v-for="comment in sortedComments"
         :key="comment.docID"
-        class="p-6 bg-gray-50 border border-gray-200 dark:border-gray-500 dark:bg-stone-700 rounded dark:text-white"
+        class="p-6 mt-4 bg-gray-50 border border-gray-200 dark:border-gray-500 dark:bg-stone-700 rounded dark:text-white"
       >
         <div class="mb-5">
           <div class="font-bold">{{ comment.name }}</div>

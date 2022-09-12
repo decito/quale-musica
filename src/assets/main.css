@@ -1,5 +1,5 @@
 body::-webkit-scrollbar {
-  width: 0.4em;
+  width: 0.5em;
 }
 
 body::-webkit-scrollbar-track {
@@ -8,7 +8,6 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar-thumb {
   background-color: rgb(14 165 233);
-  border-radius: 3em;
 }
 
 a {
@@ -32,7 +31,7 @@ a:hover {
 }
 
 .introduction-bg {
-  animation: slide 50s linear infinite;
+  animation: slide 240s linear infinite;
   will-change: background-position;
   z-index: -1;
 }
@@ -60,7 +59,7 @@ a:hover {
 }
 
 .music-bg {
-  animation: slide 50s linear infinite;
+  animation: slide 240s linear infinite;
   will-change: background-position;
 }
 
