@@ -37,17 +37,16 @@ This app was developed during my learning of Vue.js, which has been an awesome j
 `✅ Done | 🟡 Paused | 🔵 Ongoing | ⚪ Future Feature`
 
 - ✅ Main routes addition
-- ✅ Authentication enabled
-- ✅ Login/Register from validations
-- ✅ Songs uploads
-- ✅ Songs comments
-- ✅ Songs managemet
-- ✅ Player bar injection and controls
-- 🟡 Translation to portuguese
+- ✅ Enable Authentication
+- ✅ Login/Register form validations
+- ✅ Song upload
+- ✅ Song comment
+- ✅ Song management
+- ✅ Control song via Player bar
 - ✅ PWA installation
-- ✅ Volume bar
-- 🔵 Tests addition
 - ✅ Language persistence
-- ✅ Dark mode capability
-- ⚪ Dark mode persistence
-- ⚪ Dark mode toggler
+- ✅ Dark/light mode toggler
+- 🟡 Translation to portuguese
+- 🟡 Tests addition
+- 🟡 ReCAPTCHA protection
+- 🔵 Final layout refactor

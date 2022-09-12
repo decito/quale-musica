@@ -20,6 +20,7 @@
     "pinia": "^2.0.17",
     "vee-validate": "^4.6.6",
     "vue": "^3.2.37",
+    "vue-country-flag-next": "^2.3.2",
     "vue-i18n": "^9.2.2",
     "vue-recaptcha": "^2.0.2",
     "vue-router": "^4.1.3"

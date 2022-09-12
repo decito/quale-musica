@@ -14,6 +14,7 @@ import GlobalComponents from "./includes/_globals";
 import progressBar from "./includes/progress-bar";
 
 import Icon from "./directives/icon";
+import CountryFlag from "vue-country-flag-next";
 
 import "./assets/tailwind.css";
 import "./assets/main.css";
@@ -34,6 +35,8 @@ auth.onAuthStateChanged(() => {
     app.use(VeeValidatePlugin);
     app.use(i18n);
     app.use(GlobalComponents);
+
+    app.component("'CountryFlag'", CountryFlag);
 
     app.directive("icon", Icon);
 
