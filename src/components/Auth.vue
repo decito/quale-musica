@@ -53,7 +53,7 @@ export default {
             <p class="text-2xl font-bold">Your Account</p>
 
             <div
-              class="modal-close cursor-pointer z-40"
+              class="modal-close cursor-pointer"
               @click="modalVisibility = false"
             >
               <i class="fas fa-times" />

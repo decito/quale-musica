@@ -133,7 +133,7 @@ export default {
   <main>
     <section class="w-full mb-8 py-14 text-center text-white relative">
       <div
-        class="absolute inset-0 w-full h-full box-border bg-cover music-bg"
+        class="absolute inset-0 w-full h-full box-border bg-cover lg:bg-contain music-bg"
         style="background-image: url(/assets/img/song-header.png)"
       />
 
@@ -146,7 +146,7 @@ export default {
           <i class="fas" :class="isCurrentPlaying ? 'fa-pause' : 'fa-play'" />
         </button>
 
-        <div class="z-20 text-left ml-8">
+        <div class="z-10 text-left ml-8">
           <div class="text-3xl font-bold">{{ song.modifiedName }}</div>
 
           <div>{{ song.genre }}</div>
