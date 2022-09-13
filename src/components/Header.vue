@@ -68,7 +68,7 @@ export default {
 </script>
 
 <template>
-  <header id="header" class="bg-stone-900">
+  <header id="header" class="bg-stone-900 z-20">
     <nav class="container mx-auto flex justify-start items-center py-6 px-2">
       <router-link
         class="text-white font-bold uppercase text-2xl mr-4"
