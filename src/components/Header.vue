@@ -111,7 +111,7 @@ export default {
           </template>
         </ul>
 
-        <section class="flex gap-8">
+        <section class="flex gap-8 mt-1">
           <i
             class="fas text-white cursor-pointer"
             :class="[themeMode === 'light' ? 'fa-sun' : 'fa-moon']"
