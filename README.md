@@ -6,7 +6,7 @@
 
 ## 📷 Screenshot
 
-![image](https://user-images.githubusercontent.com/61292095/187120266-737d82c9-65f5-4aeb-9954-6acf5125b77e.png)
+![quale-musica](https://user-images.githubusercontent.com/61292095/191264273-17257531-d4a6-4e3a-9015-45ee7cbd3df9.png)
 
 ## 📋 About App
 
