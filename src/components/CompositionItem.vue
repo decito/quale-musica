@@ -1,8 +1,13 @@
 <script>
 import { songsCollection, storage } from "@/includes/firebase";
+import UploadCover from "./UploadCover.vue";
 
 export default {
   name: "CompositionItem",
+
+  components: {
+    UploadCover,
+  },
 
   props: {
     song: {
@@ -107,7 +112,7 @@ export default {
           class="w-8 h-8 flex justify-center items-center text-sm rounded text-white bg-red-700 hover:bg-red-600 transition duration-500"
           @click.prevent="deleteSong"
         >
-          <i class="fas fa-xmark" />
+          <i class="fas fa-trash-can" />
         </button>
       </div>
     </div>
@@ -126,32 +131,39 @@ export default {
         :initial-values="song"
         @submit="editSong"
       >
-        <div class="mb-3">
-          <label class="inline-block mb-2">Song Title</label>
+        <main class="flex justify-between">
+          <section class="flex flex-col gap-3 min-w-[48%]">
+            <div>
+              <label class="inline-block mb-2">Title</label>
+              <VeeField
+                name="modifiedName"
+                type="text"
+                class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black rounded"
+                placeholder="Enter Title"
+                @input="updateUnsavedFlag(true)"
+              />
+              <ErrorMessage class="text-red-600" name="modifiedName" />
+            </div>
 
-          <VeeField
-            name="modifiedName"
-            type="text"
-            class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black rounded"
-            placeholder="Enter Song Title"
-            @input="updateUnsavedFlag(true)"
-          />
-          <ErrorMessage class="text-red-600" name="modifiedName" />
-        </div>
+            <div>
+              <label class="inline-block mb-2">Genre</label>
+              <VeeField
+                name="genre"
+                type="text"
+                class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black rounded"
+                placeholder="Enter Genre"
+                @input="updateUnsavedFlag(true)"
+              />
+              <ErrorMessage class="text-red-600" name="genre" />
+            </div>
+          </section>
 
-        <div class="mb-3">
-          <label class="inline-block mb-2">Genre</label>
-          <VeeField
-            name="genre"
-            type="text"
-            class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black rounded"
-            placeholder="Enter Genre"
-            @input="updateUnsavedFlag(true)"
-          />
-          <ErrorMessage class="text-red-600" name="genre" />
-        </div>
+          <section class="flex flex-col gap-4 min-w-[48%]">
+            <UploadCover :song="song" />
+          </section>
+        </main>
 
-        <div class="flex justify-end gap-8">
+        <footer class="flex justify-end gap-8 mt-3">
           <button
             type="submit"
             class="py-1.5 px-3 rounded text-white bg-green-600"
@@ -161,6 +173,7 @@ export default {
           >
             Submit
           </button>
+
           <button
             type="button"
             class="py-1.5 px-3 rounded text-white bg-gray-600"
@@ -169,7 +182,7 @@ export default {
           >
             Go Back
           </button>
-        </div>
+        </footer>
       </VeeForm>
     </div>
   </div>

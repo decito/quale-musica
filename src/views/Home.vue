@@ -90,7 +90,10 @@ export default {
         <span class="pl-2 font-bold text-2xl">Hi there{{ username }}!</span>
       </div>
 
-      <ol id="playlist" class="pt-20 grid grid-cols-2 md:grid-cols-3 gap-8">
+      <ol
+        id="playlist"
+        class="pt-20 grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-8"
+      >
         <SongItem v-for="song in songs" :key="song.docID" :song="song" />
       </ol>
     </section>

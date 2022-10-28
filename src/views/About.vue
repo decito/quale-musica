@@ -19,7 +19,7 @@
     </section>
 
     <section
-      class="container grid justify-items-center mx-auto font-semibold md:grid-cols-3 text-center gap-3 dark:text-white max-w-5xl mt-6"
+      class="container grid justify-items-center mx-auto font-semibold md:grid-cols-3 text-center gap-3 dark:text-white max-w-5xl mt-6 md:px-8"
     >
       <a
         href="https://github.com/dnet-o/quale-musica/"
