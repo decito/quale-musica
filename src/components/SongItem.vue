@@ -27,6 +27,7 @@ export default {
   async mounted() {
     if (!this.song.coverId) {
       this.coverSrc = "/assets/img/frame-dark.png";
+      return;
     }
 
     const snapshots = await coversCollection.doc(this.song.coverId).get();
