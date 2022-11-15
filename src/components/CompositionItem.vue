@@ -131,7 +131,7 @@ export default {
         :initial-values="song"
         @submit="editSong"
       >
-        <main class="flex justify-between">
+        <main class="flex justify-between gap-4">
           <section class="flex flex-col gap-3 min-w-[48%]">
             <div>
               <label class="inline-block mb-2">Title</label>

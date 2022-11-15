@@ -6,6 +6,8 @@ import {
   songsCollection,
 } from "@/includes/firebase";
 
+import { sleep } from "@/includes/sleep";
+
 export default {
   name: "UploadSong",
 
@@ -20,17 +22,25 @@ export default {
     return {
       isDragover: false,
       message: "Drop the image here...",
-      cover: {},
+      cover: {
+        textClass: "text-gray-400",
+      },
       hasCover: this.song.coverId || false,
       continueUpload: true,
+      typeError: false,
     };
   },
 
   methods: {
-    beforeUpload(file) {
-      if (file.type !== "image/png") {
-        console.error("Image must be a .png file.");
+    async beforeUpload(file) {
+      if (file.type !== "image/jpeg") {
         this.continueUpload = false;
+        console.error("Image must be a .jpg or .jpeg file.");
+        this.typeError = true;
+
+        await sleep(3000);
+
+        this.typeError = !this.typeError;
         return;
       }
 
@@ -41,12 +51,17 @@ export default {
         const img = new Image();
         img.src = reader.result;
 
-        img.onload = () => {
+        img.onload = async () => {
           if (img.naturalWidth !== 500 || img.naturalHeight !== 500) {
+            this.continueUpload = false;
             console.error(
               "Image must have the following dimensions: 500x500px."
             );
-            this.continueUpload = false;
+            this.typeError = true;
+
+            await sleep(3000);
+
+            this.typeError = !this.typeError;
           }
         };
       };
@@ -63,19 +78,15 @@ export default {
 
       await this.beforeUpload(file);
 
-      if (!this.continueUpload) {
+      if (!this.continueUpload || this.cover.uploadingState) {
         return;
       }
 
       if (!navigator.onLine) {
         this.cover.task = {};
         this.cover.currentProgress = 100;
-        this.cover.name = file.name;
-        this.cover.variant = "bg-red-400";
-        this.cover.textClass = "text-white";
-        this.message = "You are offline. Try dropping the cover again.";
 
-        setTimeout(() => this.errorController(), 3000);
+        this.errorController(true);
 
         return;
       }
@@ -96,7 +107,7 @@ export default {
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           this.cover.currentProgress = progress;
         },
-        () => this.errorController(),
+        () => this.errorController(false),
         async () => {
           const cover = {
             uid: auth.currentUser.uid,
@@ -110,25 +121,32 @@ export default {
             .doc(this.song.docID)
             .update({ coverId: coverCollectionRef.id })
             .then(() => this.successController(cover))
-            .catch(() => this.errorController());
+            .catch(() => this.errorController(false));
         }
       );
     },
 
-    errorController() {
+    async errorController(offline) {
       this.cover.variant = "bg-red-400";
-      this.cover.textClass = "!text-white";
-      this.message = "Something went wrong. Please try again";
+      this.cover.textClass = "text-white";
 
+      offline
+        ? (this.message = "You are offline. Please check your connection.")
+        : (this.message = "Something went wrong. Please try again");
+
+      await sleep(3000);
+
+      this.cover.variant = "bg-transparent";
+      this.cover.textClass = "text-gray-400";
       this.cover.uploadingState = false;
     },
 
-    successController(cover) {
+    async successController(cover) {
       this.cover.variant = "bg-green-400";
       this.cover.textClass = "text-white";
       this.message = "All set! Just a little longer...";
 
-      setTimeout(3000);
+      await sleep(3000);
 
       this.hasCover = true;
       this.cover = {
@@ -136,7 +154,12 @@ export default {
         src: cover.fileUrl,
       };
       this.cover.variant = "bg-transparent";
+      this.cover.textClass = "text-gray-400";
       this.cover.uploadingState = false;
+    },
+
+    deleteCover() {
+      console.error("Function not implemented yet.");
     },
   },
 
@@ -157,26 +180,32 @@ export default {
 
 <template>
   <div class="flex flex-col gap-2">
-    <label class="inline-block">
-      Cover
-      <small v-if="!hasCover" class="text-gray-400"> (optional)</small>
-    </label>
+    <header class="flex justify-between">
+      <label class="inline-block">
+        Cover
+        <small v-if="!hasCover" class="text-gray-400"> (optional)</small>
+      </label>
+
+      <button
+        v-if="hasCover"
+        class="text-red-400 border border-red-400 rounded py-0.5 px-1.5 hidden"
+        @click.prevent="deleteCover"
+      >
+        Delete cover
+      </button>
+    </header>
 
     <div v-if="hasCover" class="flex justify-center">
-      <img :src="cover.src" :alt="cover.alt" />
+      <img :src="cover.src" :alt="cover.alt" class="max-h-72" />
     </div>
 
     <div
       v-else
-      class="w-full relative px-10 py-16 rounded text-center border border-dashed border-gray-400 transition-all duration-500"
+      class="w-full relative px-5 py-7 md:px-10 md:py-16 rounded text-center border border-dashed border-gray-400 transition-all duration-500"
       :class="[
         cover.textClass,
         cover.variant,
-        {
-          'bg-green-400 border-green-400 border-solid !text-white': isDragover,
-          '': cover.name,
-          'text-gray-400': !cover.name,
-        },
+        isDragover && 'bg-green-400 border-green-400 border-solid !text-white',
       ]"
       @drag.prevent.stop=""
       @dragstart.prevent.stop=""
@@ -195,7 +224,9 @@ export default {
         :style="{ width: `${cover.currentProgress}%` }"
       />
 
-      <small>must be a .png file, 500x500px</small>
+      <small :class="typeError && 'text-red-400'">
+        must be a .jpg or .jpeg file, 500x500px
+      </small>
     </div>
   </div>
 </template>
