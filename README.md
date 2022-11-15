@@ -1,12 +1,10 @@
 # 🎧 Qualé | Music App
 
-## Link to app
-
-[Qualé Músicas](https://quale-musica.vercel.app/)
+## [Live version here!](https://quale-musica.vercel.app/)
 
 ## 📷 Screenshot
 
-![quale-musica](https://user-images.githubusercontent.com/61292095/191264273-17257531-d4a6-4e3a-9015-45ee7cbd3df9.png)
+![quale-musica](https://user-images.githubusercontent.com/61292095/201985864-3205440c-ee62-4ebb-a2f9-9863ddb02670.png)
 
 ## 📋 About App
 
