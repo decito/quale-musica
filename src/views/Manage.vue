@@ -1,12 +1,12 @@
 <script>
-import Upload from "@/components/Upload.vue";
+import UploadSong from "@/components/UploadSong.vue";
 import CompositionItem from "@/components/CompositionItem.vue";
 import { auth, songsCollection } from "@/includes/firebase";
 
 export default {
   name: "Manage",
   components: {
-    Upload,
+    UploadSong,
     CompositionItem,
   },
 
@@ -64,9 +64,9 @@ export default {
 
 <template>
   <section class="container mx-auto">
-    <div class="md:grid md:grid-cols-3 md:gap-4">
+    <div class="md:grid md:grid-cols-3 md:gap-4 mt-12">
       <div class="col-span-1">
-        <Upload ref="upload" :addSong="addSong" />
+        <UploadSong ref="upload" :addSong="addSong" />
       </div>
 
       <div class="col-span-2">

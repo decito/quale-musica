@@ -24,6 +24,7 @@ db.enablePersistence().catch((error) =>
 auth.useDeviceLanguage();
 
 const commentsCollection = db.collection("comments");
+const coversCollection = db.collection("covers");
 const usersCollection = db.collection("users");
 const songsCollection = db.collection("songs");
 
@@ -32,6 +33,7 @@ export {
   db,
   storage,
   commentsCollection,
+  coversCollection,
   songsCollection,
   usersCollection,
 };

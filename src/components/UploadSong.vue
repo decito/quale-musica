@@ -2,7 +2,7 @@
 import { auth, storage, songsCollection } from "@/includes/firebase";
 
 export default {
-  name: "Upload",
+  name: "UploadSong",
 
   props: {
     addSong: {
@@ -19,7 +19,7 @@ export default {
   },
 
   methods: {
-    uploadFiles($event) {
+    uploadSongs($event) {
       this.isDragover = false;
 
       const files = $event.dataTransfer
@@ -45,6 +45,7 @@ export default {
 
         const storageRef = storage.ref();
         const songRef = storageRef.child(`songs/${file.name}`);
+
         const task = songRef.put(file);
 
         const uploadIndex =
@@ -79,12 +80,13 @@ export default {
               modifiedName: task.snapshot.ref.name,
               genre: "",
               commentCount: 0,
+              coverID: "",
             };
-
             song.fileUrl = await task.snapshot.ref.getDownloadURL();
-            const songCollectionRef = await songsCollection.add(song);
-            const songSnapshot = await songCollectionRef.get();
 
+            const songCollectionRef = await songsCollection.add(song);
+
+            const songSnapshot = await songCollectionRef.get();
             this.addSong(songSnapshot);
 
             this.uploads[uploadIndex].variant = "bg-green-400";
@@ -121,22 +123,24 @@ export default {
 
     <div class="p-6">
       <div
-        class="w-full px-10 py-20 rounded text-center cursor-pointer border border-dashed border-gray-400 text-gray-400 transition duration-500 hover:text-white hover:bg-green-400 hover:border-green-400 hover:border-solid"
-        :class="{ 'bg-green-400 border-green-400 border-solid': isDragover }"
+        class="w-full px-10 py-20 rounded text-center border border-dashed border-gray-400 text-gray-400 transition duration-500"
+        :class="{
+          'bg-green-400 border-green-400 border-solid !text-white': isDragover,
+        }"
         @drag.prevent.stop=""
         @dragstart.prevent.stop=""
         @dragend.prevent.stop="isDragover = false"
         @dragover.prevent.stop="isDragover = true"
         @dragenter.prevent.stop="isDragover = true"
         @dragleave.prevent.stop="isDragover = false"
-        @drop.prevent.stop="uploadFiles($event)"
+        @drop.prevent.stop="uploadSongs($event)"
       >
         <h5>Drop your files here...</h5>
       </div>
 
       <label
         for="multipleFiles"
-        class="px-2.5 py-5 w-full bg-gray-200 text-gray-800 dark:text-white dark:bg-stone-700 border rounded border-gray-200 dark:border-gray-500 cursor-pointer text-center block mt-5 hover:bg-green-400 hover:border-green-400 hover:text-white transition duration-500"
+        class="px-2.5 py-5 w-full bg-gray-200 text-gray-800 dark:text-white dark:bg-stone-700 border rounded border-gray-200 dark:border-gray-500 cursor-pointer text-center block mt-5 hover:bg-green-400 hover:border-green-400 dark:hover:text-white dark:hover:bg-green-400 dark:hover:border-green-400 hover:text-white transition duration-500"
       >
         ... or click here to select files
       </label>
@@ -147,15 +151,16 @@ export default {
         type="file"
         accept="audio/mpeg"
         multiple
-        @change="uploadFiles($event)"
+        @change="uploadSongs($event)"
       />
 
-      <hr class="my-6" />
+      <hr class="my-6 dark:border-gray-500" />
 
       <div v-for="upload in uploads" :key="upload.name" class="mb-4">
         <div class="font-bold text-sm" :class="upload.textClass">
           <i :class="upload.icon" /> {{ upload.name }}
         </div>
+
         <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
           <div
             class="transition-all"

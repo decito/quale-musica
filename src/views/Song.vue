@@ -73,8 +73,6 @@ export default {
         uid: auth.currentUser.uid,
       };
 
-      console.log(comment);
-
       await commentsCollection.add(comment);
 
       this.song.commentCount += 1;
