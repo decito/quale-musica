@@ -1,5 +1,5 @@
 <script>
-import { auth, storage, songsCollection } from "@/includes/firebase";
+import { auth, storage, songsCollection } from "@/includes/firebase"
 
 export default {
   name: "UploadSong",
@@ -7,28 +7,28 @@ export default {
   props: {
     addSong: {
       type: Function,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
     return {
       isDragover: false,
-      uploads: [],
-    };
+      uploads: []
+    }
   },
 
   methods: {
     uploadSongs($event) {
-      this.isDragover = false;
+      this.isDragover = false
 
       const files = $event.dataTransfer
         ? [...$event.dataTransfer.files]
-        : [...$event.target.files];
+        : [...$event.target.files]
 
       files.forEach((file) => {
         if (file.type !== "audio/mpeg") {
-          return;
+          return
         }
 
         if (!navigator.onLine) {
@@ -38,15 +38,15 @@ export default {
             name: file.name,
             variant: "bg-red-400",
             icon: "fas fa-xmark",
-            textClass: "text-red-400",
-          });
-          return;
+            textClass: "text-red-400"
+          })
+          return
         }
 
-        const storageRef = storage.ref();
-        const songRef = storageRef.child(`songs/${file.name}`);
+        const storageRef = storage.ref()
+        const songRef = storageRef.child(`songs/${file.name}`)
 
-        const task = songRef.put(file);
+        const task = songRef.put(file)
 
         const uploadIndex =
           this.uploads.push({
@@ -56,21 +56,21 @@ export default {
             variant: "bg-blue-400",
             icon: "fas fa-spinner fa-spin",
             textClass: "",
-            uploadingState: true,
-          }) - 1;
+            uploadingState: true
+          }) - 1
 
         task.on(
           "state_changed",
           (snapshot) => {
             const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            this.uploads[uploadIndex].currentProgress = progress;
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            this.uploads[uploadIndex].currentProgress = progress
           },
           () => {
-            this.uploads[uploadIndex].variant = "bg-red-400";
-            this.uploads[uploadIndex].icon = "fas fa-xmark";
-            this.uploads[uploadIndex].textClass = "text-red-400";
-            this.uploads[uploadIndex].uploadingState = false;
+            this.uploads[uploadIndex].variant = "bg-red-400"
+            this.uploads[uploadIndex].icon = "fas fa-xmark"
+            this.uploads[uploadIndex].textClass = "text-red-400"
+            this.uploads[uploadIndex].uploadingState = false
           },
           async () => {
             const song = {
@@ -80,33 +80,33 @@ export default {
               modifiedName: task.snapshot.ref.name,
               genre: "",
               commentCount: 0,
-              coverID: "",
-            };
-            song.fileUrl = await task.snapshot.ref.getDownloadURL();
+              coverID: ""
+            }
+            song.fileUrl = await task.snapshot.ref.getDownloadURL()
 
-            const songCollectionRef = await songsCollection.add(song);
+            const songCollectionRef = await songsCollection.add(song)
 
-            const songSnapshot = await songCollectionRef.get();
-            this.addSong(songSnapshot);
+            const songSnapshot = await songCollectionRef.get()
+            this.addSong(songSnapshot)
 
-            this.uploads[uploadIndex].variant = "bg-green-400";
-            this.uploads[uploadIndex].icon = "fas fa-check";
-            this.uploads[uploadIndex].textClass = "text-green-400";
-            this.uploads[uploadIndex].uploadingState = false;
+            this.uploads[uploadIndex].variant = "bg-green-400"
+            this.uploads[uploadIndex].icon = "fas fa-check"
+            this.uploads[uploadIndex].textClass = "text-green-400"
+            this.uploads[uploadIndex].uploadingState = false
           }
-        );
-      });
+        )
+      })
     },
 
     cancelUploads() {
-      this.uploads.forEach((upload) => upload.task.cancel());
-    },
+      this.uploads.forEach((upload) => upload.task.cancel())
+    }
   },
 
   beforeUnmount() {
-    this.uploads.forEach((upload) => upload.task.cancel());
-  },
-};
+    this.uploads.forEach((upload) => upload.task.cancel())
+  }
+}
 </script>
 
 <template>
@@ -125,7 +125,7 @@ export default {
       <div
         class="w-full px-10 py-20 rounded text-center border border-dashed border-gray-400 text-gray-400 transition duration-500"
         :class="{
-          'bg-green-400 border-green-400 border-solid !text-white': isDragover,
+          'bg-green-400 border-green-400 border-solid !text-white': isDragover
         }"
         @drag.prevent.stop=""
         @dragstart.prevent.stop=""

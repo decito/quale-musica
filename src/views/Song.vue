@@ -1,8 +1,8 @@
 <script>
-import { auth, commentsCollection, songsCollection } from "@/includes/firebase";
-import { mapActions, mapState } from "pinia";
-import useUserStore from "@/stores/user";
-import usePlayerStore from "@/stores/player";
+import { auth, commentsCollection, songsCollection } from "@/includes/firebase"
+import { mapActions, mapState } from "pinia"
+import useUserStore from "@/stores/user"
+import usePlayerStore from "@/stores/player"
 
 export default {
   name: "Song",
@@ -16,8 +16,8 @@ export default {
       commentAlertVariant: "bg-blue-500",
       commentAlertMessage: "Please wait. Your comment is being submitted.",
       comments: [],
-      sort: "1",
-    };
+      sort: "1"
+    }
   },
 
   computed: {
@@ -26,18 +26,18 @@ export default {
     ...mapState(usePlayerStore, [
       "currentSong",
       "isCurrentPlaying",
-      "toggleAudio",
+      "toggleAudio"
     ]),
 
     sortedComments() {
       return this.comments.slice().sort((a, b) => {
         if (this.sort === "1") {
-          return new Date(b.createdAt) - new Date(a.createdAt);
+          return new Date(b.createdAt) - new Date(a.createdAt)
         }
 
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      });
-    },
+        return new Date(a.createdAt) - new Date(b.createdAt)
+      })
+    }
   },
 
   methods: {
@@ -46,85 +46,85 @@ export default {
     async getComments() {
       const snapshots = await commentsCollection
         .where("songId", "==", this.$route.params.id)
-        .get();
+        .get()
 
-      this.comments = [];
+      this.comments = []
 
       snapshots.forEach((doc) => {
         this.comments.push({
           docID: doc.id,
-          ...doc.data(),
-        });
-      });
+          ...doc.data()
+        })
+      })
     },
 
     async addComment(values, { resetForm }) {
-      this.commentInSubmmition = true;
-      this.commentShowAlert = true;
-      this.commentAlertVariant = "bg-blue-500";
+      this.commentInSubmmition = true
+      this.commentShowAlert = true
+      this.commentAlertVariant = "bg-blue-500"
       this.commentAlertMessage =
-        "Please wait. Your comment is being submitted...";
+        "Please wait. Your comment is being submitted..."
 
       const comment = {
         content: values.comment,
         createdAt: new Date().toString(),
         songId: this.$route.params.id,
         name: auth.currentUser.displayName,
-        uid: auth.currentUser.uid,
-      };
+        uid: auth.currentUser.uid
+      }
 
-      await commentsCollection.add(comment);
+      await commentsCollection.add(comment)
 
-      this.song.commentCount += 1;
+      this.song.commentCount += 1
 
       await songsCollection.doc(this.$route.params.id).update({
-        commentCount: this.song.commentCount,
-      });
+        commentCount: this.song.commentCount
+      })
 
-      this.commentInSubmmition = false;
-      this.commentAlertVariant = "bg-green-500";
-      this.commentAlertMessage = "Comment added!";
+      this.commentInSubmmition = false
+      this.commentAlertVariant = "bg-green-500"
+      this.commentAlertMessage = "Comment added!"
 
-      this.getComments();
+      this.getComments()
 
-      resetForm();
+      resetForm()
     },
 
     songAction(song) {
       this.isCurrentPlaying || this.currentSong.songID === this.$route.params.id
         ? this.toggleAudio()
-        : this.newSong(song);
-    },
+        : this.newSong(song)
+    }
   },
 
   async beforeRouteEnter(to, from, next) {
-    const snapshot = await songsCollection.doc(to.params.id).get();
+    const snapshot = await songsCollection.doc(to.params.id).get()
 
     next((vm) => {
       if (!snapshot.exists) {
-        vm.$router.push({ name: "home" });
-        return;
+        vm.$router.push({ name: "home" })
+        return
       }
 
-      const { sort } = vm.$route.query;
-      vm.sort = sort === "1" || sort === "2" ? sort : "1";
+      const { sort } = vm.$route.query
+      vm.sort = sort === "1" || sort === "2" ? sort : "1"
 
-      vm.song = snapshot.data();
-      vm.song.songID = vm.$route.params.id;
-      vm.getComments();
-    });
+      vm.song = snapshot.data()
+      vm.song.songID = vm.$route.params.id
+      vm.getComments()
+    })
   },
 
   watch: {
     sort(newVal) {
       if (newVal === this.$route.query.sort) {
-        return;
+        return
       }
 
-      this.$router.push({ query: { sort: newVal } });
-    },
-  },
-};
+      this.$router.push({ query: { sort: newVal } })
+    }
+  }
+}
 </script>
 
 <template>
@@ -162,7 +162,7 @@ export default {
           <span class="card-title">
             {{
               $tc("song.commentCount", song.commentCount, {
-                count: song.commentCount,
+                count: song.commentCount
               })
             }}
           </span>

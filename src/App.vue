@@ -1,19 +1,19 @@
 <script setup>
-import { onBeforeMount } from "vue";
-import useUserStore from "@/stores/user";
-import { auth } from "./includes/firebase";
+import { onBeforeMount } from "vue"
+import useUserStore from "@/stores/user"
+import { auth } from "./includes/firebase"
 
-import AppHeader from "@/components/Header.vue";
-import AuthModal from "@/components/Auth.vue";
-import Player from "@/components/Player.vue";
+import AppHeader from "@/components/Header.vue"
+import AuthModal from "@/components/Auth.vue"
+import Player from "@/components/Player.vue"
 
-const userStore = useUserStore();
+const userStore = useUserStore()
 
 onBeforeMount(() => {
   if (auth.currentUser) {
-    userStore.userLoggedIn = true;
+    userStore.userLoggedIn = true
   }
-});
+})
 </script>
 
 <template>

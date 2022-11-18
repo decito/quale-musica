@@ -1,70 +1,70 @@
 <script>
-import { mapStores } from "pinia";
-import useModalStore from "@/stores/modal";
-import useUserStore from "@/stores/user";
+import { mapStores } from "pinia"
+import useModalStore from "@/stores/modal"
+import useUserStore from "@/stores/user"
 
-import CountryFlag from "vue-country-flag-next";
+import CountryFlag from "vue-country-flag-next"
 
 export default {
   name: "AppHeader",
 
   components: {
-    CountryFlag,
+    CountryFlag
   },
 
   data() {
     return {
       showLocale: false,
-      themeMode: "dark",
-    };
+      themeMode: "dark"
+    }
   },
 
   computed: {
     ...mapStores(useModalStore, useUserStore),
 
     currentLocale() {
-      return this.$i18n.locale === "pt" ? "English" : "Português";
-    },
+      return this.$i18n.locale === "pt" ? "English" : "Português"
+    }
   },
 
   methods: {
     toggleAuthModal() {
-      this.modalStore.isOpen = !this.modalStore.isOpen;
+      this.modalStore.isOpen = !this.modalStore.isOpen
     },
 
     logout() {
-      this.userStore.logout();
+      this.userStore.logout()
 
       if (this.$route.meta.requiresAuth) {
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "home" })
       }
     },
 
     changeLocale(event) {
-      this.$i18n.locale = event.target.getAttribute("lang");
+      this.$i18n.locale = event.target.getAttribute("lang")
 
-      localStorage.setItem("locale", this.$i18n.locale);
+      localStorage.setItem("locale", this.$i18n.locale)
     },
 
     toggleShowLocale() {
-      this.showLocale = !this.showLocale;
+      this.showLocale = !this.showLocale
     },
 
     toggleTheme() {
-      const page = document.getElementById("teste");
+      const page = document.getElementById("teste")
 
       if (this.themeMode === "dark") {
-        page.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-        this.themeMode = "light";
+        page.classList.remove("dark")
+        localStorage.setItem("theme", "light")
+        this.themeMode = "light"
       } else {
-        page.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-        this.themeMode = "dark";
+        page.classList.add("dark")
+        localStorage.setItem("theme", "dark")
+        this.themeMode = "dark"
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <template>

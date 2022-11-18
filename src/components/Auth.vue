@@ -1,29 +1,29 @@
 <script>
-import { mapState, mapWritableState } from "pinia";
-import useModalStore from "@/stores/modal";
-import LoginForm from "@/components/LoginForm.vue";
-import RegisterForm from "@/components/RegisterForm.vue";
+import { mapState, mapWritableState } from "pinia"
+import useModalStore from "@/stores/modal"
+import LoginForm from "@/components/LoginForm.vue"
+import RegisterForm from "@/components/RegisterForm.vue"
 
 export default {
   name: "Auth",
   components: {
     LoginForm,
-    RegisterForm,
+    RegisterForm
   },
   data() {
     return {
-      tab: "login",
-    };
+      tab: "login"
+    }
   },
 
   computed: {
     ...mapState(useModalStore, ["hiddenClass"]),
 
     ...mapWritableState(useModalStore, {
-      modalVisibility: "isOpen",
-    }),
-  },
-};
+      modalVisibility: "isOpen"
+    })
+  }
+}
 </script>
 
 <template>
@@ -67,7 +67,7 @@ export default {
                 href="#"
                 :class="{
                   'hover:text-white text-white bg-blue-600': tab === 'login',
-                  'hover:text-blue-600': tab === 'register',
+                  'hover:text-blue-600': tab === 'register'
                 }"
                 @click.prevent="tab = 'login'"
               >
@@ -81,7 +81,7 @@ export default {
                 href="#"
                 :class="{
                   'hover:text-white text-white bg-blue-600': tab === 'register',
-                  'hover:text-blue-600': tab === 'login',
+                  'hover:text-blue-600': tab === 'login'
                 }"
                 @click.prevent="tab = 'register'"
               >

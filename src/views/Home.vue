@@ -1,13 +1,13 @@
 <script>
-import { songsCollection } from "@/includes/firebase";
-import SongItem from "@/components/SongItem.vue";
-import { auth } from "@/includes/firebase";
+import { songsCollection } from "@/includes/firebase"
+import SongItem from "@/components/SongItem.vue"
+import { auth } from "@/includes/firebase"
 
 export default {
   name: "Home",
 
   components: {
-    SongItem,
+    SongItem
   },
 
   data() {
@@ -15,72 +15,72 @@ export default {
       songs: [],
       username: "",
       maxPerScroll: 25,
-      isPendingRequest: false,
-    };
+      isPendingRequest: false
+    }
   },
 
   async created() {
-    this.getSongs();
+    this.getSongs()
 
     if (auth.currentUser) {
-      this.username = `, ${auth.currentUser.displayName}`;
+      this.username = `, ${auth.currentUser.displayName}`
     }
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll)
   },
 
   beforeUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll)
   },
 
   methods: {
     handleScroll() {
-      const { scrollTop, offsetHeight } = document.documentElement;
-      const { innerHeight } = window;
+      const { scrollTop, offsetHeight } = document.documentElement
+      const { innerHeight } = window
       const bottomOfWindow =
-        Math.round(scrollTop) + innerHeight === offsetHeight;
+        Math.round(scrollTop) + innerHeight === offsetHeight
 
       if (bottomOfWindow) {
-        this.getSongs();
+        this.getSongs()
       }
     },
 
     async getSongs() {
       if (this.isPendingRequest) {
-        return;
+        return
       }
 
-      this.isPendingRequest = true;
+      this.isPendingRequest = true
 
-      let snapshots;
+      let snapshots
 
       if (this.songs.length) {
         const lastDoc = await songsCollection
           .doc(this.songs[this.songs.length - 1].docID)
-          .get();
+          .get()
 
         snapshots = await songsCollection
           .orderBy("modifiedName")
           .startAfter(lastDoc)
           .limit(this.maxPerScroll)
-          .get();
+          .get()
       } else {
         snapshots = await songsCollection
           .orderBy("modifiedName")
           .limit(this.maxPerScroll)
-          .get();
+          .get()
       }
 
       snapshots.forEach((document) => {
         this.songs.push({
           docID: document.id,
-          ...document.data(),
-        });
-      });
+          ...document.data()
+        })
+      })
 
-      this.isPendingRequest = false;
-    },
-  },
-};
+      this.isPendingRequest = false
+    }
+  }
+}
 </script>
 
 <template>

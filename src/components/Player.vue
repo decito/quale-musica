@@ -1,7 +1,7 @@
 <script>
-import { mapActions, mapState } from "pinia";
-import usePlayerStore from "@/stores/player";
-import { useMediaQuery } from "@vueuse/core";
+import { mapActions, mapState } from "pinia"
+import usePlayerStore from "@/stores/player"
+import { useMediaQuery } from "@vueuse/core"
 
 export default {
   name: "Player",
@@ -9,8 +9,8 @@ export default {
   data() {
     return {
       isDesktop: useMediaQuery("(min-width: 1024px)"),
-      showVolumeBar: false,
-    };
+      showVolumeBar: false
+    }
   },
 
   methods: {
@@ -18,8 +18,8 @@ export default {
       "toggleAudio",
       "updateSeek",
       "updateVolume",
-      "updateVerticalVolume",
-    ]),
+      "updateVerticalVolume"
+    ])
   },
 
   computed: {
@@ -29,10 +29,10 @@ export default {
       "duration",
       "playerProgress",
       "currentSong",
-      "volumeLevel",
-    ]),
-  },
-};
+      "volumeLevel"
+    ])
+  }
+}
 </script>
 
 <template>
@@ -53,7 +53,7 @@ export default {
           class="fas text-gray-500 dark:text-white text-xl"
           :class="{
             'fa-play': !isPlaying,
-            'fa-pause': isPlaying,
+            'fa-pause': isPlaying
           }"
         />
       </button>
