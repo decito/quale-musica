@@ -1,19 +1,19 @@
 export default {
   beforeMount(element, binding) {
-    let iconClass = `fas fa-${binding.value.icon} text-xl`;
+    let iconClass = `fas fa-${binding.value.icon} text-xl`
 
     if (binding.arg === "full") {
-      iconClass = binding.value;
+      iconClass = binding.value
     }
 
     if (binding.value.right) {
-      iconClass += " float-right";
+      iconClass += " float-right"
     }
 
     if (binding.value.color) {
-      iconClass += ` text-${binding.value.color}`;
+      iconClass += ` text-${binding.value.color}`
     }
 
-    element.innerHTML += `<i class='${iconClass}' />`;
-  },
-};
+    element.innerHTML += `<i class='${iconClass}' />`
+  }
+}

@@ -1,5 +1,5 @@
-import { RouterLinkStub, shallowMount } from "@vue/test-utils";
-import SongItem from "@/components/SongItem.vue";
+import { RouterLinkStub, shallowMount } from "@vue/test-utils"
+import SongItem from "@/components/SongItem.vue"
 
 describe("Snapshot of SongItem.vue", () => {
   it("should render correctly", () => {
@@ -7,18 +7,18 @@ describe("Snapshot of SongItem.vue", () => {
       docID: "123foobartaz321",
       modifiedName: "Modified Name",
       displayName: "Display Name",
-      commentCount: 13,
-    };
+      commentCount: 13
+    }
 
     const wrapper = shallowMount(SongItem, {
       propsData: { song },
       global: {
         components: {
-          "router-link": RouterLinkStub,
-        },
-      },
-    });
+          "router-link": RouterLinkStub
+        }
+      }
+    })
 
-    expect(wrapper.element).toMatchSnapshot();
-  });
-});
+    expect(wrapper.element).toMatchSnapshot()
+  })
+})

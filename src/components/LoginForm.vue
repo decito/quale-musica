@@ -1,14 +1,14 @@
 <script>
-import { mapActions } from "pinia";
-import useUserStore from "@/stores/user";
+import { mapActions } from "pinia"
+import useUserStore from "@/stores/user"
 
-import { VueRecaptcha } from "vue-recaptcha";
+import { VueRecaptcha } from "vue-recaptcha"
 
 export default {
   name: "LoginForm",
 
   components: {
-    VueRecaptcha,
+    VueRecaptcha
   },
 
   data() {
@@ -16,59 +16,59 @@ export default {
       loginSchema: {
         email: {
           required: true,
-          email: true,
+          email: true
         },
         password: {
           required: true,
           min: 3,
-          max: 30,
-        },
+          max: 30
+        }
       },
       loginInSubmission: false,
       loginShowAlert: false,
       loginAlertVariant: "bg-blue-500",
       loginAlertMsg: "Please wait! We are logging you in.",
       loginRCVerified: false,
-      siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY,
-    };
+      siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY
+    }
   },
 
   methods: {
     ...mapActions(useUserStore, ["authenticate"]),
 
     onVerify() {
-      this.loginRCVerified = true;
+      this.loginRCVerified = true
     },
 
     async login(values) {
       if (!this.loginRCVerified) {
-        return;
+        return
       }
 
-      this.loginShowAlert = true;
-      this.loginInSubmission = true;
-      this.loginAlertVariant = "bg-blue-500";
-      this.loginAlertMsg = "Please wait! We are logging you in.";
+      this.loginShowAlert = true
+      this.loginInSubmission = true
+      this.loginAlertVariant = "bg-blue-500"
+      this.loginAlertMsg = "Please wait! We are logging you in."
 
       try {
-        await this.authenticate(values);
+        await this.authenticate(values)
       } catch (error) {
-        this.loginInSubmission = false;
-        this.loginAlertVariant = "bg-red-500";
-        this.loginAlertMsg = "Invalid login details.";
+        this.loginInSubmission = false
+        this.loginAlertVariant = "bg-red-500"
+        this.loginAlertMsg = "Invalid login details."
 
-        console.error(error);
+        console.error(error)
 
-        return;
+        return
       }
 
-      this.loginAlertVariant = "bg-green-500";
-      this.loginAlertMsg = "Success! You are now logged in.";
+      this.loginAlertVariant = "bg-green-500"
+      this.loginAlertMsg = "Success! You are now logged in."
 
-      window.location.reload();
-    },
-  },
-};
+      window.location.reload()
+    }
+  }
+}
 </script>
 
 <template>

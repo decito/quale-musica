@@ -1,6 +1,6 @@
 <script>
-import { limitText } from "@/includes/formatters";
-import { coversCollection } from "@/includes/firebase";
+import { limitText } from "@/includes/formatters"
+import { coversCollection } from "@/includes/firebase"
 
 export default {
   name: "SongItem",
@@ -8,33 +8,33 @@ export default {
   props: {
     song: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
     return {
-      coverSrc: "",
-    };
+      coverSrc: ""
+    }
   },
 
   methods: {
     formatText(value) {
-      return limitText(value);
-    },
+      return limitText(value)
+    }
   },
 
   async mounted() {
     if (!this.song.coverId) {
-      this.coverSrc = "/assets/img/frame-dark.png";
-      return;
+      this.coverSrc = "/assets/img/frame-dark.png"
+      return
     }
 
-    const snapshots = await coversCollection.doc(this.song.coverId).get();
+    const snapshots = await coversCollection.doc(this.song.coverId).get()
 
-    this.coverSrc = snapshots.data().fileUrl;
-  },
-};
+    this.coverSrc = snapshots.data().fileUrl
+  }
+}
 </script>
 
 <template>
@@ -66,7 +66,7 @@ export default {
             :to="{
               name: 'song',
               params: { id: song.docID },
-              hash: '#comments',
+              hash: '#comments'
             }"
           >
             <span class="comments" @click="navigate">

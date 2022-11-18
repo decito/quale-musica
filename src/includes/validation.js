@@ -3,8 +3,8 @@ import {
   ErrorMessage,
   Field as VeeField,
   Form as VeeForm,
-  configure,
-} from "vee-validate";
+  configure
+} from "vee-validate"
 
 import {
   alpha_spaces as alphaSpaces,
@@ -15,26 +15,26 @@ import {
   min,
   min_value as minVal,
   required,
-  not_one_of as excluded,
-} from "@vee-validate/rules";
+  not_one_of as excluded
+} from "@vee-validate/rules"
 
 export default {
   install(app) {
-    app.component("VeeForm", VeeForm);
-    app.component("VeeField", VeeField);
-    app.component("ErrorMessage", ErrorMessage);
+    app.component("VeeForm", VeeForm)
+    app.component("VeeField", VeeField)
+    app.component("ErrorMessage", ErrorMessage)
 
-    defineRule("required", required);
-    defineRule("tos", required);
-    defineRule("min", min);
-    defineRule("max", max);
-    defineRule("email", email);
-    defineRule("alphaSpaces", alphaSpaces);
-    defineRule("minValue", minVal);
-    defineRule("maxValue", maxVal);
-    defineRule("passwordsMismatch", confirmed);
-    defineRule("excluded", excluded);
-    defineRule("countryExcluded", excluded);
+    defineRule("required", required)
+    defineRule("tos", required)
+    defineRule("min", min)
+    defineRule("max", max)
+    defineRule("email", email)
+    defineRule("alphaSpaces", alphaSpaces)
+    defineRule("minValue", minVal)
+    defineRule("maxValue", maxVal)
+    defineRule("passwordsMismatch", confirmed)
+    defineRule("excluded", excluded)
+    defineRule("countryExcluded", excluded)
 
     configure({
       generateMessage: (ctx) => {
@@ -50,19 +50,19 @@ export default {
           countryExcluded:
             "Due to restrictions in your country, we do not accept users from this location.",
           passwordsMismatch: "The passwords you entered do not match.",
-          tos: "You must agree to the terms of service.",
-        };
+          tos: "You must agree to the terms of service."
+        }
 
         const message = messages[ctx.rule.name]
           ? messages[ctx.rule.name]
-          : `The field ${ctx.field} is invalid.`;
+          : `The field ${ctx.field} is invalid.`
 
-        return message;
+        return message
       },
       validateOnBlur: true,
       validateOnChange: true,
       validateOnInput: false,
-      validateOnModelUpdate: true,
-    });
-  },
-};
+      validateOnModelUpdate: true
+    })
+  }
+}

@@ -1,14 +1,14 @@
 <script>
-import { mapActions } from "pinia";
-import useUserStore from "@/stores/user";
+import { mapActions } from "pinia"
+import useUserStore from "@/stores/user"
 
-import { VueRecaptcha } from "vue-recaptcha";
+import { VueRecaptcha } from "vue-recaptcha"
 
 export default {
   name: "RegisterForm",
 
   components: {
-    VueRecaptcha,
+    VueRecaptcha
   },
 
   data() {
@@ -19,89 +19,89 @@ export default {
           required: true,
           min: 3,
           max: 30,
-          alphaSpaces: true,
+          alphaSpaces: true
         },
         email: {
           required: true,
           min: 3,
           max: 30,
-          email: true,
+          email: true
         },
         age: {
           required: true,
           minValue: 13,
-          maxValue: 110,
+          maxValue: 110
         },
         password: {
           required: true,
           min: 3,
-          max: 30,
+          max: 30
         },
         confirmPassword: {
-          passwordsMismatch: "@password",
+          passwordsMismatch: "@password"
         },
         country: {
           required: true,
-          countryExcluded: "Brazil",
+          countryExcluded: "Brazil"
         },
         tos: {
-          tos: true,
-        },
+          tos: true
+        }
       },
       userData: {
-        country: "USA",
+        country: "USA"
       },
       regInSubmission: false,
       regShowAlert: false,
       regAlertVariant: "bg-blue-500",
       regAlertMsg: "Please wait! Your account is being created.",
       regRCVerified: false,
-      siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY,
-    };
+      siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY
+    }
   },
   methods: {
     ...mapActions(useUserStore, { createUser: "register" }),
 
     onCheck(response) {
       if (response.target.checked) {
-        this.$refs.recaptcha.execute();
+        this.$refs.recaptcha.execute()
       }
     },
 
     onVerify() {
-      this.regRCVerified = true;
+      this.regRCVerified = true
     },
 
     async register(values) {
       if (!this.regRCVerified) {
-        return;
+        return
       }
 
-      this.regShowAlert = true;
-      this.regInSubmission = true;
-      this.regAlertVariant = "bg-blue-500";
-      this.regAlertMsg = "Please wait! Your account is being created.";
+      this.regShowAlert = true
+      this.regInSubmission = true
+      this.regAlertVariant = "bg-blue-500"
+      this.regAlertMsg = "Please wait! Your account is being created."
 
       try {
-        await this.createUser(values);
+        await this.createUser(values)
       } catch (error) {
-        this.regInSubmission = false;
-        this.regAlertVariant = "bg-red-500";
+        this.regInSubmission = false
+        this.regAlertVariant = "bg-red-500"
         this.regAlertMsg =
-          "An unexpected error occurred. Please try again later.";
+          "An unexpected error occurred. Please try again later."
 
-        console.error(error);
+        console.error(error)
 
-        return;
+        return
       }
 
-      this.regAlertVariant = "bg-green-500";
-      this.regAlertMsg = "Success! Your account has been created.";
+      this.regAlertVariant = "bg-green-500"
+      this.regAlertMsg = "Success! Your account has been created."
 
-      window.location.reload();
-    },
-  },
-};
+      window.location.reload()
+    }
+  }
+}
 </script>
 
 <template>

@@ -3,10 +3,10 @@ import {
   auth,
   coversCollection,
   storage,
-  songsCollection,
-} from "@/includes/firebase";
+  songsCollection
+} from "@/includes/firebase"
 
-import { sleep } from "@/includes/sleep";
+import { sleep } from "@/includes/sleep"
 
 export default {
   name: "UploadSong",
@@ -14,8 +14,8 @@ export default {
   props: {
     song: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
@@ -23,159 +23,159 @@ export default {
       isDragover: false,
       message: "Drop the image here...",
       cover: {
-        textClass: "text-gray-400",
+        textClass: "text-gray-400"
       },
       hasCover: this.song.coverId || false,
       continueUpload: true,
-      typeError: false,
-    };
+      typeError: false
+    }
   },
 
   methods: {
     async beforeUpload(file) {
       if (file.type !== "image/jpeg") {
-        this.continueUpload = false;
-        console.error("Image must be a .jpg or .jpeg file.");
-        this.typeError = true;
+        this.continueUpload = false
+        console.error("Image must be a .jpg or .jpeg file.")
+        this.typeError = true
 
-        await sleep(3000);
+        await sleep(3000)
 
-        this.typeError = !this.typeError;
-        return;
+        this.typeError = !this.typeError
+        return
       }
 
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
 
       reader.onload = () => {
-        const img = new Image();
-        img.src = reader.result;
+        const img = new Image()
+        img.src = reader.result
 
         img.onload = async () => {
           if (img.naturalWidth !== 500 || img.naturalHeight !== 500) {
-            this.continueUpload = false;
+            this.continueUpload = false
             console.error(
               "Image must have the following dimensions: 500x500px."
-            );
-            this.typeError = true;
+            )
+            this.typeError = true
 
-            await sleep(3000);
+            await sleep(3000)
 
-            this.typeError = !this.typeError;
+            this.typeError = !this.typeError
           }
-        };
-      };
+        }
+      }
     },
 
     async uploadCover($event) {
-      this.isDragover = false;
+      this.isDragover = false
 
       const handleMultiple = $event.dataTransfer
         ? [...$event.dataTransfer.files]
-        : [...$event.target.files];
+        : [...$event.target.files]
 
-      const file = handleMultiple[0];
+      const file = handleMultiple[0]
 
-      await this.beforeUpload(file);
+      await this.beforeUpload(file)
 
       if (!this.continueUpload || this.cover.uploadingState) {
-        return;
+        return
       }
 
       if (!navigator.onLine) {
-        this.cover.task = {};
-        this.cover.currentProgress = 100;
+        this.cover.task = {}
+        this.cover.currentProgress = 100
 
-        this.errorController(true);
+        this.errorController(true)
 
-        return;
+        return
       }
 
-      this.cover.uploadingState = true;
+      this.cover.uploadingState = true
 
-      const storageRef = storage.ref();
+      const storageRef = storage.ref()
       const coverRef = storageRef.child(
         `covers/${this.song.originalName}-cover.png`
-      );
+      )
 
-      const task = coverRef.put(file);
+      const task = coverRef.put(file)
 
       task.on(
         "state_changed",
         (snapshot) => {
           const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          this.cover.currentProgress = progress;
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          this.cover.currentProgress = progress
         },
         () => this.errorController(false),
         async () => {
           const cover = {
             uid: auth.currentUser.uid,
-            name: `${this.song.originalName}-cover`,
-          };
-          cover.fileUrl = await task.snapshot.ref.getDownloadURL();
+            name: `${this.song.originalName}-cover`
+          }
+          cover.fileUrl = await task.snapshot.ref.getDownloadURL()
 
-          const coverCollectionRef = await coversCollection.add(cover);
+          const coverCollectionRef = await coversCollection.add(cover)
 
           await songsCollection
             .doc(this.song.docID)
             .update({ coverId: coverCollectionRef.id })
             .then(() => this.successController(cover))
-            .catch(() => this.errorController(false));
+            .catch(() => this.errorController(false))
         }
-      );
+      )
     },
 
     async errorController(offline) {
-      this.cover.variant = "bg-red-400";
-      this.cover.textClass = "text-white";
+      this.cover.variant = "bg-red-400"
+      this.cover.textClass = "text-white"
 
       offline
         ? (this.message = "You are offline. Please check your connection.")
-        : (this.message = "Something went wrong. Please try again");
+        : (this.message = "Something went wrong. Please try again")
 
-      await sleep(3000);
+      await sleep(3000)
 
-      this.cover.variant = "bg-transparent";
-      this.cover.textClass = "text-gray-400";
-      this.cover.uploadingState = false;
+      this.cover.variant = "bg-transparent"
+      this.cover.textClass = "text-gray-400"
+      this.cover.uploadingState = false
     },
 
     async successController(cover) {
-      this.cover.variant = "bg-green-400";
-      this.cover.textClass = "text-white";
-      this.message = "All set! Just a little longer...";
+      this.cover.variant = "bg-green-400"
+      this.cover.textClass = "text-white"
+      this.message = "All set! Just a little longer..."
 
-      await sleep(3000);
+      await sleep(3000)
 
-      this.hasCover = true;
+      this.hasCover = true
       this.cover = {
         alt: cover.name,
-        src: cover.fileUrl,
-      };
-      this.cover.variant = "bg-transparent";
-      this.cover.textClass = "text-gray-400";
-      this.cover.uploadingState = false;
+        src: cover.fileUrl
+      }
+      this.cover.variant = "bg-transparent"
+      this.cover.textClass = "text-gray-400"
+      this.cover.uploadingState = false
     },
 
     deleteCover() {
-      console.error("Function not implemented yet.");
-    },
+      console.error("Function not implemented yet.")
+    }
   },
 
   async mounted() {
     if (this.song.coverId) {
-      const snapshot = await coversCollection.doc(this.song.coverId).get();
+      const snapshot = await coversCollection.doc(this.song.coverId).get()
 
-      const cover = snapshot.data();
+      const cover = snapshot.data()
 
       this.cover = {
         alt: cover.name,
-        src: cover.fileUrl,
-      };
+        src: cover.fileUrl
+      }
     }
-  },
-};
+  }
+}
 </script>
 
 <template>
@@ -205,7 +205,7 @@ export default {
       :class="[
         cover.textClass,
         cover.variant,
-        isDragover && 'bg-green-400 border-green-400 border-solid !text-white',
+        isDragover && 'bg-green-400 border-green-400 border-solid !text-white'
       ]"
       @drag.prevent.stop=""
       @dragstart.prevent.stop=""
