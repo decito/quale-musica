@@ -4,7 +4,7 @@
 
 ## 📷 Screenshot
 
-![quale-musica](https://user-images.githubusercontent.com/61292095/201985864-3205440c-ee62-4ebb-a2f9-9863ddb02670.png)
+![quale-musica](https://github.com/decito/quale-musica/assets/61292095/c2917031-68c6-443e-a32d-ea7960fea329)
 
 ## 📋 About App
 
