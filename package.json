@@ -19,7 +19,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.22",
     "vee-validate": "^4.6.8",
-    "vue": "^3.2.39",
+    "vue": "^3.5.13",
     "vue-country-flag-next": "^2.3.2",
     "vue-i18n": "^9.14.3",
     "vue-recaptcha": "^2.0.3",
