@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@vee-validate/rules": "^4.6.8",
+    "@vee-validate/rules": "^4.15.0",
     "@vueuse/core": "^9.2.0",
     "firebase": "^8.10.1",
     "howler": "^2.2.3",
