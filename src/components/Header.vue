@@ -78,7 +78,7 @@ export default {
         Qualé
       </router-link>
 
-      <div class="flex flex-grow items-center justify-between relative">
+      <div class="flex grow items-center justify-between relative">
         <ul class="flex flex-row mt-1">
           <li>
             <router-link :to="{ name: 'about' }" class="px-2 text-white">
@@ -128,9 +128,9 @@ export default {
           v-show="showLocale"
           class="before:block before:absolute before:-top-3.5 before:w-1/12 before:right-0.5 before:content-['^'] before:h-1 text-white right-0 top-10 absolute"
         >
-          <li class="bg-stone-600 flex flex-col rounded border">
+          <li class="bg-stone-600 flex flex-col rounded-sm border">
             <div class="flex items-center cursor-pointer hover:bg-stone-500">
-              <CountryFlag country="br" class="!m-0" />
+              <CountryFlag country="br" class="m-0!" />
 
               <span
                 class="px-2"
@@ -143,7 +143,7 @@ export default {
             </div>
 
             <div class="flex items-center cursor-pointer hover:bg-stone-500">
-              <CountryFlag country="us" class="!m-0" />
+              <CountryFlag country="us" class="m-0!" />
 
               <span
                 class="px-2"

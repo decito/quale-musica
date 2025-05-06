@@ -138,7 +138,7 @@ export default {
       <div class="container mx-auto flex items-center">
         <button
           type="button"
-          class="z-10 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
+          class="z-10 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-hidden"
           @click.prevent="songAction(song)"
         >
           <i class="fas" :class="isCurrentPlaying ? 'fa-pause' : 'fa-play'" />
@@ -154,7 +154,7 @@ export default {
 
     <section id="comments" class="container mx-auto mt-6">
       <div
-        class="bg-white dark:text-white dark:bg-stone-700 rounded border border-gray-200 dark:border-gray-500 relative flex flex-col"
+        class="bg-white dark:text-white dark:bg-stone-700 rounded-sm border border-gray-200 dark:border-gray-500 relative flex flex-col"
       >
         <div
           class="px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"
@@ -187,7 +187,7 @@ export default {
             <VeeField
               as="textarea"
               name="comment"
-              class="block w-full dark:bg-stone-600 py-1.5 px-3 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black dark:focus:border-gray-700 rounded mb-4"
+              class="block w-full dark:bg-stone-600 py-1.5 px-3 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-hidden focus:border-black dark:focus:border-gray-700 rounded-sm mb-4"
               placeholder="Your comment here..."
             >
             </VeeField>
@@ -196,7 +196,7 @@ export default {
 
             <button
               type="submit"
-              class="py-1.5 px-3 rounded text-white bg-green-600 block"
+              class="py-1.5 px-3 rounded-sm text-white bg-green-600 block"
               :disabled="commentInSubmmition"
             >
               Submit
@@ -205,7 +205,7 @@ export default {
 
           <select
             v-model="sort"
-            class="block dark:bg-stone-700 mt-4 py-1.5 px-3 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black dark:focus:border-gray-700 rounded"
+            class="block dark:bg-stone-700 mt-4 py-1.5 px-3 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-hidden focus:border-black dark:focus:border-gray-700 rounded-sm"
           >
             <option value="1">Latest</option>
             <option value="2">Oldest</option>
@@ -218,7 +218,7 @@ export default {
       <li
         v-for="comment in sortedComments"
         :key="comment.docID"
-        class="p-6 mt-4 bg-gray-50 border border-gray-200 dark:border-gray-500 dark:bg-stone-700 rounded dark:text-white"
+        class="p-6 mt-4 bg-gray-50 border border-gray-200 dark:border-gray-500 dark:bg-stone-700 rounded-sm dark:text-white"
       >
         <div class="mb-5">
           <div class="font-bold">{{ comment.name }}</div>

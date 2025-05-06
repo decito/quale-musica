@@ -61,7 +61,7 @@ export default {
       <div class="player-currenttime">{{ seek }}</div>
 
       <div
-        class="w-full h-2 rounded bg-gray-200 dark:bg-stone-400 relative cursor-pointer"
+        class="w-full h-2 rounded-sm bg-gray-200 dark:bg-stone-400 relative cursor-pointer"
         @click.prevent="updateSeek"
       >
         <span
@@ -72,14 +72,14 @@ export default {
         </span>
 
         <span
-          class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"
+          class="block h-2 rounded-sm bg-linear-to-r from-green-500 to-green-400"
           :style="{ width: playerProgress }"
         />
       </div>
 
       <div
         v-if="!isDesktop"
-        class="flex flex-col relative cursor-pointer rounded"
+        class="flex flex-col relative cursor-pointer rounded-sm"
       >
         <i
           class="fas text-gray-500 dark:text-white text-lg fa-volume-high"
@@ -93,10 +93,10 @@ export default {
           class="absolute w-2 h-20 -top-24 ml-2 -rotate-180"
           @click.prevent="updateVerticalVolume"
         >
-          <span class="block w-2 h-20 bg-gray-200 -top-24 rounded" />
+          <span class="block w-2 h-20 bg-gray-200 -top-24 rounded-sm" />
 
           <div
-            class="block w-2 -mt-20 rounded bg-gradient-to-r from-green-500 to-green-400"
+            class="block w-2 -mt-20 rounded-sm bg-linear-to-r from-green-500 to-green-400"
             :style="{ height: volumeLevel }"
           />
 
@@ -111,7 +111,7 @@ export default {
 
       <div
         v-else
-        class="w-1/12 h-2 rounded bg-gray-200 dark:bg-stone-400 relative cursor-pointer"
+        class="w-1/12 h-2 rounded-sm bg-gray-200 dark:bg-stone-400 relative cursor-pointer"
         @click.prevent="updateVolume"
       >
         <span
@@ -122,7 +122,7 @@ export default {
         </span>
 
         <span
-          class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"
+          class="block h-2 rounded-sm bg-linear-to-r from-green-500 to-green-400"
           :style="{ width: volumeLevel }"
         />
       </div>

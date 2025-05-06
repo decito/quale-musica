@@ -107,7 +107,7 @@ export default {
 <template>
   <div
     v-if="regShowAlert"
-    class="text-white text-center font-bold p-4 rounded mb-4"
+    class="text-white text-center font-bold p-4 rounded-sm mb-4"
     :class="regAlertVariant"
   >
     {{ regAlertMsg }}
@@ -124,7 +124,7 @@ export default {
       <VeeField
         type="text"
         name="name"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
         placeholder="Enter Name"
       />
       <ErrorMessage class="text-red-600" name="name" />
@@ -136,7 +136,7 @@ export default {
       <VeeField
         name="email"
         type="email"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
         placeholder="Enter Email"
       />
       <ErrorMessage class="text-red-600" name="email" />
@@ -148,7 +148,7 @@ export default {
       <VeeField
         name="age"
         type="number"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
       />
       <ErrorMessage class="text-red-600" name="age" />
     </div>
@@ -160,7 +160,7 @@ export default {
         <input
           v-bind="field"
           type="password"
-          class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+          class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
           placeholder="Password"
         />
 
@@ -176,7 +176,7 @@ export default {
       <VeeField
         name="confirmPassword"
         type="password"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
         placeholder="Confirm Password"
       />
       <ErrorMessage class="text-red-600" name="confirmPassword" />
@@ -188,7 +188,7 @@ export default {
       <VeeField
         as="select"
         name="country"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
       >
         <option value="USA">USA</option>
         <option value="Mexico">Mexico</option>
@@ -204,7 +204,7 @@ export default {
         name="tos"
         type="checkbox"
         value="1"
-        class="w-4 h-4 float-left -ml-6 mt-1 rounded"
+        class="w-4 h-4 float-left -ml-6 mt-1 rounded-sm"
         @click="onCheck"
       />
 
@@ -229,7 +229,7 @@ export default {
 
     <button
       type="submit"
-      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700 disabled:bg-gray-400 !disabled:cursor-pointer"
+      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded-sm transition hover:bg-purple-700 disabled:bg-gray-400 !disabled:cursor-pointer"
       :disabled="regInSubmission || !regRCVerified"
     >
       Submit

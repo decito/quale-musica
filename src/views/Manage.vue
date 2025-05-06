@@ -71,7 +71,7 @@ export default {
 
       <div class="col-span-2">
         <div
-          class="bg-white dark:bg-stone-700 rounded border border-gray-200 dark:border-gray-500 relative flex flex-col dark:text-white"
+          class="bg-white dark:bg-stone-700 rounded-sm border border-gray-200 dark:border-gray-500 relative flex flex-col dark:text-white"
         >
           <div
             class="px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"

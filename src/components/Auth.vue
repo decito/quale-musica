@@ -63,7 +63,7 @@ export default {
           <ul class="flex flex-wrap mb-4">
             <li class="flex-auto text-center">
               <a
-                class="block rounded py-3 px-4 transition"
+                class="block rounded-sm py-3 px-4 transition"
                 href="#"
                 :class="{
                   'hover:text-white text-white bg-blue-600': tab === 'login',
@@ -77,7 +77,7 @@ export default {
 
             <li class="flex-auto text-center">
               <a
-                class="block rounded py-3 px-4 transition"
+                class="block rounded-sm py-3 px-4 transition"
                 href="#"
                 :class="{
                   'hover:text-white text-white bg-blue-600': tab === 'register',

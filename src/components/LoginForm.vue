@@ -86,7 +86,7 @@ export default {
       <VeeField
         name="email"
         type="email"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
         placeholder="Enter Email"
       />
       <ErrorMessage class="text-red-600" name="email" />
@@ -97,7 +97,7 @@ export default {
       <VeeField
         name="password"
         type="password"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
         placeholder="Password"
       />
       <ErrorMessage class="text-red-600" name="password" />
@@ -107,7 +107,7 @@ export default {
 
     <button
       type="submit"
-      class="block w-full bg-purple-600 text-white py-1.5 px-3 mt-8 rounded transition hover:bg-purple-700 disabled:bg-gray-400 !disabled:cursor-pointer"
+      class="block w-full bg-purple-600 text-white py-1.5 px-3 mt-8 rounded-sm transition hover:bg-purple-700 disabled:bg-gray-400 !disabled:cursor-pointer"
       :disabled="loginInSubmission || !loginRCVerified"
     >
       Submit

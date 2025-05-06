@@ -188,7 +188,7 @@ export default {
 
       <button
         v-if="hasCover"
-        class="text-red-400 border border-red-400 rounded py-0.5 px-1.5 hidden"
+        class="text-red-400 border border-red-400 rounded-sm py-0.5 px-1.5 hidden"
         @click.prevent="deleteCover"
       >
         Delete cover
@@ -201,11 +201,11 @@ export default {
 
     <div
       v-else
-      class="w-full relative px-5 py-7 md:px-10 md:py-16 rounded text-center border border-dashed border-gray-400 transition-all duration-500"
+      class="w-full relative px-5 py-7 md:px-10 md:py-16 rounded-sm text-center border border-dashed border-gray-400 transition-all duration-500"
       :class="[
         cover.textClass,
         cover.variant,
-        isDragover && 'bg-green-400 border-green-400 border-solid !text-white'
+        isDragover && 'bg-green-400 border-green-400 border-solid text-white!'
       ]"
       @drag.prevent.stop=""
       @dragstart.prevent.stop=""
@@ -219,7 +219,7 @@ export default {
 
       <div
         v-if="cover.uploadingState && cover.currentProgress !== 100"
-        class="absolute h-full top-0 left-0 overflow-hidden rounded transition-all progress-bar"
+        class="absolute h-full top-0 left-0 overflow-hidden rounded-sm transition-all progress-bar"
         :class="cover.variant"
         :style="{ width: `${cover.currentProgress}%` }"
       />
