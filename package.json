@@ -1,7 +1,8 @@
 {
   "name": "quale-musica",
-  "version": "0.9.92b",
+  "version": "0.91.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
