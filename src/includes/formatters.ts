@@ -1,15 +1,13 @@
-const formatTime = (time) => {
-  if (!time) {
-    return "00:00"
-  }
+const formatTime = (time: number) => {
+  if (!time) return '00:00'
 
   const minutes = Math.floor(time / 60) || 0
   const seconds = Math.round(time - minutes * 60 || 0)
 
-  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
 }
 
-const limitVolume = (value) => {
+const limitVolume = (value: number) => {
   if (value < 0) {
     return 0
   }
@@ -21,7 +19,7 @@ const limitVolume = (value) => {
   return value
 }
 
-const limitText = (value) => {
+const limitText = (value: string) => {
   if (!value.length) {
     return
   }
@@ -33,4 +31,4 @@ const limitText = (value) => {
   return value
 }
 
-export { formatTime, limitVolume, limitText }
+export { formatTime, limitText, limitVolume }
