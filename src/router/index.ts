@@ -33,6 +33,23 @@ const routes = [
     name: 'song',
     path: '/song/:id',
     component: SongView
+    // beforeEnter: async (to, _from, next) => {
+    //   const snapshot = await songsCollection.doc(to.params.id).get()
+
+    //   next((vm) => {
+    //     if (!snapshot.exists) {
+    //       vm.$router.push({ name: 'home' })
+    //       return
+    //     }
+
+    //     const { sort } = vm.$route.query
+    //     vm.sort = sort === '1' || sort === '2' ? sort : '1'
+
+    //     vm.song = snapshot.data()
+    //     vm.song.songID = vm.$route.params.id
+    //     vm.getComments()
+    //   })
+    // }
   },
   {
     path: '/:catchAll(.*)*',
