@@ -1,11 +1,11 @@
 <script>
-import { mapActions } from "pinia"
-import useUserStore from "@/stores/user"
+import { useUserStore } from '@/stores/user'
+import { mapActions } from 'pinia'
 
-import { VueRecaptcha } from "vue-recaptcha"
+import { VueRecaptcha } from 'vue-recaptcha'
 
 export default {
-  name: "RegisterForm",
+  name: 'RegisterForm',
 
   components: {
     VueRecaptcha
@@ -13,7 +13,7 @@ export default {
 
   data() {
     return {
-      tab: "login",
+      tab: 'login',
       schema: {
         name: {
           required: true,
@@ -38,29 +38,29 @@ export default {
           max: 30
         },
         confirmPassword: {
-          passwordsMismatch: "@password"
+          passwordsMismatch: '@password'
         },
         country: {
           required: true,
-          countryExcluded: "Brazil"
+          countryExcluded: 'Brazil'
         },
         tos: {
           tos: true
         }
       },
       userData: {
-        country: "USA"
+        country: 'USA'
       },
       regInSubmission: false,
       regShowAlert: false,
-      regAlertVariant: "bg-blue-500",
-      regAlertMsg: "Please wait! Your account is being created.",
+      regAlertVariant: 'bg-blue-500',
+      regAlertMsg: 'Please wait! Your account is being created.',
       regRCVerified: false,
       siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY
     }
   },
   methods: {
-    ...mapActions(useUserStore, { createUser: "register" }),
+    ...mapActions(useUserStore, { createUser: 'register' }),
 
     onCheck(response) {
       if (response.target.checked) {
@@ -79,24 +79,23 @@ export default {
 
       this.regShowAlert = true
       this.regInSubmission = true
-      this.regAlertVariant = "bg-blue-500"
-      this.regAlertMsg = "Please wait! Your account is being created."
+      this.regAlertVariant = 'bg-blue-500'
+      this.regAlertMsg = 'Please wait! Your account is being created.'
 
       try {
         await this.createUser(values)
       } catch (error) {
         this.regInSubmission = false
-        this.regAlertVariant = "bg-red-500"
-        this.regAlertMsg =
-          "An unexpected error occurred. Please try again later."
+        this.regAlertVariant = 'bg-red-500'
+        this.regAlertMsg = 'An unexpected error occurred. Please try again later.'
 
         console.error(error)
 
         return
       }
 
-      this.regAlertVariant = "bg-green-500"
-      this.regAlertMsg = "Success! Your account has been created."
+      this.regAlertVariant = 'bg-green-500'
+      this.regAlertMsg = 'Success! Your account has been created.'
 
       window.location.reload()
     }
@@ -107,60 +106,56 @@ export default {
 <template>
   <div
     v-if="regShowAlert"
-    class="text-white text-center font-bold p-4 rounded mb-4"
+    class="mb-4 rounded-sm p-4 text-center font-bold text-white"
     :class="regAlertVariant"
   >
     {{ regAlertMsg }}
   </div>
 
-  <VeeForm
-    :validation-schema="schema"
-    :initial-values="userData"
-    @submit="register"
-  >
+  <VeeForm :validation-schema="schema" :initial-values="userData" @submit="register">
     <div class="mb-3">
-      <label class="inline-block mb-2">Name</label>
+      <label class="mb-2 inline-block">Name</label>
 
       <VeeField
         type="text"
         name="name"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full rounded-sm border border-gray-300 px-3 py-1.5 text-gray-800 transition duration-500 focus:border-black focus:outline-hidden"
         placeholder="Enter Name"
       />
       <ErrorMessage class="text-red-600" name="name" />
     </div>
 
     <div class="mb-3">
-      <label class="inline-block mb-2">Email</label>
+      <label class="mb-2 inline-block">Email</label>
 
       <VeeField
         name="email"
         type="email"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full rounded-sm border border-gray-300 px-3 py-1.5 text-gray-800 transition duration-500 focus:border-black focus:outline-hidden"
         placeholder="Enter Email"
       />
       <ErrorMessage class="text-red-600" name="email" />
     </div>
 
     <div class="mb-3">
-      <label class="inline-block mb-2">Age</label>
+      <label class="mb-2 inline-block">Age</label>
 
       <VeeField
         name="age"
         type="number"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full rounded-sm border border-gray-300 px-3 py-1.5 text-gray-800 transition duration-500 focus:border-black focus:outline-hidden"
       />
       <ErrorMessage class="text-red-600" name="age" />
     </div>
 
     <div class="mb-3">
-      <label class="inline-block mb-2">Password</label>
+      <label class="mb-2 inline-block">Password</label>
 
       <VeeField name="password" :bails="false" v-slot="{ field, errors }">
         <input
           v-bind="field"
           type="password"
-          class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+          class="block w-full rounded-sm border border-gray-300 px-3 py-1.5 text-gray-800 transition duration-500 focus:border-black focus:outline-hidden"
           placeholder="Password"
         />
 
@@ -171,24 +166,24 @@ export default {
     </div>
 
     <div class="mb-3">
-      <label class="inline-block mb-2">Confirm Password</label>
+      <label class="mb-2 inline-block">Confirm Password</label>
 
       <VeeField
         name="confirmPassword"
         type="password"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full rounded-sm border border-gray-300 px-3 py-1.5 text-gray-800 transition duration-500 focus:border-black focus:outline-hidden"
         placeholder="Confirm Password"
       />
       <ErrorMessage class="text-red-600" name="confirmPassword" />
     </div>
 
     <div class="mb-3">
-      <label class="inline-block mb-2">Country</label>
+      <label class="mb-2 inline-block">Country</label>
 
       <VeeField
         as="select"
         name="country"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        class="block w-full rounded-sm border border-gray-300 px-3 py-1.5 text-gray-800 transition duration-500 focus:border-black focus:outline-hidden"
       >
         <option value="USA">USA</option>
         <option value="Mexico">Mexico</option>
@@ -204,32 +199,22 @@ export default {
         name="tos"
         type="checkbox"
         value="1"
-        class="w-4 h-4 float-left -ml-6 mt-1 rounded"
+        class="float-left mt-1 -ml-6 h-4 w-4 rounded-sm"
         @click="onCheck"
       />
 
-      <i18n-t
-        class="inline-block w-full"
-        keypath="register.accept"
-        tag="label"
-        scope="global"
-      >
-        <a href="#" class="underline">{{ $t("register.tos") }}</a>
+      <i18n-t class="inline-block w-full" keypath="register.accept" tag="label" scope="global">
+        <a href="#" class="underline">{{ $t('register.tos') }}</a>
       </i18n-t>
 
-      <ErrorMessage class="text-red-600 block" name="tos" />
+      <ErrorMessage class="block text-red-600" name="tos" />
 
-      <VueRecaptcha
-        size="invisible"
-        ref="recaptcha"
-        @verify="onVerify"
-        :sitekey="siteKey"
-      />
+      <VueRecaptcha size="invisible" ref="recaptcha" @verify="onVerify" :sitekey="siteKey" />
     </div>
 
     <button
       type="submit"
-      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700 disabled:bg-gray-400 !disabled:cursor-pointer"
+      class="!disabled:cursor-pointer block w-full rounded-sm bg-purple-600 px-3 py-1.5 text-white transition hover:bg-purple-700 disabled:bg-gray-400"
       :disabled="regInSubmission || !regRCVerified"
     >
       Submit

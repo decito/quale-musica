@@ -40,7 +40,7 @@ export default {
 <template>
   <li
     :id="`song-${song.docID}`"
-    class="rounded bg-gray-200 dark:bg-stone-700 cursor-pointer transition duration-300 hover:bg-gray-50 dark:hover:bg-stone-600"
+    class="rounded-sm bg-gray-200 dark:bg-stone-700 cursor-pointer transition duration-300 hover:bg-gray-50 dark:hover:bg-stone-600"
   >
     <router-link
       :to="{ name: 'song', params: { id: song.docID } }"

@@ -1,19 +1,30 @@
-import { defineStore } from "pinia"
-import { Howl } from "howler"
-import { useRoute } from "vue-router"
+import { formatTime, limitVolume } from '@/includes/formatters'
+import { Howl } from 'howler'
+import { defineStore } from 'pinia'
+import { useRoute } from 'vue-router'
 
-import { formatTime, limitVolume } from "@/includes/formatters"
-
-export default defineStore("player", {
+export const usePlayerStore = defineStore('player', {
   state: () => ({
     currentSong: {},
     sound: {},
-    seek: "00:00",
-    duration: "00:00",
-    playerProgress: "0%",
-    volumeLevel: "30%",
+    seek: '00:00',
+    duration: '00:00',
+    playerProgress: '0%',
+    volumeLevel: '30%',
     route: useRoute()
   }),
+
+  getters: {
+    isPlaying: (state) => (state.sound.playing ? state.sound.playing() : false),
+
+    isCurrentPlaying: (state) => {
+      if (!state.currentSong.songID) return
+
+      return state.route.params.id === state.currentSong.songID && state.sound.playing()
+        ? state.sound.playing()
+        : false
+    }
+  },
 
   actions: {
     async newSong(song) {
@@ -31,30 +42,22 @@ export default defineStore("player", {
 
       this.sound.play()
 
-      this.sound.on("play", () => {
+      this.sound.on('play', () => {
         requestAnimationFrame(this.updateProgress)
       })
     },
 
     async toggleAudio() {
-      if (!this.sound.playing) {
-        return
-      }
+      if (!this.sound.playing) return
 
-      if (this.sound.playing()) {
-        this.sound.pause()
-      } else {
-        this.sound.play()
-      }
+      this.sound.playing() ? this.sound.pause() : this.sound.play()
     },
 
     updateProgress() {
       this.seek = formatTime(this.sound.seek())
       this.duration = formatTime(this.sound.duration())
 
-      this.playerProgress = `${
-        (this.sound.seek() / this.sound.duration()) * 100
-      }%`
+      this.playerProgress = `${(this.sound.seek() / this.sound.duration()) * 100}%`
 
       if (this.sound.playing()) {
         requestAnimationFrame(this.updateProgress)
@@ -62,9 +65,7 @@ export default defineStore("player", {
     },
 
     updateSeek(event) {
-      if (!this.sound.playing) {
-        return
-      }
+      if (!this.sound.playing) return
 
       const { x, width } = event.currentTarget.getBoundingClientRect()
       const clickX = event.clientX - x
@@ -72,7 +73,7 @@ export default defineStore("player", {
       const seconds = this.sound.duration() * percentage
 
       this.sound.seek(seconds)
-      this.sound.once("seek", this.updateProgress)
+      this.sound.once('seek', this.updateProgress)
     },
 
     updateVolume(event) {
@@ -95,31 +96,6 @@ export default defineStore("player", {
 
       this.sound.volume(volume)
       this.volumeLevel = `${volume * 100}%`
-    }
-  },
-
-  getters: {
-    isPlaying: (state) => {
-      if (state.sound.playing) {
-        return state.sound.playing()
-      }
-
-      return false
-    },
-
-    isCurrentPlaying: (state) => {
-      if (!state.currentSong.songID) {
-        return
-      }
-
-      if (
-        state.route.params.id === state.currentSong.songID &&
-        state.sound.playing()
-      ) {
-        return state.sound.playing()
-      } else {
-        return false
-      }
     }
   }
 })

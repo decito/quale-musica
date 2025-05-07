@@ -27,7 +27,7 @@
         class="max-w-[300px]"
       >
         <div
-          class="px-6 py-6 bg-gray-200 dark:bg-stone-700 hover:bg-gray-50 dark:hover:bg-stone-600 rounded"
+          class="px-6 py-6 bg-gray-200 dark:bg-stone-700 hover:bg-gray-50 dark:hover:bg-stone-600 rounded-sm"
         >
           <i class="fab fa-github fa-7x" />
 
@@ -46,7 +46,7 @@
         class="max-w-[300px]"
       >
         <div
-          class="px-6 pt-6 pb-5 bg-gray-200 dark:bg-stone-700 hover:bg-gray-50 dark:hover:bg-stone-600 rounded"
+          class="px-6 pt-6 pb-5 bg-gray-200 dark:bg-stone-700 hover:bg-gray-50 dark:hover:bg-stone-600 rounded-sm"
         >
           <i class="fab fa-linkedin fa-7x" />
 

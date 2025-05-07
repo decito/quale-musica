@@ -1,37 +1,33 @@
 <script>
-import { auth, commentsCollection, songsCollection } from "@/includes/firebase"
-import { mapActions, mapState } from "pinia"
-import useUserStore from "@/stores/user"
-import usePlayerStore from "@/stores/player"
+import { auth, commentsCollection, songsCollection } from '@/includes/firebase'
+import { usePlayerStore } from '@/stores/player'
+import { useUserStore } from '@/stores/user'
+import { mapActions, mapState } from 'pinia'
 
 export default {
-  name: "Song",
+  name: 'SongView',
 
   data() {
     return {
       song: {},
-      schema: { comment: "required|min:10" },
+      schema: { comment: 'required|min:10' },
       commentInSubmmition: false,
       commentShowAlert: false,
-      commentAlertVariant: "bg-blue-500",
-      commentAlertMessage: "Please wait. Your comment is being submitted.",
+      commentAlertVariant: 'bg-blue-500',
+      commentAlertMessage: 'Please wait. Your comment is being submitted.',
       comments: [],
-      sort: "1"
+      sort: '1'
     }
   },
 
   computed: {
-    ...mapState(useUserStore, ["userLoggedIn"]),
+    ...mapState(useUserStore, ['userLoggedIn']),
 
-    ...mapState(usePlayerStore, [
-      "currentSong",
-      "isCurrentPlaying",
-      "toggleAudio"
-    ]),
+    ...mapState(usePlayerStore, ['currentSong', 'isCurrentPlaying', 'toggleAudio']),
 
     sortedComments() {
       return this.comments.slice().sort((a, b) => {
-        if (this.sort === "1") {
+        if (this.sort === '1') {
           return new Date(b.createdAt) - new Date(a.createdAt)
         }
 
@@ -41,12 +37,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(usePlayerStore, ["newSong"]),
+    ...mapActions(usePlayerStore, ['newSong']),
 
     async getComments() {
-      const snapshots = await commentsCollection
-        .where("songId", "==", this.$route.params.id)
-        .get()
+      const snapshots = await commentsCollection.where('songId', '==', this.$route.params.id).get()
 
       this.comments = []
 
@@ -61,9 +55,8 @@ export default {
     async addComment(values, { resetForm }) {
       this.commentInSubmmition = true
       this.commentShowAlert = true
-      this.commentAlertVariant = "bg-blue-500"
-      this.commentAlertMessage =
-        "Please wait. Your comment is being submitted..."
+      this.commentAlertVariant = 'bg-blue-500'
+      this.commentAlertMessage = 'Please wait. Your comment is being submitted...'
 
       const comment = {
         content: values.comment,
@@ -82,8 +75,8 @@ export default {
       })
 
       this.commentInSubmmition = false
-      this.commentAlertVariant = "bg-green-500"
-      this.commentAlertMessage = "Comment added!"
+      this.commentAlertVariant = 'bg-green-500'
+      this.commentAlertMessage = 'Comment added!'
 
       this.getComments()
 
@@ -102,12 +95,12 @@ export default {
 
     next((vm) => {
       if (!snapshot.exists) {
-        vm.$router.push({ name: "home" })
+        vm.$router.push({ name: 'home' })
         return
       }
 
       const { sort } = vm.$route.query
-      vm.sort = sort === "1" || sort === "2" ? sort : "1"
+      vm.sort = sort === '1' || sort === '2' ? sort : '1'
 
       vm.song = snapshot.data()
       vm.song.songID = vm.$route.params.id
@@ -129,22 +122,22 @@ export default {
 
 <template>
   <main>
-    <section class="w-full mb-8 py-14 text-center text-white relative">
+    <section class="relative mb-8 w-full py-14 text-center text-white">
       <div
-        class="absolute inset-0 w-full h-full box-border bg-cover lg:bg-contain music-bg"
+        class="music-bg absolute inset-0 box-border h-full w-full bg-cover lg:bg-contain"
         style="background-image: url(/assets/img/song-header.png)"
       />
 
       <div class="container mx-auto flex items-center">
         <button
           type="button"
-          class="z-10 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
+          class="z-10 h-24 w-24 rounded-full bg-white text-3xl text-black focus:outline-hidden"
           @click.prevent="songAction(song)"
         >
           <i class="fas" :class="isCurrentPlaying ? 'fa-pause' : 'fa-play'" />
         </button>
 
-        <div class="z-10 text-left ml-8">
+        <div class="z-10 ml-8 text-left">
           <div class="text-3xl font-bold">{{ song.modifiedName }}</div>
 
           <div>{{ song.genre }}</div>
@@ -154,40 +147,34 @@ export default {
 
     <section id="comments" class="container mx-auto mt-6">
       <div
-        class="bg-white dark:text-white dark:bg-stone-700 rounded border border-gray-200 dark:border-gray-500 relative flex flex-col"
+        class="relative flex flex-col rounded-sm border border-gray-200 bg-white dark:border-gray-500 dark:bg-stone-700 dark:text-white"
       >
-        <div
-          class="px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"
-        >
+        <div class="border-b border-gray-200 px-6 pt-6 pb-5 font-bold dark:border-gray-500">
           <span class="card-title">
             {{
-              $tc("song.commentCount", song.commentCount, {
+              $t('song.commentCount', song.commentCount, {
                 count: song.commentCount
               })
             }}
           </span>
 
-          <i class="fas fa-comments float-right text-green-400 text-2xl" />
+          <i class="fas fa-comments float-right text-2xl text-green-400" />
         </div>
 
         <div class="p-6">
           <div
             v-if="commentShowAlert"
-            class="text-white text-center font-bold p-4 mb-4"
+            class="mb-4 p-4 text-center font-bold text-white"
             :class="commentAlertVariant"
           >
             {{ commentAlertMessage }}
           </div>
 
-          <VeeForm
-            v-if="userLoggedIn"
-            :validation-schema="schema"
-            @submit="addComment"
-          >
+          <VeeForm v-if="userLoggedIn" :validation-schema="schema" @submit="addComment">
             <VeeField
               as="textarea"
               name="comment"
-              class="block w-full dark:bg-stone-600 py-1.5 px-3 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black dark:focus:border-gray-700 rounded mb-4"
+              class="mb-4 block w-full rounded-sm border border-gray-300 px-3 py-1.5 text-gray-800 transition duration-500 focus:border-black focus:outline-hidden dark:border-gray-500 dark:bg-stone-600 dark:text-white dark:focus:border-gray-700"
               placeholder="Your comment here..."
             >
             </VeeField>
@@ -196,7 +183,7 @@ export default {
 
             <button
               type="submit"
-              class="py-1.5 px-3 rounded text-white bg-green-600 block"
+              class="block rounded-sm bg-green-600 px-3 py-1.5 text-white"
               :disabled="commentInSubmmition"
             >
               Submit
@@ -205,7 +192,7 @@ export default {
 
           <select
             v-model="sort"
-            class="block dark:bg-stone-700 mt-4 py-1.5 px-3 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black dark:focus:border-gray-700 rounded"
+            class="mt-4 block rounded-sm border border-gray-300 px-3 py-1.5 text-gray-800 transition duration-500 focus:border-black focus:outline-hidden dark:border-gray-500 dark:bg-stone-700 dark:text-white dark:focus:border-gray-700"
           >
             <option value="1">Latest</option>
             <option value="2">Oldest</option>
@@ -218,7 +205,7 @@ export default {
       <li
         v-for="comment in sortedComments"
         :key="comment.docID"
-        class="p-6 mt-4 bg-gray-50 border border-gray-200 dark:border-gray-500 dark:bg-stone-700 rounded dark:text-white"
+        class="mt-4 rounded-sm border border-gray-200 bg-gray-50 p-6 dark:border-gray-500 dark:bg-stone-700 dark:text-white"
       >
         <div class="mb-5">
           <div class="font-bold">{{ comment.name }}</div>

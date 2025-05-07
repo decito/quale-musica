@@ -1,13 +1,13 @@
 export default {
-  beforeMount(element, binding) {
+  beforeMount(element: HTMLElement, binding) {
     let iconClass = `fas fa-${binding.value.icon} text-xl`
 
-    if (binding.arg === "full") {
+    if (binding.arg === 'full') {
       iconClass = binding.value
     }
 
     if (binding.value.right) {
-      iconClass += " float-right"
+      iconClass += ' float-right'
     }
 
     if (binding.value.color) {

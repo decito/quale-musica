@@ -1,9 +1,9 @@
-import { shallowMount } from "@vue/test-utils"
-import Home from "@/views/Home.vue"
-import SongItem from "@/components/SongItem.vue"
+import SongItem from '@/components/SongItem.vue'
+import Home from '@/views/Home.vue'
+import { shallowMount } from '@vue/test-utils'
 
-describe("Home.vue", () => {
-  it("should render list of songs", () => {
+describe('Home.vue', () => {
+  it('should render list of songs', () => {
     const songs = [{}, {}, {}]
 
     const component = shallowMount(Home, {

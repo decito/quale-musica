@@ -1,12 +1,12 @@
 <script>
-import { mapStores } from "pinia"
-import useModalStore from "@/stores/modal"
-import useUserStore from "@/stores/user"
+import { useModalStore } from '@/stores/modal'
+import { useUserStore } from '@/stores/user'
+import { mapStores } from 'pinia'
 
-import CountryFlag from "vue-country-flag-next"
+import CountryFlag from 'vue-country-flag-next'
 
 export default {
-  name: "AppHeader",
+  name: 'AppHeader',
 
   components: {
     CountryFlag
@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       showLocale: false,
-      themeMode: "dark"
+      themeMode: 'dark'
     }
   },
 
@@ -23,7 +23,7 @@ export default {
     ...mapStores(useModalStore, useUserStore),
 
     currentLocale() {
-      return this.$i18n.locale === "pt" ? "English" : "Português"
+      return this.$i18n.locale === 'pt' ? 'English' : 'Português'
     }
   },
 
@@ -36,14 +36,14 @@ export default {
       this.userStore.logout()
 
       if (this.$route.meta.requiresAuth) {
-        this.$router.push({ name: "home" })
+        this.$router.push({ name: 'home' })
       }
     },
 
     changeLocale(event) {
-      this.$i18n.locale = event.target.getAttribute("lang")
+      this.$i18n.locale = event.target.getAttribute('lang')
 
-      localStorage.setItem("locale", this.$i18n.locale)
+      localStorage.setItem('locale', this.$i18n.locale)
     },
 
     toggleShowLocale() {
@@ -51,16 +51,16 @@ export default {
     },
 
     toggleTheme() {
-      const page = document.getElementById("teste")
+      const page = document.getElementById('html')
 
-      if (this.themeMode === "dark") {
-        page.classList.remove("dark")
-        localStorage.setItem("theme", "light")
-        this.themeMode = "light"
+      if (this.themeMode === 'dark') {
+        page.classList.remove('dark')
+        localStorage.setItem('theme', 'light')
+        this.themeMode = 'light'
       } else {
-        page.classList.add("dark")
-        localStorage.setItem("theme", "dark")
-        this.themeMode = "dark"
+        page.classList.add('dark')
+        localStorage.setItem('theme', 'dark')
+        this.themeMode = 'dark'
       }
     }
   }
@@ -68,91 +68,66 @@ export default {
 </script>
 
 <template>
-  <header id="header" class="bg-stone-900 z-20">
-    <nav class="container mx-auto flex justify-start items-center py-6 px-2">
+  <header id="header" class="z-20 bg-stone-900">
+    <nav class="container mx-auto flex items-center justify-start px-2 py-6">
       <router-link
-        class="text-white font-bold uppercase text-2xl mr-4"
+        class="mr-4 text-2xl font-bold text-white uppercase"
         :to="{ name: 'home' }"
         exact-active-class="no-active"
       >
         Qualé
       </router-link>
 
-      <div class="flex flex-grow items-center justify-between relative">
-        <ul class="flex flex-row mt-1">
+      <div class="relative flex grow items-center justify-between">
+        <ul class="mt-1 flex flex-row">
           <li>
             <router-link :to="{ name: 'about' }" class="px-2 text-white">
-              {{ $t("header.about") }}
+              {{ $t('header.about') }}
             </router-link>
           </li>
 
           <li v-if="!userStore.userLoggedIn">
-            <a
-              class="px-2 text-white"
-              href="#"
-              @click.prevent="toggleAuthModal"
-            >
+            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">
               Login / Register
             </a>
           </li>
 
           <template v-else>
             <li>
-              <router-link :to="{ name: 'manage' }" class="px-2 text-white">
-                Manage
-              </router-link>
+              <router-link :to="{ name: 'manage' }" class="px-2 text-white"> Manage </router-link>
             </li>
 
             <li>
-              <a class="px-2 text-white" href="#" @click.prevent="logout">
-                Logout
-              </a>
+              <a class="px-2 text-white" href="#" @click.prevent="logout"> Logout </a>
             </li>
           </template>
         </ul>
 
-        <section class="flex gap-8 mt-1">
+        <section class="mt-1 flex gap-8">
           <i
-            class="fas text-white cursor-pointer"
+            class="fas cursor-pointer text-white"
             :class="[themeMode === 'light' ? 'fa-sun' : 'fa-moon']"
             @click="toggleTheme"
           />
 
-          <i
-            class="fas fa-globe text-white cursor-pointer"
-            @click="toggleShowLocale"
-          />
+          <i class="fas fa-globe cursor-pointer text-white" @click="toggleShowLocale" />
         </section>
 
         <ul
           v-show="showLocale"
-          class="before:block before:absolute before:-top-3.5 before:w-1/12 before:right-0.5 before:content-['^'] before:h-1 text-white right-0 top-10 absolute"
+          class="absolute top-10 right-0 text-white before:absolute before:-top-3.5 before:right-0.5 before:block before:h-1 before:w-1/12 before:content-['^']"
         >
-          <li class="bg-stone-600 flex flex-col rounded border">
-            <div class="flex items-center cursor-pointer hover:bg-stone-500">
-              <CountryFlag country="br" class="!m-0" />
+          <li class="flex flex-col rounded-sm border bg-stone-600">
+            <div class="flex cursor-pointer items-center hover:bg-stone-500">
+              <CountryFlag country="br" class="m-0!" />
 
-              <span
-                class="px-2"
-                lang="pt"
-                href="#"
-                @click.prevent="changeLocale"
-              >
-                Português
-              </span>
+              <span class="px-2" lang="pt" href="#" @click.prevent="changeLocale"> Português </span>
             </div>
 
-            <div class="flex items-center cursor-pointer hover:bg-stone-500">
-              <CountryFlag country="us" class="!m-0" />
+            <div class="flex cursor-pointer items-center hover:bg-stone-500">
+              <CountryFlag country="us" class="m-0!" />
 
-              <span
-                class="px-2"
-                lang="en"
-                href="#"
-                @click.prevent="changeLocale"
-              >
-                English
-              </span>
+              <span class="px-2" lang="en" href="#" @click.prevent="changeLocale"> English </span>
             </div>
           </li>
         </ul>

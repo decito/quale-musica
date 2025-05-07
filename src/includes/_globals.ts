@@ -1,9 +1,9 @@
-import upperFirst from "lodash/upperFirst"
-import camelCase from "lodash/camelCase"
+import camelCase from 'lodash/camelCase'
+import upperFirst from 'lodash/upperFirst'
 
 export default {
   install(app) {
-    const baseComponents = import.meta.glob("../components/base/*.vue", {
+    const baseComponents = import.meta.glob('../components/base/*.vue', {
       eager: true
     })
 
@@ -11,9 +11,9 @@ export default {
       const componentName = upperFirst(
         camelCase(
           path
-            .split("/")
+            .split('/')
             .pop()
-            .replace(/\.\w+$/, "")
+            .replace(/\.\w+$/, '')
         )
       )
 

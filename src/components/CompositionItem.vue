@@ -102,14 +102,14 @@ export default {
 
       <div class="flex gap-2 items-end">
         <button
-          class="w-8 h-8 flex justify-center items-center text-sm rounded text-white bg-sky-600 hover:bg-sky-500 transition duration-500"
+          class="w-8 h-8 flex justify-center items-center text-sm rounded-sm text-white bg-sky-600 hover:bg-sky-500 transition duration-500"
           @click.prevent="showForm = !showForm"
         >
           <i class="fas fa-pencil" />
         </button>
 
         <button
-          class="w-8 h-8 flex justify-center items-center text-sm rounded text-white bg-red-700 hover:bg-red-600 transition duration-500"
+          class="w-8 h-8 flex justify-center items-center text-sm rounded-sm text-white bg-red-700 hover:bg-red-600 transition duration-500"
           @click.prevent="deleteSong"
         >
           <i class="fas fa-trash-can" />
@@ -138,7 +138,7 @@ export default {
               <VeeField
                 name="modifiedName"
                 type="text"
-                class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black rounded"
+                class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
                 placeholder="Enter Title"
                 @input="updateUnsavedFlag(true)"
               />
@@ -150,7 +150,7 @@ export default {
               <VeeField
                 name="genre"
                 type="text"
-                class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-none focus:border-black rounded"
+                class="block w-full py-1.5 px-3 dark:bg-stone-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-500 transition duration-500 focus:outline-hidden focus:border-black rounded-sm"
                 placeholder="Enter Genre"
                 @input="updateUnsavedFlag(true)"
               />
@@ -166,7 +166,7 @@ export default {
         <footer class="flex justify-end gap-8 mt-3">
           <button
             type="submit"
-            class="py-1.5 px-3 rounded text-white bg-green-600"
+            class="py-1.5 px-3 rounded-sm text-white bg-green-600"
             :class="{ 'opacity-50': inSubmission }"
             :disabled="inSubmission"
             @input="updateUnsavedFlag(false)"
@@ -176,7 +176,7 @@ export default {
 
           <button
             type="button"
-            class="py-1.5 px-3 rounded text-white bg-gray-600"
+            class="py-1.5 px-3 rounded-sm text-white bg-gray-600"
             :disabled="inSubmission"
             @click.prevent="showForm = false"
           >

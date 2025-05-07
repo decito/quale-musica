@@ -1,35 +1,35 @@
 <script>
-import { mapActions, mapState } from "pinia"
-import usePlayerStore from "@/stores/player"
-import { useMediaQuery } from "@vueuse/core"
+import { usePlayerStore } from '@/stores/player'
+import { useMediaQuery } from '@vueuse/core'
+import { mapActions, mapState } from 'pinia'
 
 export default {
-  name: "Player",
+  name: 'Player',
 
   data() {
     return {
-      isDesktop: useMediaQuery("(min-width: 1024px)"),
+      isDesktop: useMediaQuery('(min-width: 1024px)'),
       showVolumeBar: false
     }
   },
 
   methods: {
     ...mapActions(usePlayerStore, [
-      "toggleAudio",
-      "updateSeek",
-      "updateVolume",
-      "updateVerticalVolume"
+      'toggleAudio',
+      'updateSeek',
+      'updateVolume',
+      'updateVerticalVolume'
     ])
   },
 
   computed: {
     ...mapState(usePlayerStore, [
-      "isPlaying",
-      "seek",
-      "duration",
-      "playerProgress",
-      "currentSong",
-      "volumeLevel"
+      'isPlaying',
+      'seek',
+      'duration',
+      'playerProgress',
+      'currentSong',
+      'volumeLevel'
     ])
   }
 }
@@ -38,7 +38,7 @@ export default {
 <template>
   <div
     v-if="currentSong.modifiedName"
-    class="fixed bottom-0 left-0 bg-white dark:bg-stone-700 dark:text-white px-4 py-2 w-full z-20"
+    class="fixed bottom-0 left-0 z-20 w-full bg-white px-4 py-2 dark:bg-stone-700 dark:text-white"
   >
     <div class="text-center">
       <span class="song-title font-bold">{{ currentSong.modifiedName }}</span>
@@ -47,10 +47,10 @@ export default {
       <span class="song-artist">{{ currentSong.displayName }}</span>
     </div>
 
-    <div class="flex flex-nowrap gap-4 items-center">
+    <div class="flex flex-nowrap items-center gap-4">
       <button type="button" @click.prevent="toggleAudio">
         <i
-          class="fas text-gray-500 dark:text-white text-xl"
+          class="fas text-xl text-gray-500 dark:text-white"
           :class="{
             'fa-play': !isPlaying,
             'fa-pause': isPlaying
@@ -61,28 +61,25 @@ export default {
       <div class="player-currenttime">{{ seek }}</div>
 
       <div
-        class="w-full h-2 rounded bg-gray-200 dark:bg-stone-400 relative cursor-pointer"
+        class="relative h-2 w-full cursor-pointer rounded-sm bg-gray-200 dark:bg-stone-400"
         @click.prevent="updateSeek"
       >
         <span
-          class="absolute -top-2.5 -ml-2.5 text-gray-800 dark:text-white text-lg"
+          class="absolute -top-2.5 -ml-2.5 text-lg text-gray-800 dark:text-white"
           :style="{ left: playerProgress }"
         >
           <i class="fas fa-circle" />
         </span>
 
         <span
-          class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"
+          class="block h-2 rounded-sm bg-linear-to-r from-green-500 to-green-400"
           :style="{ width: playerProgress }"
         />
       </div>
 
-      <div
-        v-if="!isDesktop"
-        class="flex flex-col relative cursor-pointer rounded"
-      >
+      <div v-if="!isDesktop" class="relative flex cursor-pointer flex-col rounded-sm">
         <i
-          class="fas text-gray-500 dark:text-white text-lg fa-volume-high"
+          class="fas fa-volume-high text-lg text-gray-500 dark:text-white"
           @click.prevent="showVolumeBar = !showVolumeBar"
           @touchstart="showVolumeBar = !showVolumeBar"
           @touchend="showVolumeBar = !showVolumeBar"
@@ -90,20 +87,17 @@ export default {
 
         <div
           v-show="showVolumeBar"
-          class="absolute w-2 h-20 -top-24 ml-2 -rotate-180"
+          class="absolute -top-24 ml-2 h-20 w-2 -rotate-180"
           @click.prevent="updateVerticalVolume"
         >
-          <span class="block w-2 h-20 bg-gray-200 -top-24 rounded" />
+          <span class="-top-24 block h-20 w-2 rounded-sm bg-gray-200" />
 
           <div
-            class="block w-2 -mt-20 rounded bg-gradient-to-r from-green-500 to-green-400"
+            class="-mt-20 block w-2 rounded-sm bg-linear-to-r from-green-500 to-green-400"
             :style="{ height: volumeLevel }"
           />
 
-          <span
-            class="absolute -ml-1"
-            :style="{ top: `calc(${volumeLevel} - 15%)` }"
-          >
+          <span class="absolute -ml-1" :style="{ top: `calc(${volumeLevel} - 15%)` }">
             <i class="fas fa-circle" />
           </span>
         </div>
@@ -111,18 +105,18 @@ export default {
 
       <div
         v-else
-        class="w-1/12 h-2 rounded bg-gray-200 dark:bg-stone-400 relative cursor-pointer"
+        class="relative h-2 w-1/12 cursor-pointer rounded-sm bg-gray-200 dark:bg-stone-400"
         @click.prevent="updateVolume"
       >
         <span
-          class="absolute -top-2.5 -ml-2.5 text-gray-800 dark:text-white text-lg"
+          class="absolute -top-2.5 -ml-2.5 text-lg text-gray-800 dark:text-white"
           :style="{ left: volumeLevel }"
         >
           <i class="fas fa-circle" />
         </span>
 
         <span
-          class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"
+          class="block h-2 rounded-sm bg-linear-to-r from-green-500 to-green-400"
           :style="{ width: volumeLevel }"
         />
       </div>
