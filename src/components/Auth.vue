@@ -39,7 +39,7 @@ export default {
       <span class="hidden sm:inline-block sm:h-screen sm:align-middle"> &#8203; </span>
 
       <div
-        class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle"
+        class="relative inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle"
       >
         <!-- Add margin to allow visualization of some of the overlay behind the modal-->
         <div class="px-6 py-4 text-left">
