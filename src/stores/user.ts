@@ -27,10 +27,16 @@ export const useUserStore = defineStore('user', () => {
     userLoggedIn.value = true
   }
 
+  const checkUserLoggedIn = () => {
+    if (auth.currentUser) {
+      userLoggedIn.value = true
+    }
+  }
+
   const logout = async () => {
     await auth.signOut()
     userLoggedIn.value = false
   }
 
-  return { userLoggedIn, register, authenticate, logout }
+  return { userLoggedIn, checkUserLoggedIn, register, authenticate, logout }
 })
