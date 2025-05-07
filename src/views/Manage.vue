@@ -1,10 +1,10 @@
 <script>
-import UploadSong from "@/components/UploadSong.vue"
-import CompositionItem from "@/components/CompositionItem.vue"
-import { auth, songsCollection } from "@/includes/firebase"
+import CompositionItem from '@/components/CompositionItem.vue'
+import UploadSong from '@/components/UploadSong.vue'
+import { auth, songsCollection } from '@/includes/firebase'
 
 export default {
-  name: "Manage",
+  name: 'Manage',
   components: {
     UploadSong,
     CompositionItem
@@ -18,9 +18,7 @@ export default {
   },
 
   async created() {
-    const snapshot = await songsCollection
-      .where("uid", "==", auth.currentUser.uid)
-      .get()
+    const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get()
 
     snapshot.forEach(this.addSong)
   },
@@ -53,9 +51,7 @@ export default {
     if (!this.unsavedFlag) {
       next()
     } else {
-      const answer = window.confirm(
-        "You have unsaved changes. Are you sure you want to leave?"
-      )
+      const answer = window.confirm('You have unsaved changes. Are you sure you want to leave?')
       next(answer)
     }
   }
@@ -64,23 +60,19 @@ export default {
 
 <template>
   <section class="container mx-auto">
-    <div class="md:grid md:grid-cols-3 md:gap-4 mt-12">
+    <div class="mt-12 md:grid md:grid-cols-3 md:gap-4">
       <div class="col-span-1">
         <UploadSong ref="upload" :addSong="addSong" />
       </div>
 
       <div class="col-span-2">
         <div
-          class="bg-white dark:bg-stone-700 rounded-sm border border-gray-200 dark:border-gray-500 relative flex flex-col dark:text-white"
+          class="relative flex flex-col rounded-sm border border-gray-200 bg-white dark:border-gray-500 dark:bg-stone-700 dark:text-white"
         >
-          <div
-            class="px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"
-          >
-            <span class="card-title">{{ $t("manage.cardTitle") }}</span>
+          <div class="border-b border-gray-200 px-6 pt-6 pb-5 font-bold dark:border-gray-500">
+            <span class="card-title">{{ $t('manage.cardTitle') }}</span>
 
-            <i
-              class="fas fa-compact-disc float-right text-green-400 text-2xl"
-            />
+            <i class="fas fa-compact-disc float-right text-2xl text-green-400" />
           </div>
 
           <div class="p-6">

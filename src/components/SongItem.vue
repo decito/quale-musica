@@ -1,9 +1,9 @@
 <script>
-import { limitText } from "@/includes/formatters"
-import { coversCollection } from "@/includes/firebase"
+import { coversCollection } from '@/includes/firebase'
+import { limitText } from '@/includes/formatters'
 
 export default {
-  name: "SongItem",
+  name: 'SongItem',
 
   props: {
     song: {
@@ -14,7 +14,7 @@ export default {
 
   data() {
     return {
-      coverSrc: ""
+      coverSrc: ''
     }
   },
 
@@ -26,7 +26,7 @@ export default {
 
   async mounted() {
     if (!this.song.coverId) {
-      this.coverSrc = "/assets/img/frame-dark.png"
+      this.coverSrc = '/assets/img/frame-dark.png'
       return
     }
 
@@ -40,11 +40,11 @@ export default {
 <template>
   <li
     :id="`song-${song.docID}`"
-    class="rounded-sm bg-gray-200 dark:bg-stone-700 cursor-pointer transition duration-300 hover:bg-gray-50 dark:hover:bg-stone-600"
+    class="cursor-pointer rounded-sm bg-gray-200 transition duration-300 hover:bg-gray-50 dark:bg-stone-700 dark:hover:bg-stone-600"
   >
     <router-link
       :to="{ name: 'song', params: { id: song.docID } }"
-      class="flex flex-col justify-between font-semibold text-gray-700 dark:text-gray-100 items-center"
+      class="flex flex-col items-center justify-between font-semibold text-gray-700 dark:text-gray-100"
     >
       <header>
         <div>
@@ -52,10 +52,10 @@ export default {
         </div>
       </header>
 
-      <section class="p-3 w-full">
+      <section class="w-full p-3">
         <div>
           <p>{{ formatText(song.modifiedName) }}</p>
-          <span class="text-gray-500 dark:text-gray-300 text-sm">
+          <span class="text-sm text-gray-500 dark:text-gray-300">
             {{ song.displayName }}
           </span>
         </div>

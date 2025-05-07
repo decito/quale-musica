@@ -5,9 +5,11 @@ import { ref } from 'vue'
 export const useUserStore = defineStore('user', () => {
   const userLoggedIn = ref(false)
 
+  //@ts-expect-error type
   const register = async (values) => {
     const userCredentials = await auth.createUserWithEmailAndPassword(values.email, values.password)
 
+    //@ts-expect-error type
     await usersCollection.doc(userCredentials.user.uid).set({
       name: values.name,
       email: values.email,
@@ -15,6 +17,7 @@ export const useUserStore = defineStore('user', () => {
       country: values.country
     })
 
+    //@ts-expect-error type
     await userCredentials.user.updateProfile({
       displayName: values.name
     })
@@ -22,6 +25,7 @@ export const useUserStore = defineStore('user', () => {
     userLoggedIn.value = true
   }
 
+  //@ts-expect-error type
   const authenticate = async (values) => {
     await auth.signInWithEmailAndPassword(values.email, values.password)
     userLoggedIn.value = true

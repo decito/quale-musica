@@ -1,4 +1,5 @@
 export default {
+  //@ts-expect-error type
   beforeMount(element: HTMLElement, binding) {
     let iconClass = `fas fa-${binding.value.icon} text-xl`
 
