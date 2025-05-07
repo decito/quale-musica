@@ -1,10 +1,9 @@
 <script>
-import { songsCollection } from "@/includes/firebase"
-import SongItem from "@/components/SongItem.vue"
-import { auth } from "@/includes/firebase"
+import SongItem from '@/components/SongItem.vue'
+import { auth, songsCollection } from '@/includes/firebase'
 
 export default {
-  name: "Home",
+  name: 'Home',
 
   components: {
     SongItem
@@ -13,7 +12,7 @@ export default {
   data() {
     return {
       songs: [],
-      username: "",
+      username: '',
       maxPerScroll: 25,
       isPendingRequest: false
     }
@@ -25,19 +24,18 @@ export default {
     if (auth.currentUser) {
       this.username = `, ${auth.currentUser.displayName}`
     }
-    window.addEventListener("scroll", this.handleScroll)
+    window.addEventListener('scroll', this.handleScroll)
   },
 
   beforeUnmount() {
-    window.removeEventListener("scroll", this.handleScroll)
+    window.removeEventListener('scroll', this.handleScroll)
   },
 
   methods: {
     handleScroll() {
       const { scrollTop, offsetHeight } = document.documentElement
       const { innerHeight } = window
-      const bottomOfWindow =
-        Math.round(scrollTop) + innerHeight === offsetHeight
+      const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight
 
       if (bottomOfWindow) {
         this.getSongs()
@@ -54,20 +52,15 @@ export default {
       let snapshots
 
       if (this.songs.length) {
-        const lastDoc = await songsCollection
-          .doc(this.songs[this.songs.length - 1].docID)
-          .get()
+        const lastDoc = await songsCollection.doc(this.songs[this.songs.length - 1].docID).get()
 
         snapshots = await songsCollection
-          .orderBy("modifiedName")
+          .orderBy('modifiedName')
           .startAfter(lastDoc)
           .limit(this.maxPerScroll)
           .get()
       } else {
-        snapshots = await songsCollection
-          .orderBy("modifiedName")
-          .limit(this.maxPerScroll)
-          .get()
+        snapshots = await songsCollection.orderBy('modifiedName').limit(this.maxPerScroll).get()
       }
 
       snapshots.forEach((document) => {
@@ -86,14 +79,11 @@ export default {
 <template>
   <main>
     <section class="container mx-auto">
-      <div class="dark:text-white mt-12">
-        <span class="pl-2 font-bold text-2xl">Hi there{{ username }}!</span>
+      <div class="mt-12 dark:text-white">
+        <span class="pl-2 text-2xl font-bold">Hi there{{ username }}!</span>
       </div>
 
-      <ol
-        id="playlist"
-        class="pt-20 grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-8"
-      >
+      <ol id="playlist" class="grid grid-cols-3 gap-8 pt-20 md:grid-cols-5 lg:grid-cols-6">
         <SongItem v-for="song in songs" :key="song.docID" :song="song" />
       </ol>
     </section>

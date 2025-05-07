@@ -5,8 +5,9 @@ import { useRoute } from 'vue-router'
 
 export const usePlayerStore = defineStore('player', {
   state: () => ({
-    currentSong: {},
-    sound: {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    currentSong: {} as any,
+    sound: {} as Howl,
     seek: '00:00',
     duration: '00:00',
     playerProgress: '0%',
@@ -27,7 +28,8 @@ export const usePlayerStore = defineStore('player', {
   },
 
   actions: {
-    async newSong(song) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async newSong(song: any) {
       if (this.sound instanceof Howl) {
         this.sound.unload()
       }
@@ -50,7 +52,8 @@ export const usePlayerStore = defineStore('player', {
     async toggleAudio() {
       if (!this.sound.playing) return
 
-      this.sound.playing() ? this.sound.pause() : this.sound.play()
+      if (this.sound.playing()) this.sound.pause()
+      else this.sound.play()
     },
 
     updateProgress() {
@@ -64,6 +67,7 @@ export const usePlayerStore = defineStore('player', {
       }
     },
 
+    //@ts-expect-error type
     updateSeek(event) {
       if (!this.sound.playing) return
 
@@ -76,6 +80,7 @@ export const usePlayerStore = defineStore('player', {
       this.sound.once('seek', this.updateProgress)
     },
 
+    //@ts-expect-error type
     updateVolume(event) {
       const { x, width } = event.currentTarget.getBoundingClientRect()
       const clickX = event.clientX - x
@@ -87,6 +92,7 @@ export const usePlayerStore = defineStore('player', {
       this.volumeLevel = `${volume * 100}%`
     },
 
+    //@ts-expect-error type
     updateVerticalVolume(event) {
       const { y, height } = event.currentTarget.getBoundingClientRect()
       const clickY = event.clientY - y

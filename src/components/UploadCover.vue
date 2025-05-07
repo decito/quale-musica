@@ -1,15 +1,10 @@
 <script>
-import {
-  auth,
-  coversCollection,
-  storage,
-  songsCollection
-} from "@/includes/firebase"
+import { auth, coversCollection, storage, songsCollection } from '@/includes/firebase'
 
-import { sleep } from "@/includes/sleep"
+import { sleep } from '@/includes/sleep'
 
 export default {
-  name: "UploadSong",
+  name: 'UploadSong',
 
   props: {
     song: {
@@ -21,9 +16,9 @@ export default {
   data() {
     return {
       isDragover: false,
-      message: "Drop the image here...",
+      message: 'Drop the image here...',
       cover: {
-        textClass: "text-gray-400"
+        textClass: 'text-gray-400'
       },
       hasCover: this.song.coverId || false,
       continueUpload: true,
@@ -33,9 +28,9 @@ export default {
 
   methods: {
     async beforeUpload(file) {
-      if (file.type !== "image/jpeg") {
+      if (file.type !== 'image/jpeg') {
         this.continueUpload = false
-        console.error("Image must be a .jpg or .jpeg file.")
+        console.error('Image must be a .jpg or .jpeg file.')
         this.typeError = true
 
         await sleep(3000)
@@ -54,9 +49,7 @@ export default {
         img.onload = async () => {
           if (img.naturalWidth !== 500 || img.naturalHeight !== 500) {
             this.continueUpload = false
-            console.error(
-              "Image must have the following dimensions: 500x500px."
-            )
+            console.error('Image must have the following dimensions: 500x500px.')
             this.typeError = true
 
             await sleep(3000)
@@ -94,17 +87,14 @@ export default {
       this.cover.uploadingState = true
 
       const storageRef = storage.ref()
-      const coverRef = storageRef.child(
-        `covers/${this.song.originalName}-cover.png`
-      )
+      const coverRef = storageRef.child(`covers/${this.song.originalName}-cover.png`)
 
       const task = coverRef.put(file)
 
       task.on(
-        "state_changed",
+        'state_changed',
         (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           this.cover.currentProgress = progress
         },
         () => this.errorController(false),
@@ -127,24 +117,24 @@ export default {
     },
 
     async errorController(offline) {
-      this.cover.variant = "bg-red-400"
-      this.cover.textClass = "text-white"
+      this.cover.variant = 'bg-red-400'
+      this.cover.textClass = 'text-white'
 
       offline
-        ? (this.message = "You are offline. Please check your connection.")
-        : (this.message = "Something went wrong. Please try again")
+        ? (this.message = 'You are offline. Please check your connection.')
+        : (this.message = 'Something went wrong. Please try again')
 
       await sleep(3000)
 
-      this.cover.variant = "bg-transparent"
-      this.cover.textClass = "text-gray-400"
+      this.cover.variant = 'bg-transparent'
+      this.cover.textClass = 'text-gray-400'
       this.cover.uploadingState = false
     },
 
     async successController(cover) {
-      this.cover.variant = "bg-green-400"
-      this.cover.textClass = "text-white"
-      this.message = "All set! Just a little longer..."
+      this.cover.variant = 'bg-green-400'
+      this.cover.textClass = 'text-white'
+      this.message = 'All set! Just a little longer...'
 
       await sleep(3000)
 
@@ -153,13 +143,13 @@ export default {
         alt: cover.name,
         src: cover.fileUrl
       }
-      this.cover.variant = "bg-transparent"
-      this.cover.textClass = "text-gray-400"
+      this.cover.variant = 'bg-transparent'
+      this.cover.textClass = 'text-gray-400'
       this.cover.uploadingState = false
     },
 
     deleteCover() {
-      console.error("Function not implemented yet.")
+      console.error('Function not implemented yet.')
     }
   },
 
@@ -188,7 +178,7 @@ export default {
 
       <button
         v-if="hasCover"
-        class="text-red-400 border border-red-400 rounded-sm py-0.5 px-1.5 hidden"
+        class="hidden rounded-sm border border-red-400 px-1.5 py-0.5 text-red-400"
         @click.prevent="deleteCover"
       >
         Delete cover
@@ -201,11 +191,11 @@ export default {
 
     <div
       v-else
-      class="w-full relative px-5 py-7 md:px-10 md:py-16 rounded-sm text-center border border-dashed border-gray-400 transition-all duration-500"
+      class="relative w-full rounded-sm border border-dashed border-gray-400 px-5 py-7 text-center transition-all duration-500 md:px-10 md:py-16"
       :class="[
         cover.textClass,
         cover.variant,
-        isDragover && 'bg-green-400 border-green-400 border-solid text-white!'
+        isDragover && 'border-solid border-green-400 bg-green-400 text-white!'
       ]"
       @drag.prevent.stop=""
       @dragstart.prevent.stop=""
@@ -219,14 +209,12 @@ export default {
 
       <div
         v-if="cover.uploadingState && cover.currentProgress !== 100"
-        class="absolute h-full top-0 left-0 overflow-hidden rounded-sm transition-all progress-bar"
+        class="progress-bar absolute top-0 left-0 h-full overflow-hidden rounded-sm transition-all"
         :class="cover.variant"
         :style="{ width: `${cover.currentProgress}%` }"
       />
 
-      <small :class="typeError && 'text-red-400'">
-        must be a .jpg or .jpeg file, 500x500px
-      </small>
+      <small :class="typeError && 'text-red-400'"> must be a .jpg or .jpeg file, 500x500px </small>
     </div>
   </div>
 </template>

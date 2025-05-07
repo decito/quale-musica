@@ -1,7 +1,10 @@
 import { useUserStore } from '@/stores/user'
 import About from '@/views/About.vue'
+//@ts-expect-error type
 import Home from '@/views/Home.vue'
+//@ts-expect-error type
 import Manage from '@/views/Manage.vue'
+//@ts-expect-error type
 import SongView from '@/views/SongView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 

@@ -1,8 +1,8 @@
 <script>
-import { auth, storage, songsCollection } from "@/includes/firebase"
+import { auth, storage, songsCollection } from '@/includes/firebase'
 
 export default {
-  name: "UploadSong",
+  name: 'UploadSong',
 
   props: {
     addSong: {
@@ -22,12 +22,10 @@ export default {
     uploadSongs($event) {
       this.isDragover = false
 
-      const files = $event.dataTransfer
-        ? [...$event.dataTransfer.files]
-        : [...$event.target.files]
+      const files = $event.dataTransfer ? [...$event.dataTransfer.files] : [...$event.target.files]
 
       files.forEach((file) => {
-        if (file.type !== "audio/mpeg") {
+        if (file.type !== 'audio/mpeg') {
           return
         }
 
@@ -36,9 +34,9 @@ export default {
             task: {},
             currentProgress: 100,
             name: file.name,
-            variant: "bg-red-400",
-            icon: "fas fa-xmark",
-            textClass: "text-red-400"
+            variant: 'bg-red-400',
+            icon: 'fas fa-xmark',
+            textClass: 'text-red-400'
           })
           return
         }
@@ -53,23 +51,22 @@ export default {
             task,
             currentProgress: 0,
             name: file.name,
-            variant: "bg-blue-400",
-            icon: "fas fa-spinner fa-spin",
-            textClass: "",
+            variant: 'bg-blue-400',
+            icon: 'fas fa-spinner fa-spin',
+            textClass: '',
             uploadingState: true
           }) - 1
 
         task.on(
-          "state_changed",
+          'state_changed',
           (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             this.uploads[uploadIndex].currentProgress = progress
           },
           () => {
-            this.uploads[uploadIndex].variant = "bg-red-400"
-            this.uploads[uploadIndex].icon = "fas fa-xmark"
-            this.uploads[uploadIndex].textClass = "text-red-400"
+            this.uploads[uploadIndex].variant = 'bg-red-400'
+            this.uploads[uploadIndex].icon = 'fas fa-xmark'
+            this.uploads[uploadIndex].textClass = 'text-red-400'
             this.uploads[uploadIndex].uploadingState = false
           },
           async () => {
@@ -78,9 +75,9 @@ export default {
               displayName: auth.currentUser.displayName,
               originalName: task.snapshot.ref.name,
               modifiedName: task.snapshot.ref.name,
-              genre: "",
+              genre: '',
               commentCount: 0,
-              coverID: ""
+              coverID: ''
             }
             song.fileUrl = await task.snapshot.ref.getDownloadURL()
 
@@ -89,9 +86,9 @@ export default {
             const songSnapshot = await songCollectionRef.get()
             this.addSong(songSnapshot)
 
-            this.uploads[uploadIndex].variant = "bg-green-400"
-            this.uploads[uploadIndex].icon = "fas fa-check"
-            this.uploads[uploadIndex].textClass = "text-green-400"
+            this.uploads[uploadIndex].variant = 'bg-green-400'
+            this.uploads[uploadIndex].icon = 'fas fa-check'
+            this.uploads[uploadIndex].textClass = 'text-green-400'
             this.uploads[uploadIndex].uploadingState = false
           }
         )
@@ -111,21 +108,19 @@ export default {
 
 <template>
   <div
-    class="dark:text-white bg-white dark:bg-stone-700 rounded-sm border border-gray-200 dark:border-gray-500 relative flex flex-col mb-10"
+    class="relative mb-10 flex flex-col rounded-sm border border-gray-200 bg-white dark:border-gray-500 dark:bg-stone-700 dark:text-white"
   >
-    <div
-      class="px-6 pt-6 pb-5 font-bold border-b border-gray-200 dark:border-gray-500"
-    >
+    <div class="border-b border-gray-200 px-6 pt-6 pb-5 font-bold dark:border-gray-500">
       <span class="card-title">Upload</span>
 
-      <i class="fas fa-upload float-right text-green-400 text-2xl" />
+      <i class="fas fa-upload float-right text-2xl text-green-400" />
     </div>
 
     <div class="p-6">
       <div
-        class="w-full px-10 py-20 rounded-sm text-center border border-dashed border-gray-400 text-gray-400 transition duration-500"
+        class="w-full rounded-sm border border-dashed border-gray-400 px-10 py-20 text-center text-gray-400 transition duration-500"
         :class="{
-          'bg-green-400 border-green-400 border-solid text-white!': isDragover
+          'border-solid border-green-400 bg-green-400 text-white!': isDragover
         }"
         @drag.prevent.stop=""
         @dragstart.prevent.stop=""
@@ -140,7 +135,7 @@ export default {
 
       <label
         for="multipleFiles"
-        class="px-2.5 py-5 w-full bg-gray-200 text-gray-800 dark:text-white dark:bg-stone-700 border rounded-sm border-gray-200 dark:border-gray-500 cursor-pointer text-center block mt-5 hover:bg-green-400 hover:border-green-400 dark:hover:text-white dark:hover:bg-green-400 dark:hover:border-green-400 hover:text-white transition duration-500"
+        class="mt-5 block w-full cursor-pointer rounded-sm border border-gray-200 bg-gray-200 px-2.5 py-5 text-center text-gray-800 transition duration-500 hover:border-green-400 hover:bg-green-400 hover:text-white dark:border-gray-500 dark:bg-stone-700 dark:text-white dark:hover:border-green-400 dark:hover:bg-green-400 dark:hover:text-white"
       >
         ... or click here to select files
       </label>
@@ -157,11 +152,11 @@ export default {
       <hr class="my-6 dark:border-gray-500" />
 
       <div v-for="upload in uploads" :key="upload.name" class="mb-4">
-        <div class="font-bold text-sm" :class="upload.textClass">
+        <div class="text-sm font-bold" :class="upload.textClass">
           <i :class="upload.icon" /> {{ upload.name }}
         </div>
 
-        <div class="flex h-4 overflow-hidden bg-gray-200 rounded-sm">
+        <div class="flex h-4 overflow-hidden rounded-sm bg-gray-200">
           <div
             class="transition-all"
             :class="[upload.variant, upload.uploadingState && 'progress-bar']"

@@ -8,6 +8,7 @@ import { auth } from './includes/firebase'
 import i18n from './includes/i18n'
 import VeeValidatePlugin from './includes/validation.ts'
 
+//@ts-expect-error type
 import { registerSW } from 'virtual:pwa-register'
 
 import GlobalComponents from './includes/_globals'

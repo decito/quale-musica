@@ -1,6 +1,9 @@
 <script setup lang="ts">
+//@ts-expect-error type
 import AuthModal from '@/components/Auth.vue'
+//@ts-expect-error type
 import AppHeader from '@/components/Header.vue'
+//@ts-expect-error type
 import Player from '@/components/Player.vue'
 import { useUserStore } from '@/stores/user'
 import { onBeforeMount } from 'vue'
