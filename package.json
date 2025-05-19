@@ -23,7 +23,7 @@
     "@types/nprogress": "^0.2.3",
     "@vee-validate/rules": "^4.15.0",
     "@vueuse/core": "^13.1.0",
-    "firebase": "^8.10.1",
+    "firebase": "^11.7.3",
     "howler": "^2.2.4",
     "nprogress": "^0.2.0",
     "pinia": "^3.0.2",
