@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.5",
-    "@tailwindcss/vite": "^4.1.5",
+    "@tailwindcss/vite": "^4.1.13",
     "@types/howler": "^2.2.12",
     "@types/nprogress": "^0.2.3",
     "@vee-validate/rules": "^4.15.0",
