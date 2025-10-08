@@ -2,7 +2,7 @@
 import AuthModal from "@/components/Auth.vue";
 //@ts-expect-error type
 import AppHeader from "@/components/Header.vue";
-import Player from "@/components/Player.vue";
+import PlayerBar from "@/components/PlayerBar.vue";
 import { useUserStore } from "@/stores/user";
 import { onBeforeMount } from "vue";
 
@@ -22,7 +22,7 @@ onBeforeMount(() => {
     </transition>
   </router-view>
 
-  <Player />
+  <PlayerBar />
 
   <AuthModal />
 </template>
