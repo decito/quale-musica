@@ -1,41 +1,35 @@
-import { createPinia } from 'pinia'
-import { createApp } from 'vue'
-
-import App from './App.vue'
-import router from './router'
-
-import { auth } from './includes/firebase'
-import i18n from './includes/i18n'
-import VeeValidatePlugin from './includes/validation.ts'
-
+import "@/assets/main.css";
+import "nprogress/nprogress.css";
+import { createPinia } from "pinia";
 //@ts-expect-error type
-import { registerSW } from 'virtual:pwa-register'
+import { registerSW } from "virtual:pwa-register";
+import { createApp } from "vue";
+import CountryFlag from "vue-country-flag-next";
+import App from "./App.vue";
+import Icon from "./directives/icon.ts";
+import GlobalComponents from "./includes/_globals";
+import { auth, onAuthStateChanged } from "./includes/firebase";
+import i18n from "./includes/i18n";
+import progressBar from "./includes/progress-bar";
+import VeeValidatePlugin from "./includes/validation.ts";
+import router from "./router";
 
-import GlobalComponents from './includes/_globals'
-import progressBar from './includes/progress-bar'
+registerSW({ immediate: true });
 
-import CountryFlag from 'vue-country-flag-next'
-import Icon from './directives/icon.ts'
+progressBar(router);
 
-import '@/assets/main.css'
-import 'nprogress/nprogress.css'
+const app = createApp(App);
 
-registerSW({ immediate: true })
+onAuthStateChanged(auth, () => {
+  app.use(createPinia());
+  app.use(router);
+  app.use(VeeValidatePlugin);
+  app.use(i18n);
+  app.use(GlobalComponents);
 
-progressBar(router)
+  app.component("CountryFlag", CountryFlag);
 
-const app = createApp(App)
+  app.directive("icon", Icon);
 
-auth.onAuthStateChanged(() => {
-  app.use(createPinia())
-  app.use(router)
-  app.use(VeeValidatePlugin)
-  app.use(i18n)
-  app.use(GlobalComponents)
-
-  app.component("'CountryFlag'", CountryFlag)
-
-  app.directive('icon', Icon)
-
-  app.mount('#app')
-})
+  app.mount("#app");
+});
