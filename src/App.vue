@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthModal from "@/components/Auth.vue";
+import AuthModal from "@/components/AuthModal.vue";
 //@ts-expect-error type
 import AppHeader from "@/components/Header.vue";
 import PlayerBar from "@/components/PlayerBar.vue";
