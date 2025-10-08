@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "tw-animate-css";
+
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
@@ -8,76 +10,103 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
+    @apply transition-colors duration-700;
+  }
+
+  :root {
+    --background: oklch(0.972 0 0);
+    --foreground: oklch(0.141 0.005 285.823);
+
+    --muted: oklch(0.967 0.001 286.375);
+    --muted-foreground: oklch(0.552 0.016 285.938);
+  }
+
+  .dark {
+    --background: oklch(0.141 0.005 285.823);
+    --foreground: oklch(0.99 0 0);
+
+    --muted: oklch(0.274 0.006 286.033);
+    --muted-foreground: oklch(0.705 0.015 286.067);
   }
 }
 
-body {
-  @apply bg-gray-100 pb-24 font-sans dark:bg-stone-800;
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
 }
 
-body::-webkit-scrollbar {
-  width: 0.5em;
-}
+@layer base {
+  body {
+    @apply bg-background text-foreground pb-24 font-sans;
+  }
 
-body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.3);
-}
+  body::-webkit-scrollbar {
+    @apply w-2;
+  }
 
-body::-webkit-scrollbar-thumb {
-  background-color: rgb(14 165 233);
-}
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0.3em rgba(0, 0, 0, 0.3);
+  }
 
-a {
-  transition: all 0.15s ease;
-}
+  body::-webkit-scrollbar-thumb {
+    background-color: rgb(14 165 233);
+  }
 
-a:hover {
-  @apply text-sky-500;
-  text-decoration: none;
-}
+  a {
+    transition: all 0.15s ease;
+  }
 
-.text-orange {
-  color: #f59e0b !important;
-  fill: #f59e0b !important;
-}
+  a:hover {
+    @apply text-sky-500;
+    text-decoration: none;
+  }
 
-.card-header .fa.text-orange,
-.card .card-header .fas.text-orange {
-  color: #ff5e3a;
-  fill: #ff5e3a;
-}
+  .text-orange {
+    color: #f59e0b !important;
+    fill: #f59e0b !important;
+  }
 
-.introduction-bg {
-  animation: slide 240s linear infinite;
-  will-change: background-position;
-  z-index: -1;
-}
+  .card-header .fa.text-orange,
+  .card .card-header .fas.text-orange {
+    color: #ff5e3a;
+    fill: #ff5e3a;
+  }
 
-.upload-dropbox.upload-dropbox-drag {
-  color: #fff;
-  background-color: #20d862;
-  border-color: #20d862;
-  border-style: solid;
-}
+  .introduction-bg {
+    animation: slide 240s linear infinite;
+    will-change: background-position;
+    z-index: -1;
+  }
 
-.progress-bar {
-  background-size: 1rem 1rem;
-  background-image: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    transparent 75%,
-    transparent
-  );
-  animation: progress-bar-stripes 1s linear infinite;
-}
+  .upload-dropbox.upload-dropbox-drag {
+    color: #fff;
+    background-color: #20d862;
+    border-color: #20d862;
+    border-style: solid;
+  }
 
-.music-bg {
-  animation: slide 240s linear infinite;
-  will-change: background-position;
+  .progress-bar {
+    background-size: 1rem 1rem;
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent
+    );
+    animation: progress-bar-stripes 1s linear infinite;
+  }
+
+  .music-bg {
+    animation: slide 240s linear infinite;
+    will-change: background-position;
+  }
 }
 
 @keyframes progress-bar-stripes {
