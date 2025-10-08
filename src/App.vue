@@ -1,18 +1,16 @@
 <script setup lang="ts">
+import AuthModal from "@/components/Auth.vue";
 //@ts-expect-error type
-import AuthModal from '@/components/Auth.vue'
-//@ts-expect-error type
-import AppHeader from '@/components/Header.vue'
-//@ts-expect-error type
-import Player from '@/components/Player.vue'
-import { useUserStore } from '@/stores/user'
-import { onBeforeMount } from 'vue'
+import AppHeader from "@/components/Header.vue";
+import Player from "@/components/Player.vue";
+import { useUserStore } from "@/stores/user";
+import { onBeforeMount } from "vue";
 
-const { checkUserLoggedIn } = useUserStore()
+const { checkUserLoggedIn } = useUserStore();
 
 onBeforeMount(() => {
-  checkUserLoggedIn()
-})
+  checkUserLoggedIn();
+});
 </script>
 
 <template>
@@ -20,7 +18,7 @@ onBeforeMount(() => {
 
   <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
-      <component :is="Component" class="pt-20"></component>
+      <component :is="Component" class="pt-20" />
     </transition>
   </router-view>
 
