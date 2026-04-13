@@ -1,3 +1,3 @@
-it('sanity test', () => {
-  expect(true).toBe(true)
-})
+it("sanity test", () => {
+  expect(true).toBe(true);
+});

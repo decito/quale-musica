@@ -1,25 +1,25 @@
-import { useUserStore } from '@/stores/user'
-import { createPinia, setActivePinia } from 'pinia'
-import { vi } from 'vitest'
+import { useUserStore } from "@/stores/user";
+import { createPinia, setActivePinia } from "pinia";
+import { vi } from "vitest";
 
-vi.mock('@/includes/firebase', () => ({
+vi.mock("@/includes/firebase", () => ({
   auth: {
-    signInWithEmailAndPassword: () => Promise.resolve()
-  }
-}))
+    signInWithEmailAndPassword: () => Promise.resolve(),
+  },
+}));
 
-describe('stores', () => {
+describe("stores", () => {
   beforeEach(() => {
-    setActivePinia(createPinia())
-  })
+    setActivePinia(createPinia());
+  });
 
-  it('should authenticate user', async () => {
-    const store = useUserStore()
+  it("should authenticate user", async () => {
+    const store = useUserStore();
 
-    expect(store.userLoggedIn).not.toBe(true)
+    expect(store.userLoggedIn).not.toBe(true);
 
-    await store.authenticate({})
+    await store.authenticate({});
 
-    expect(store.userLoggedIn).toBe(true)
-  })
-})
+    expect(store.userLoggedIn).toBe(true);
+  });
+});

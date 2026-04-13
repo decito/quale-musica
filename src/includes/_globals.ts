@@ -1,28 +1,28 @@
 //@ts-expect-error type
-import camelCase from 'lodash/camelCase'
+import camelCase from "lodash/camelCase";
 //@ts-expect-error type
-import upperFirst from 'lodash/upperFirst'
+import upperFirst from "lodash/upperFirst";
 
 export default {
   //@ts-expect-error type
   install(app) {
-    const baseComponents = import.meta.glob('../components/base/*.vue', {
-      eager: true
-    })
+    const baseComponents = import.meta.glob("../components/base/*.vue", {
+      eager: true,
+    });
 
     Object.entries(baseComponents).forEach(([path, module]) => {
       const componentName = upperFirst(
         camelCase(
           //@ts-expect-error type
           path
-            .split('/')
+            .split("/")
             .pop()
-            .replace(/\.\w+$/, '')
-        )
-      )
+            .replace(/\.\w+$/, ""),
+        ),
+      );
 
       //@ts-expect-error type
-      app.component(`QM${componentName}`, module.default)
-    })
-  }
-}
+      app.component(`QM${componentName}`, module.default);
+    });
+  },
+};

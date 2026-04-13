@@ -11,7 +11,8 @@
           <h1 class="mb-5 text-4xl font-bold">This is a WIP project!</h1>
 
           <p class="w-full">
-            Use the links below to see the source code, or to get in touch with the author.
+            Use the links below to see the source code, or to get in touch with
+            the author.
           </p>
         </div>
       </div>
@@ -20,7 +21,11 @@
     <section
       class="container mx-auto mt-6 grid max-w-5xl justify-items-center gap-3 text-center font-semibold md:grid-cols-3 md:px-8 dark:text-white"
     >
-      <a href="https://github.com/dnet-o/quale-musica/" target="_blank" class="max-w-[300px]">
+      <a
+        href="https://github.com/decito/quale-musica"
+        target="_blank"
+        class="max-w-[300px]"
+      >
         <div
           class="rounded-sm bg-gray-200 px-6 py-6 hover:bg-gray-50 dark:bg-stone-700 dark:hover:bg-stone-600"
         >
@@ -35,7 +40,11 @@
 
       <article></article>
 
-      <a href="https://www.linkedin.com/in/dnet-o/" target="_blank" class="max-w-[300px]">
+      <a
+        href="https://www.linkedin.com/in/decitodev"
+        target="_blank"
+        class="max-w-[300px]"
+      >
         <div
           class="rounded-sm bg-gray-200 px-6 pt-6 pb-5 hover:bg-gray-50 dark:bg-stone-700 dark:hover:bg-stone-600"
         >
