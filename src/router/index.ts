@@ -1,41 +1,39 @@
-import { useUserStore } from '@/stores/user'
-import About from '@/views/About.vue'
+import { useUserStore } from "@/stores/user";
+import About from "@/views/About.vue";
+import HomeView from "@/views/HomeView.vue";
 //@ts-expect-error type
-import Home from '@/views/Home.vue'
-//@ts-expect-error type
-import Manage from '@/views/Manage.vue'
-//@ts-expect-error type
-import SongView from '@/views/SongView.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import Manage from "@/views/Manage.vue";
+import SongView from "@/views/SongView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    name: 'home',
-    path: '/',
-    component: Home
+    name: "home",
+    path: "/",
+    component: HomeView,
   },
   {
-    name: 'about',
-    path: '/about',
-    component: About
+    name: "about",
+    path: "/about",
+    component: About,
   },
   {
-    name: 'manage',
+    name: "manage",
     // alias: "/manage",
-    path: '/manage-music',
+    path: "/manage-music",
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
     },
-    component: Manage
+    component: Manage,
   },
   {
-    path: '/manage',
-    redirect: { name: 'manage' }
+    path: "/manage",
+    redirect: { name: "manage" },
   },
   {
-    name: 'song',
-    path: '/song/:id',
-    component: SongView
+    name: "song",
+    path: "/song/:id",
+    component: SongView,
     // beforeEnter: async (to, _from, next) => {
     //   const snapshot = await songsCollection.doc(to.params.id).get()
 
@@ -55,30 +53,30 @@ const routes = [
     // }
   },
   {
-    path: '/:catchAll(.*)*',
-    redirect: { name: 'home' }
-  }
-]
+    path: "/:catchAll(.*)*",
+    redirect: { name: "home" },
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-  linkExactActiveClass: 'text-sky-500'
-})
+  linkExactActiveClass: "text-sky-500",
+});
 
 router.beforeEach((to, from, next) => {
   if (!to.meta.requiresAuth) {
-    next()
-    return
+    next();
+    return;
   }
 
-  const { userLoggedIn } = useUserStore()
+  const { userLoggedIn } = useUserStore();
 
   if (userLoggedIn) {
-    next()
+    next();
   } else {
-    next({ name: 'home' })
+    next({ name: "home" });
   }
-})
+});
 
-export default router
+export default router;

@@ -1,38 +1,17 @@
-<script>
-import { usePlayerStore } from '@/stores/player'
-import { useMediaQuery } from '@vueuse/core'
-import { mapActions, mapState } from 'pinia'
+<script setup lang="ts">
+import { usePlayerStore } from "@/stores/player";
+import { useMediaQuery } from "@vueuse/core";
+import { CircleIcon, PauseIcon, PlayIcon } from "lucide-vue-next";
+import { storeToRefs } from "pinia";
+import { ref } from "vue";
 
-export default {
-  name: 'Player',
+const isDesktop = useMediaQuery("(min-width: 1024px)");
+const showVolumeBar = ref(false);
 
-  data() {
-    return {
-      isDesktop: useMediaQuery('(min-width: 1024px)'),
-      showVolumeBar: false
-    }
-  },
-
-  methods: {
-    ...mapActions(usePlayerStore, [
-      'toggleAudio',
-      'updateSeek',
-      'updateVolume',
-      'updateVerticalVolume'
-    ])
-  },
-
-  computed: {
-    ...mapState(usePlayerStore, [
-      'isPlaying',
-      'seek',
-      'duration',
-      'playerProgress',
-      'currentSong',
-      'volumeLevel'
-    ])
-  }
-}
+const playerStore = usePlayerStore();
+const { toggleAudio, updateSeek, updateVolume, updateVerticalVolume } = playerStore;
+const { isPlaying, seek, duration, playerProgress, currentSong, volumeLevel } =
+  storeToRefs(playerStore);
 </script>
 
 <template>
@@ -47,15 +26,17 @@ export default {
       <span class="song-artist">{{ currentSong.displayName }}</span>
     </div>
 
-    <div class="flex flex-nowrap items-center gap-4">
+    <div class="flex flex-nowrap items-center gap-4 text-xl text-gray-500 dark:text-white">
       <button type="button" @click.prevent="toggleAudio">
-        <i
+        <PauseIcon v-if="isPlaying" />
+        <PlayIcon v-else />
+        <!-- <i
           class="fas text-xl text-gray-500 dark:text-white"
           :class="{
             'fa-play': !isPlaying,
-            'fa-pause': isPlaying
+            'fa-pause': isPlaying,
           }"
-        />
+        /> -->
       </button>
 
       <div class="player-currenttime">{{ seek }}</div>
@@ -68,7 +49,8 @@ export default {
           class="absolute -top-2.5 -ml-2.5 text-lg text-gray-800 dark:text-white"
           :style="{ left: playerProgress }"
         >
-          <i class="fas fa-circle" />
+          <CircleIcon />
+          <!-- <i class="fas fa-circle" /> -->
         </span>
 
         <span

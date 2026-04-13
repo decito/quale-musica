@@ -1,10 +1,12 @@
-import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export const useModalStore = defineStore('modal', () => {
-  const isOpen = ref(false)
+export const useModalStore = defineStore("modal", () => {
+  const isOpen = ref(false);
 
-  const hiddenClass = computed(() => (!isOpen.value ? 'hidden' : ''))
+  const setIsOpen = () => {
+    isOpen.value = !isOpen.value;
+  };
 
-  return { isOpen, hiddenClass }
-})
+  return { isOpen, setIsOpen };
+});

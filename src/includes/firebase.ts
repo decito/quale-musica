@@ -1,38 +1,43 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/compat/storage";
+import { initializeApp } from "firebase/app";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { collection, getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_URL,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_APP_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
-
-db.enablePersistence().catch((error) =>
-  console.error(`Firebase persistence error: ${error.code}`),
-);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+const storage = getStorage(firebaseApp);
 
 auth.useDeviceLanguage();
 
-const commentsCollection = db.collection("comments");
-const coversCollection = db.collection("covers");
-const usersCollection = db.collection("users");
-const songsCollection = db.collection("songs");
+const commentsCollection = collection(db, "comments");
+const coversCollection = collection(db, "covers");
+const usersCollection = collection(db, "users");
+const songsCollection = collection(db, "songs");
 
 export {
   auth,
   commentsCollection,
   coversCollection,
+  createUserWithEmailAndPassword,
   db,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
   songsCollection,
   storage,
   usersCollection,

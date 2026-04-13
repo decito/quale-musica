@@ -1,40 +1,28 @@
-<script>
-import { coversCollection } from '@/includes/firebase'
-import { limitText } from '@/includes/formatters'
+<script setup lang="ts">
+import { limitText } from "@/includes/formatters";
+import { readCover } from "@/lib/queries/read-cover";
+import type { Song } from "@/types";
+import { onMounted, ref } from "vue";
 
-export default {
-  name: 'SongItem',
+const props = defineProps<{ song: Song }>();
 
-  props: {
-    song: {
-      type: Object,
-      required: true
-    }
-  },
+const coverSrc = ref("/assets/img/frame-dark.png");
 
-  data() {
-    return {
-      coverSrc: ''
-    }
-  },
+const formatText = (value: string) => {
+  return limitText(value);
+};
 
-  methods: {
-    formatText(value) {
-      return limitText(value)
-    }
-  },
-
-  async mounted() {
-    if (!this.song.coverId) {
-      this.coverSrc = '/assets/img/frame-dark.png'
-      return
-    }
-
-    const snapshots = await coversCollection.doc(this.song.coverId).get()
-
-    this.coverSrc = snapshots.data().fileUrl
+onMounted(async () => {
+  if (!props.song.coverId) {
+    coverSrc.value = "/assets/img/frame-dark.png";
+    return;
   }
-}
+  coverSrc.value = "/assets/img/frame-dark.png";
+
+  const snapshot = await readCover(props.song.coverId);
+
+  coverSrc.value = snapshot!.fileUrl;
+});
 </script>
 
 <template>
@@ -48,11 +36,11 @@ export default {
     >
       <header>
         <div>
-          <img class="" :src="coverSrc" alt="cover" />
+          <img :src="coverSrc" alt="cover" />
         </div>
       </header>
 
-      <section class="w-full p-3">
+      <footer class="w-full p-3">
         <div>
           <p>{{ formatText(song.modifiedName) }}</p>
           <span class="text-sm text-gray-500 dark:text-gray-300">
@@ -66,7 +54,7 @@ export default {
             :to="{
               name: 'song',
               params: { id: song.docID },
-              hash: '#comments'
+              hash: '#comments',
             }"
           >
             <span class="comments" @click="navigate">
@@ -75,7 +63,7 @@ export default {
             </span>
           </router-link>
         </div>
-      </section>
+      </footer>
     </router-link>
   </li>
 </template>
