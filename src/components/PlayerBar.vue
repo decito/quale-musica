@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePlayerStore } from "@/stores/player";
+import { CircleIcon, PauseIcon, PlayIcon } from "@lucide/vue";
 import { useMediaQuery } from "@vueuse/core";
-import { CircleIcon, PauseIcon, PlayIcon } from "lucide-vue-next";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
@@ -9,7 +9,8 @@ const isDesktop = useMediaQuery("(min-width: 1024px)");
 const showVolumeBar = ref(false);
 
 const playerStore = usePlayerStore();
-const { toggleAudio, updateSeek, updateVolume, updateVerticalVolume } = playerStore;
+const { toggleAudio, updateSeek, updateVolume, updateVerticalVolume } =
+  playerStore;
 const { isPlaying, seek, duration, playerProgress, currentSong, volumeLevel } =
   storeToRefs(playerStore);
 </script>
@@ -26,7 +27,9 @@ const { isPlaying, seek, duration, playerProgress, currentSong, volumeLevel } =
       <span class="song-artist">{{ currentSong.displayName }}</span>
     </div>
 
-    <div class="flex flex-nowrap items-center gap-4 text-xl text-gray-500 dark:text-white">
+    <div
+      class="flex flex-nowrap items-center gap-4 text-xl text-gray-500 dark:text-white"
+    >
       <button type="button" @click.prevent="toggleAudio">
         <PauseIcon v-if="isPlaying" />
         <PlayIcon v-else />
@@ -59,7 +62,10 @@ const { isPlaying, seek, duration, playerProgress, currentSong, volumeLevel } =
         />
       </div>
 
-      <div v-if="!isDesktop" class="relative flex cursor-pointer flex-col rounded-sm">
+      <div
+        v-if="!isDesktop"
+        class="relative flex cursor-pointer flex-col rounded-sm"
+      >
         <i
           class="fas fa-volume-high text-lg text-gray-500 dark:text-white"
           @click.prevent="showVolumeBar = !showVolumeBar"
@@ -79,7 +85,10 @@ const { isPlaying, seek, duration, playerProgress, currentSong, volumeLevel } =
             :style="{ height: volumeLevel }"
           />
 
-          <span class="absolute -ml-1" :style="{ top: `calc(${volumeLevel} - 15%)` }">
+          <span
+            class="absolute -ml-1"
+            :style="{ top: `calc(${volumeLevel} - 15%)` }"
+          >
             <i class="fas fa-circle" />
           </span>
         </div>
