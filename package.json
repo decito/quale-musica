@@ -24,6 +24,7 @@
     "@types/nprogress": "0.2.3",
     "@vee-validate/rules": "4.15.1",
     "@vueuse/core": "14.2.1",
+    "clsx": "2.1.1",
     "firebase": "9.23.0",
     "howler": "2.2.4",
     "nprogress": "0.2.0",
