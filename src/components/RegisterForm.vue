@@ -55,7 +55,7 @@ export default {
       regShowAlert: false,
       regAlertVariant: 'bg-blue-500',
       regAlertMsg: 'Please wait! Your account is being created.',
-      regRCVerified: false,
+      regRCVerified: true,
       siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY
     }
   },
@@ -209,7 +209,7 @@ export default {
 
       <ErrorMessage class="block text-red-600" name="tos" />
 
-      <VueRecaptcha size="invisible" ref="recaptcha" @verify="onVerify" :sitekey="siteKey" />
+      <!-- <VueRecaptcha size="invisible" ref="recaptcha" @verify="onVerify" :sitekey="siteKey" /> -->
     </div>
 
     <button

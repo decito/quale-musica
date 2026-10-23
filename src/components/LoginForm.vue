@@ -28,7 +28,7 @@ export default {
       loginShowAlert: false,
       loginAlertVariant: 'bg-blue-500',
       loginAlertMsg: 'Please wait! We are logging you in.',
-      loginRCVerified: false,
+      loginRCVerified: true,
       siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY
     }
   },
@@ -103,7 +103,7 @@ export default {
       <ErrorMessage class="text-red-600" name="password" />
     </div>
 
-    <VueRecaptcha :sitekey="siteKey" @verify="onVerify" />
+    <!-- <VueRecaptcha :sitekey="siteKey" @verify="onVerify" /> -->
 
     <button
       type="submit"
